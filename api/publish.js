@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
     const pathFor = p => filePrefix + String(p || '').replace(/^\.\.\//,'').replace(/^\//,'');
 
     const assets = Array.isArray(body.assets) ? body.assets : [];
-    const assetFiles = assets.map(a => ({ file: pathFor(a.path), data: a.b64 }));
+    const assetFiles = assets.map(a => ({ file: pathFor(a.path), data: a.b64, encoding: 'base64' }));
     const overrides = new Set([
       pathFor('about.html'),
       pathFor('services.html'),
@@ -48,10 +48,12 @@ module.exports = async function handler(req, res) {
     ]);
 
     const files = existing.filter(ef => !overrides.has(ef.file)).map(ef => ({ file: ef.file, sha: ef.sha }));
-    files.push({ file: pathFor('about.html'), data: textToB64(body.aboutHtml) });
-    files.push({ file: pathFor('services.html'), data: textToB64(body.servicesHtml) });
-    files.push({ file: pathFor('pricing.html'), data: textToB64(body.pricingHtml) });
-    if (body.portalHtml) files.push({ file: pathFor('admin/portal.html'), data: textToB64(body.portalHtml) });
+    // HTML files: pass as plain strings (Vercel serves data as-is)
+    files.push({ file: pathFor('about.html'), data: String(body.aboutHtml || '') });
+    files.push({ file: pathFor('services.html'), data: String(body.servicesHtml || '') });
+    files.push({ file: pathFor('pricing.html'), data: String(body.pricingHtml || '') });
+    if (body.portalHtml) files.push({ file: pathFor('admin/portal.html'), data: String(body.portalHtml) });
+    // Binary assets: already base64-encoded by the browser, encoding:'base64' tells Vercel to decode them
     assetFiles.forEach(a => files.push(a));
 
     const deployRes = await fetch('https://api.vercel.com/v13/deployments', {
