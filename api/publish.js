@@ -1,8 +1,4 @@
-function textToB64(text) {
-  return Buffer.from(String(text || ''), 'utf8').toString('base64');
-}
-
-function flat(nodes, pre = '') {
+function flat(nodes, pre) {
   let out = [];
   for (const n of nodes || []) {
     const p = pre ? `${pre}/${n.name}` : n.name;
@@ -22,10 +18,21 @@ module.exports = async function handler(req, res) {
 
   try {
     const body = req.body || {};
-    const baseDpl = body.baseDpl;
-    if (!baseDpl) return res.status(400).json({ ok: false, error: 'Missing baseDpl.' });
-
     const projectName = body.projectName || 'raleway-studio';
+
+    // Always use the latest READY production deployment as the base —
+    // this avoids stale localStorage IDs causing broken deployments.
+    const listRes = await fetch(
+      `https://api.vercel.com/v6/deployments?projectId=${encodeURIComponent(projectName)}&target=production&state=READY&limit=1`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    const listData = await listRes.json();
+    if (!listRes.ok) return res.status(listRes.status).json({ ok: false, error: 'List deployments failed: ' + JSON.stringify(listData) });
+
+    const baseDpl = listData.deployments?.[0]?.uid;
+    if (!baseDpl) return res.status(500).json({ ok: false, error: 'No ready production deployment found to use as base.' });
+
+    // Fetch the file tree of the base deployment
     const treeRes = await fetch(`https://api.vercel.com/v7/deployments/${baseDpl}/files`, {
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -38,7 +45,9 @@ module.exports = async function handler(req, res) {
     const pathFor = p => filePrefix + String(p || '').replace(/^\.\.\//,'').replace(/^\//,'');
 
     const assets = Array.isArray(body.assets) ? body.assets : [];
+    // Binary assets: already base64-encoded by the browser
     const assetFiles = assets.map(a => ({ file: pathFor(a.path), data: a.b64, encoding: 'base64' }));
+
     const overrides = new Set([
       pathFor('about.html'),
       pathFor('services.html'),
@@ -47,13 +56,16 @@ module.exports = async function handler(req, res) {
       ...assetFiles.map(a => a.file)
     ]);
 
+    // Reuse all existing files by SHA, then override the changed ones
     const files = existing.filter(ef => !overrides.has(ef.file)).map(ef => ({ file: ef.file, sha: ef.sha }));
+
     // HTML files: pass as plain strings (Vercel serves data as-is)
     files.push({ file: pathFor('about.html'), data: String(body.aboutHtml || '') });
     files.push({ file: pathFor('services.html'), data: String(body.servicesHtml || '') });
     files.push({ file: pathFor('pricing.html'), data: String(body.pricingHtml || '') });
     if (body.portalHtml) files.push({ file: pathFor('admin/portal.html'), data: String(body.portalHtml) });
-    // Binary assets: already base64-encoded by the browser, encoding:'base64' tells Vercel to decode them
+
+    // Binary assets with explicit encoding so Vercel decodes them
     assetFiles.forEach(a => files.push(a));
 
     const deployRes = await fetch('https://api.vercel.com/v13/deployments', {
