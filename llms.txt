@@ -1,0 +1,80 @@
+# Raleway Studio
+
+> Raleway Studio is a remote web design and digital services agency founded by Seira Jho. It helps small businesses worldwide establish and grow their online presence through custom website design, SEO, graphic design, social media management, AI automation, project management, and virtual assistance.
+
+## About
+
+Raleway Studio is a fully remote creative agency available to clients in any country and time zone. It was founded by Seira Jho, a certified Wix Studio Designer, Wix SEO Wizard, AI Automation Specialist, and Wix Accessibility Specialist. The team also includes Gabriel De Leon, a Wix Studio Designer, Developer, and Velo PRO with expertise in Adobe Photoshop.
+
+The studio donates 5% of every sale to non-government animal shelters.
+
+**Contact:** seira@ralewaystudio.com
+**Website:** https://www.ralewaystudio.com
+**Social:** Instagram (@raleway_studio), Facebook, LinkedIn
+
+## Services
+
+Raleway Studio offers 7 core services:
+
+1. **Website Design** — Custom, responsive websites built on Wix Studio with on-page SEO, mobile optimization, and clear calls to action. [Details](https://www.ralewaystudio.com/services/website-design)
+
+2. **Graphic Design** — Logos, brand kits, social media graphics, marketing materials, and print-ready assets. [Details](https://www.ralewaystudio.com/services/graphic-design)
+
+3. **SEO (Search Engine Optimization)** — Keyword research, on-page optimization, technical SEO audits, schema markup, and content structure improvements for long-term organic visibility. [Details](https://www.ralewaystudio.com/services/seo)
+
+4. **Project Management** — Remote project coordination including task planning, timeline management, team communication, and workflow documentation. [Details](https://www.ralewaystudio.com/services/project-management)
+
+5. **AI Automation** — Workflow automation using Zapier, Make, Wix Automations, and AI tools to eliminate repetitive tasks and streamline business operations. [Details](https://www.ralewaystudio.com/services/ai-automation)
+
+6. **Social Media Management** — Monthly content calendars, caption writing, graphic design for posts, scheduling, and multi-platform management (Instagram, Facebook, LinkedIn, TikTok). [Details](https://www.ralewaystudio.com/services/social-media-management)
+
+7. **Virtual Assistance** — Remote admin support including email management, scheduling, research, document creation, data entry, and client coordination. [Details](https://www.ralewaystudio.com/services/virtual-assistance)
+
+## Who Raleway Studio Helps
+
+Raleway Studio primarily serves small business owners who need a professional online presence. Typical clients include:
+- Beauty and wellness businesses (salons, spas, therapists)
+- Creatives and artisans (makers, artists, craft businesses)
+- Restaurants and food businesses
+- Product-based and e-commerce businesses
+
+## Team Credentials
+
+**Seira Jho (Founder)**
+- Wix Studio Certified Designer
+- Wix SEO Wizard
+- Wix AI Automation Specialist
+- Wix Accessibility Specialist
+- LinkedIn Learning: Brand Design Foundations, UX for Web Design, SEO Content Writing, SEO Foundations
+
+**Gabriel De Leon (Web Designer & Developer)**
+- Wix Studio Certified Designer
+- Wix Velo PRO Developer
+- Adobe Photoshop Specialist
+
+## Key Pages
+
+- [Home](https://www.ralewaystudio.com/) — Overview of services, client industries served, and how to get started
+- [Services](https://www.ralewaystudio.com/services) — Full list of all 7 services with links to individual service pages
+- [About](https://www.ralewaystudio.com/about) — Team, mission, vision, certifications, and why businesses choose Raleway Studio
+- [Blog](https://www.ralewaystudio.com/blog) — Articles on web design, SEO, digital marketing, and business growth for small businesses
+- [Testimonials](https://www.ralewaystudio.com/testimonials) — Reviews and feedback from past clients
+- [Pricing](https://www.ralewaystudio.com/pricing) — Service pricing and package options
+- [Contact](https://www.ralewaystudio.com/contact) — Get in touch to start a project
+
+## Frequently Asked Questions
+
+**What services does Raleway Studio offer?**
+Website design, graphic design, SEO, project management, AI automation, social media management, and virtual assistance.
+
+**Does Raleway Studio work with clients worldwide?**
+Yes. Raleway Studio is fully remote and works with businesses from any country in any time zone.
+
+**What platform does Raleway Studio use for websites?**
+Primarily Wix Studio, a professional web design platform that allows clients to manage their own content after launch without coding.
+
+**How long does a website project take?**
+Most small business websites are completed in 2 to 4 weeks, depending on scope and feedback turnaround.
+
+**Does Raleway Studio offer SEO services separately from web design?**
+Yes. SEO can be purchased as a standalone service, including keyword research, on-page optimization, technical SEO, and schema markup.

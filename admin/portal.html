@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raleway Studio — Admin Portal</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange:  #F36B26; --orange-light: #fdf0e8; --plum: #4B2C2C;
+      --green:   #8BAA36; --cream: #FAF7F3; --white: #ffffff;
+      --border:  #e8e2da; --text: #2d2217; --muted: #7a6a5a;
+      --radius:  10px; --shadow: 0 2px 12px rgba(75,44,44,.08);
+      --shadow-lg: 0 8px 32px rgba(75,44,44,.13);
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
+    .login-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-lg); padding: 3rem 2.5rem; width: 100%; max-width: 400px; text-align: center; }
+    .login-logo { height: 44px; margin-bottom: 2rem; }
+    .login-card h1 { font-size: 1.4rem; font-weight: 700; color: var(--plum); margin-bottom: 0.4rem; }
+    .login-card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; }
+    .login-field { position: relative; margin-bottom: 1.25rem; }
+    .login-field input { width: 100%; padding: 0.85rem 1rem 0.85rem 2.75rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; color: var(--text); background: var(--cream); transition: border-color .2s; outline: none; }
+    .login-field input:focus { border-color: var(--orange); background: var(--white); }
+    .login-field svg { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .login-btn { width: 100%; padding: 0.9rem; background: var(--orange); color: var(--white); border: none; border-radius: var(--radius); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .login-btn:hover { background: #d95e1f; }
+    .login-error { margin-top: 1rem; font-size: 0.85rem; color: #c0392b; display: none; }
+    .forgot-link { background: none; border: none; color: var(--muted); font-size: 0.85rem; cursor: pointer; text-decoration: underline; margin-top: 1.25rem; display: inline-block; }
+    .forgot-link:hover { color: var(--orange); }
+    .reset-notice { margin-top: 1rem; padding: 1rem; border-radius: var(--radius); font-size: 0.85rem; line-height: 1.5; text-align: left; display: none; }
+    .reset-notice.info  { background: var(--orange-light); border: 1px solid rgba(243,107,38,.2); color: var(--plum); }
+    .reset-notice.ok    { background: #eef3e0; border: 1px solid rgba(139,170,54,.3); color: #3a5a10; }
+    .reset-notice.error { background: #fdecea; border: 1px solid rgba(192,57,43,.2); color: #922b21; }
+    .new-pw-field { margin-top: 1rem; }
+    .new-pw-field input { width: 100%; padding: 0.85rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; background: var(--cream); outline: none; }
+    .new-pw-field input:focus { border-color: var(--orange); background: var(--white); }
+    #dashboard { display: none; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .topbar-logo { height: 36px; }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .topbar-badge { background: var(--orange-light); color: var(--orange); font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 99px; border: 1px solid rgba(243,107,38,.2); }
+    .logout-btn { background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 0.4rem 1rem; font-size: 0.85rem; color: var(--muted); cursor: pointer; transition: all .2s; }
+    .logout-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .dashboard-body { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+    .dashboard-header { margin-bottom: 2rem; }
+    .dashboard-header h2 { font-size: 1.6rem; font-weight: 700; color: var(--plum); }
+    .dashboard-header p { color: var(--muted); margin-top: 0.3rem; font-size: 0.92rem; }
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+    .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.5rem; box-shadow: var(--shadow); }
+    .stat-label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 0.5rem; }
+    .stat-value { font-size: 2rem; font-weight: 800; color: var(--plum); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-note { font-size: 0.78rem; color: var(--muted); }
+    .stat-note.up { color: var(--green); }
+    .stat-icon { float: right; width: 38px; height: 38px; background: var(--orange-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--orange); margin-top: -0.25rem; }
+    .section-head { font-size: 1rem; font-weight: 700; color: var(--plum); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .links-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+    .link-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1.5rem; text-decoration: none; color: inherit; display: flex; align-items: flex-start; gap: 1rem; transition: all .2s; cursor: pointer; }
+    .link-card:hover { border-color: var(--orange); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .link-icon { width: 44px; height: 44px; min-width: 44px; border-radius: 10px; background: var(--orange-light); display: flex; align-items: center; justify-content: center; color: var(--orange); }
+    .link-icon.green { background: #eef3e0; color: var(--green); }
+    .link-icon.plum  { background: #f0eaea; color: var(--plum); }
+    .link-body h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--plum); }
+    .link-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.4; }
+    .link-arrow { margin-left: auto; color: var(--muted); flex-shrink: 0; align-self: center; }
+    .lower-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .panel { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+    .checklist li { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-dot { width: 20px; height: 20px; min-width: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+    .check-dot.done { background: #eef3e0; color: var(--green); }
+    .check-dot.todo { background: var(--orange-light); color: var(--orange); }
+    .check-dot.warn { background: #fff3e0; color: #e67e22; }
+    .activity-item { display: flex; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot { width: 8px; height: 8px; min-width: 8px; border-radius: 50%; background: var(--orange); margin-top: 0.4rem; }
+    .activity-time { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+    @media(max-width:900px){ .stats-row{grid-template-columns:repeat(2,1fr);} .links-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:600px){ .stats-row{grid-template-columns:1fr 1fr;} .links-grid{grid-template-columns:1fr;} .lower-grid{grid-template-columns:1fr;} .topbar{padding:0 1rem;} .dashboard-body{padding:1.5rem 1rem 3rem;} }
+
+    /* ── NAV TABS (added to existing dashboard) ── */
+    .section-nav {
+      display: flex;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 2rem;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .snav-btn {
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: color .2s, border-color .2s;
+    }
+    .snav-btn:hover { color: var(--orange); }
+    .snav-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+    /* ── EDITOR SECTIONS ── */
+    .editor-section { display: none; }
+    .editor-section.active { display: block; }
+
+    .editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .editor-title { font-size: 1.2rem; font-weight: 700; color: var(--plum); }
+    .editor-hint { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+    .btn-add-item {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.6rem 1.2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background .2s;
+    }
+    .btn-add-item:hover { background: #d95e1f; }
+
+    /* ── ITEM CARDS (editor list) ── */
+    .item-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .edit-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .edit-card:hover { border-color: var(--orange); box-shadow: var(--shadow); }
+
+    .edit-thumb {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #f0ebe3;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+    .edit-thumb-sq {
+      width: 72px; height: 48px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #f0ebe3;
+      flex-shrink: 0;
+    }
+
+    .edit-info { flex: 1; min-width: 0; }
+    .edit-name { font-weight: 700; color: var(--plum); font-size: 0.95rem; margin-bottom: 2px; }
+    .edit-role { font-size: 0.82rem; color: var(--muted); }
+
+    .edit-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+    .btn-edt {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--plum);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-edt:hover { border-color: var(--orange); color: var(--orange); }
+
+    .btn-del {
+      background: none;
+      border: 1.5px solid #f0dad7;
+      border-radius: 6px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #c0392b;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-del:hover { background: #fdecea; }
+
+    .plan-feat-tag {
+      display: inline-block;
+      background: var(--orange-light);
+      color: var(--orange);
+      font-size: 0.72rem;
+      padding: 1px 8px;
+      border-radius: 99px;
+      margin-left: 6px;
+      font-weight: 600;
+    }
+
+    /* ── PUBLISH BAR ── */
+    .publish-bar {
+      position: sticky;
+      bottom: 0;
+      background: var(--white);
+      border-top: 2px solid var(--orange);
+      padding: 1rem 2rem;
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      z-index: 50;
+      box-shadow: 0 -4px 20px rgba(75,44,44,.1);
+    }
+    .publish-bar.show { display: flex; }
+    .publish-bar p { font-size: 0.88rem; color: var(--muted); flex: 1; }
+    .publish-bar strong { color: var(--plum); }
+    .btn-publish {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.75rem 2rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-publish:hover { background: #d95e1f; }
+    .btn-publish:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* ── MODAL ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(45,34,23,.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      width: 100%;
+      max-width: 520px;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+    .modal-box h2 { font-size: 1.15rem; font-weight: 700; color: var(--plum); margin-bottom: 1.5rem; }
+
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: .04em; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.9rem; color: var(--text);
+      background: var(--cream); outline: none;
+      font-family: inherit; transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--orange); background: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .photo-thumb { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; display: block; margin-bottom: 0.6rem; border: 2px solid var(--border); }
+    .photo-thumb-sq { width: 120px; height: 80px; border-radius: 8px; object-fit: cover; display: block; margin-bottom: 0.6rem; border: 2px solid var(--border); }
+    .btn-file { background: var(--cream); color: var(--orange); border: 1.5px dashed var(--orange); border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.82rem; cursor: pointer; font-weight: 600; }
+    .btn-file:hover { background: var(--orange-light); }
+    .url-or { font-size: 0.78rem; color: var(--muted); margin: 0.4rem 0 0.2rem; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+    .badge-chip { background: var(--orange-light); color: var(--orange); border: 1px solid rgba(243,107,38,.25); border-radius: 99px; padding: 3px 10px; font-size: 0.75rem; display: flex; align-items: center; gap: 4px; }
+    .badge-chip button { background: none; border: none; color: inherit; cursor: pointer; padding: 0; font-size: 13px; line-height: 1; }
+    .badge-add-row { display: flex; gap: 0.5rem; margin-top: 0.4rem; }
+    .badge-add-row input { flex: 1; }
+    .btn-badge { background: var(--cream); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.82rem; cursor: pointer; color: var(--orange); font-weight: 600; white-space: nowrap; }
+    .btn-badge:hover { border-color: var(--orange); }
+
+    .modal-footer { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+    .btn-cancel { background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 0.6rem 1.2rem; font-size: 0.88rem; color: var(--muted); cursor: pointer; }
+    .btn-cancel:hover { border-color: var(--plum); color: var(--plum); }
+    .btn-save { background: var(--orange); color: #fff; border: none; border-radius: var(--radius); padding: 0.65rem 1.6rem; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
+    .btn-save:hover { background: #d95e1f; }
+
+    .feat-hint { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .two-col { display: flex; gap: 1rem; }
+    .two-col .form-group { flex: 1; }
+
+    /* ── DEPLOY OVERLAY ── */
+    .deploy-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(45,34,23,.6);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+    .deploy-overlay.open { display: flex; }
+    .deploy-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 400px;
+      max-width: 95vw;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .deploy-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--plum); margin-bottom: 1rem; }
+    .deploy-log { background: #1a1008; border-radius: 8px; padding: 0.85rem 1rem; text-align: left; font-size: 0.78rem; font-family: monospace; max-height: 180px; overflow-y: auto; color: #8BAA36; margin-bottom: 1rem; }
+    .deploy-log .err { color: #e74c3c; }
+    .deploy-log .inf { color: #94a3b8; }
+    .deploy-success { color: var(--green); font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: none; }
+    .btn-site { background: var(--green); color: #fff; border: none; border-radius: var(--radius); padding: 0.7rem 1.5rem; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+    .btn-close-d { background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 0.65rem 1.2rem; font-size: 0.88rem; cursor: pointer; color: var(--muted); margin-top: 0.75rem; }
+
+    /* ── LOADING STATE ── */
+    .loading-msg { text-align: center; padding: 3rem; color: var(--muted); font-size: 0.9rem; }
+    .spin { display: inline-block; width: 20px; height: 20px; border: 2.5px solid var(--border); border-top-color: var(--orange); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty-state { text-align: center; padding: 3rem; color: var(--muted); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <img src="../assets/logo.png" alt="Raleway Studio" class="login-logo" />
+    <div id="view-signin">
+      <h1>Admin Portal</h1>
+      <p>Sign in to manage your website</p>
+      <div class="login-field">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input type="password" id="pw-input" placeholder="Enter password" autocomplete="current-password" />
+      </div>
+      <button class="login-btn" onclick="checkPassword()">Sign In</button>
+      <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+      <button class="forgot-link" onclick="showView('view-forgot')">Forgot your password?</button>
+    </div>
+    <div id="view-forgot" style="display:none">
+      <h1>Reset Password</h1>
+      <p>We'll send a reset link to <strong>seira@ralewaystudio.com</strong></p>
+      <button class="login-btn" id="send-btn" onclick="sendResetLink()">Send Reset Link</button>
+      <div class="reset-notice info"  id="reset-sending">Sending…</div>
+      <div class="reset-notice ok"    id="reset-sent">✓ Reset link sent! Check your inbox — link expires in 30 minutes.</div>
+      <div class="reset-notice error" id="reset-fail">Could not send the email. Make sure EmailJS is set up in portal.html.</div>
+      <button class="forgot-link" onclick="showView('view-signin')">← Back to sign in</button>
+    </div>
+    <div id="view-reset" style="display:none">
+      <h1>Set New Password</h1>
+      <p>Choose a new password for the admin portal</p>
+      <div class="new-pw-field"><input type="password" id="new-pw" placeholder="New password" /></div>
+      <div class="new-pw-field" style="margin-bottom:1.25rem"><input type="password" id="new-pw-confirm" placeholder="Confirm new password" /></div>
+      <button class="login-btn" onclick="saveNewPassword()">Save Password</button>
+      <div class="reset-notice error" id="pw-mismatch" style="margin-top:.75rem">Passwords don't match.</div>
+      <div class="reset-notice ok"   id="pw-saved"    style="margin-top:.75rem">✓ Password updated! <button class="forgot-link" onclick="showView('view-signin')" style="margin:0;font-size:inherit">Sign in now →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="topbar">
+    <img src="../assets/logo.png" alt="Raleway Studio" class="topbar-logo" />
+    <div class="topbar-right">
+      <span class="topbar-badge">Admin</span>
+      <button class="logout-btn" onclick="logout()">Log out</button>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dashboard-header">
+      <h2>Welcome back, Seira 👋</h2>
+      <p>Manage your website content and settings below.</p>
+    </div>
+
+    <!-- SECTION NAV -->
+    <nav class="section-nav">
+      <button class="snav-btn active" data-sec="overview"  onclick="showSection('overview')">Overview</button>
+      <button class="snav-btn"        data-sec="team"      onclick="showSection('team')">👥 Team Members</button>
+      <button class="snav-btn"        data-sec="services"  onclick="showSection('services')">💼 Services</button>
+      <button class="snav-btn"        data-sec="pricing"   onclick="showSection('pricing')">💰 Pricing</button>
+    </nav>
+
+    <!-- OVERVIEW SECTION (original dashboard content) -->
+    <div id="sec-overview" class="editor-section active">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="stat-label">Monthly Visitors</div><div class="stat-value">—</div>
+          <div class="stat-note">Connect analytics to track</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16l.92.92z"/></svg></div>
+          <div class="stat-label">Leads This Month</div><div class="stat-value">—</div>
+          <div class="stat-note">Check inbox for form submissions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="stat-label">Blog Posts</div><div class="stat-value" id="post-count">0</div>
+          <div class="stat-note">Published on the site</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="stat-label">Site Status</div>
+          <div class="stat-value" style="font-size:1.2rem;padding-top:.35rem">Live ✓</div>
+          <div class="stat-note up">Deployed on Vercel</div>
+        </div>
+      </div>
+
+      <div class="section-head">Quick Actions</div>
+      <div class="links-grid">
+        <a class="link-card" href="index.html">
+          <div class="link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="link-body"><h3>Write a Blog Post</h3><p>Open the CMS to create or edit blog content</p></div>
+          <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="link-card" href="https://vercel.com/seirajho07-gmailcoms-projects/raleway-studio" target="_blank" rel="noopener">
+          <div class="link-icon plum"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <div class="link-body"><h3>Vercel Dashboard</h3><p>View deployments, domains, and hosting settings</p></div>
+          <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="link-card" href="../index.html" target="_blank">
+          <div class="link-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="link-body"><h3>View Live Site</h3><p>Open ralewaystudio.com in a new tab</p></div>
+          <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a class="link-card" href="https://search.google.com/search-console" target="_blank" rel="noopener">
+          <div class="link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="link-body"><h3>Google Search Console</h3><p>Monitor SEO performance and indexing</p></div>
+          <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <div class="link-card" onclick="showSection('team')">
+          <div class="link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="link-body"><h3>Edit Team Members</h3><p>Add, edit, or remove team members on the About page</p></div>
+          <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="link-card" onclick="showSection('pricing')">
+          <div class="link-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="link-body"><h3>Edit Pricing</h3><p>Update plans, prices, and feature lists</p></div>
+          <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+
+      <div class="lower-grid">
+        <div class="panel">
+          <div class="section-head">Site Checklist</div>
+          <ul class="checklist" style="list-style:none">
+            <li><span class="check-dot done">✓</span>Homepage live with full content</li>
+            <li><span class="check-dot done">✓</span>7 service pages published</li>
+            <li><span class="check-dot done">✓</span>Footer & navigation on all pages</li>
+            <li><span class="check-dot done">✓</span>SEO meta tags & sitemap</li>
+            <li><span class="check-dot done">✓</span>Blog CMS connected via Decap</li>
+            <li><span class="check-dot todo">→</span>Connect Google Analytics</li>
+            <li><span class="check-dot todo">→</span>Submit sitemap to Search Console</li>
+            <li><span class="check-dot warn">!</span>Publish first blog post</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="section-head">Recent Activity</div>
+          <div class="activity-item"><div class="activity-dot"></div><div><div>Site deployed to Vercel</div><div class="activity-time">Latest production deployment is live</div></div></div>
+          <div class="activity-item"><div class="activity-dot" style="background:var(--green)"></div><div><div>3 team members added</div><div class="activity-time">Seira, Gabriel, Jet</div></div></div>
+          <div class="activity-item"><div class="activity-dot" style="background:var(--green)"></div><div><div>7 service pages created</div><div class="activity-time">Website Design · SEO · Graphic Design · more</div></div></div>
+          <div class="activity-item"><div class="activity-dot" style="background:var(--plum)"></div><div><div>Admin content editor added</div><div class="activity-time">Edit team, services &amp; pricing from here</div></div></div>
+        </div>
+      </div>
+    </div><!-- /overview -->
+
+    <!-- TEAM SECTION -->
+    <div id="sec-team" class="editor-section">
+      <div class="editor-header">
+        <div>
+          <div class="editor-title">Team Members</div>
+          <div class="editor-hint">Changes go live on the About page when you publish.</div>
+        </div>
+        <button class="btn-add-item" onclick="openTeamModal(-1)">+ Add Member</button>
+      </div>
+      <div class="item-list" id="list-team"></div>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <div id="sec-services" class="editor-section">
+      <div class="editor-header">
+        <div>
+          <div class="editor-title">Services</div>
+          <div class="editor-hint">Edit services shown on the Services page. Upload or link a cover image.</div>
+        </div>
+        <button class="btn-add-item" onclick="openServiceModal(-1)">+ Add Service</button>
+      </div>
+      <div class="item-list" id="list-services"></div>
+    </div>
+
+    <!-- PRICING SECTION -->
+    <div id="sec-pricing" class="editor-section">
+      <div class="editor-header">
+        <div>
+          <div class="editor-title">Pricing Plans</div>
+          <div class="editor-hint">Edit prices, features, and plan names shown on the Pricing page.</div>
+        </div>
+        <button class="btn-add-item" onclick="openPricingModal(-1)">+ Add Plan</button>
+      </div>
+      <div class="item-list" id="list-pricing"></div>
+    </div>
+
+  </div><!-- /dashboard-body -->
+
+  <!-- PUBLISH BAR -->
+  <div class="publish-bar" id="publish-bar">
+    <p>You have <strong>unsaved changes</strong>. Click Publish to deploy them to the live site.</p>
+    <button class="btn-publish" id="btn-do-publish" onclick="publishChanges()">🚀 Publish Changes</button>
+  </div>
+</div><!-- /dashboard -->
+
+<!-- EDIT MODAL -->
+<div class="modal-backdrop" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <h2 id="modal-title">Edit</h2>
+    <div id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DEPLOY OVERLAY -->
+<div class="deploy-overlay" id="deploy-overlay">
+  <div class="deploy-box">
+    <h3>Publishing to Raleway Studio…</h3>
+    <div class="deploy-log" id="deploy-log"></div>
+    <div class="deploy-success" id="deploy-success">🎉 Your site is live!</div>
+    <div style="margin-top:.75rem">
+      <button class="btn-site" id="btn-open-site" style="display:none" onclick="window.open('https://www.ralewaystudio.com','_blank')">Open Live Site</button>
+      <button class="btn-close-d" id="btn-close-deploy" style="display:none" onclick="document.getElementById('deploy-overlay').classList.remove('open')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── EmailJS config (existing) ──
+  const EMAILJS_PUBLIC_KEY  = 'bMePVKBzytA-ocUv3';
+  const EMAILJS_SERVICE_ID  = 'service_5leqyib';
+  const EMAILJS_TEMPLATE_ID = 'template_ztgbfsm';
+  const RESET_EMAIL         = 'info@ralewaystudio.com';
+  const DEFAULT_PASSWORD    = 'raleway2024';
+  const SESSION_KEY         = 'rs_admin_auth';
+  const PW_STORE_KEY        = 'rs_admin_pw';
+
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+  function getPassword() { return localStorage.getItem(PW_STORE_KEY) || DEFAULT_PASSWORD; }
+  function showView(id) {
+    ['view-signin','view-forgot','view-reset'].forEach(v => {
+      document.getElementById(v).style.display = v===id ? 'block' : 'none';
+    });
+    ['reset-sending','reset-sent','reset-fail','pw-mismatch','pw-saved'].forEach(el => {
+      const e = document.getElementById(el); if (e) e.style.display = 'none';
+    });
+  }
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    if (val === getPassword()) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      showDashboard();
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+    }
+  }
+  function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+  }
+  function logout() {
+    sessionStorage.removeItem(SESSION_KEY);
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('pw-input').value = '';
+    showView('view-signin');
+  }
+  function sendResetLink() {
+    const token = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)+Date.now().toString(36);
+    const expiry = Date.now() + 30*60*1000;
+    const resetUrl = window.location.origin + window.location.pathname + '?reset=' + token + '.' + expiry;
+    document.getElementById('send-btn').disabled = true;
+    document.getElementById('reset-sending').style.display = 'block';
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { to_email: RESET_EMAIL, to_name: 'Seira', reset_url: resetUrl })
+      .then(() => { document.getElementById('reset-sending').style.display='none'; document.getElementById('reset-sent').style.display='block'; document.getElementById('send-btn').disabled=false; },
+            (err) => { document.getElementById('reset-sending').style.display='none'; document.getElementById('reset-fail').style.display='block'; document.getElementById('send-btn').disabled=false; });
+  }
+  function saveNewPassword() {
+    const pw1 = document.getElementById('new-pw').value;
+    const pw2 = document.getElementById('new-pw-confirm').value;
+    if (!pw1 || pw1 !== pw2) { document.getElementById('pw-mismatch').style.display='block'; return; }
+    document.getElementById('pw-mismatch').style.display='none';
+    localStorage.setItem(PW_STORE_KEY, pw1);
+    history.replaceState(null,'',window.location.pathname);
+    document.getElementById('pw-saved').style.display='block';
+  }
+  document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key==='Enter') checkPassword(); });
+  (function init() {
+    const params = new URLSearchParams(window.location.search);
+    const resetVal = params.get('reset');
+    if (resetVal) {
+      try {
+        const dotIdx = resetVal.lastIndexOf('.');
+        const expiry = parseInt(resetVal.slice(dotIdx+1), 10);
+        if (!isNaN(expiry) && expiry > Date.now()) { showView('view-reset'); return; }
+      } catch(e){}
+      showView('view-signin');
+      const err = document.getElementById('login-error');
+      err.textContent = 'Reset link has expired. Please request a new one.';
+      err.style.display = 'block';
+      return;
+    }
+    if (sessionStorage.getItem(SESSION_KEY) === '1') showDashboard();
+  })();
+
+
+  // ─────────────────────────────────────────
+  //  EDITOR CONFIG
+  // ─────────────────────────────────────────
+  // Vercel token removed from browser for security. Publishing now goes through /api/publish.
+  const DEFAULT_BASE_DPL = 'dpl_DvcD3t5bNrLZNQxaFitrWqeCtcvw';
+  const BASE_DPL_KEY = 'rs_last_good_deployment';
+  function getBaseDeployment(){ return localStorage.getItem(BASE_DPL_KEY) || DEFAULT_BASE_DPL; }
+  function slugify(s){ return String(s||'file').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'') || 'file'; }
+  function extFromMime(m){ if((m||'').includes('png')) return 'png'; if((m||'').includes('webp')) return 'webp'; if((m||'').includes('gif')) return 'gif'; return 'jpg'; }
+
+  let eState = { team: [], services: [], pricing: [], loaded: false, dirty: false };
+  let editCtx = null;
+  let editorReady = false;
+
+  // ─────────────────────────────────────────
+  //  SECTION NAV
+  // ─────────────────────────────────────────
+  function showSection(name) {
+    document.querySelectorAll('.snav-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === name));
+    document.querySelectorAll('.editor-section').forEach(s => s.classList.toggle('active', s.id === 'sec-' + name));
+
+    // Lazy-load editor content
+    if (['team','services','pricing'].includes(name) && !editorReady) {
+      editorReady = true;
+      loadSiteContent();
+    }
+  }
+
+  // ─────────────────────────────────────────
+  //  FETCH LIVE SITE CONTENT
+  // ─────────────────────────────────────────
+  async function loadSiteContent() {
+    ['team','services','pricing'].forEach(tab => {
+      const el = document.getElementById('list-' + tab);
+      if (el) el.innerHTML = '<div class="loading-msg"><span class="spin"></span>Loading current content...</div>';
+    });
+
+    try {
+      // Same-origin fetch from /about.html, /services.html, /pricing.html
+      const [aRes, sRes, pRes] = await Promise.all([
+        fetch('../about.html?v=' + Date.now(), { cache:'no-store' }),
+        fetch('../services.html?v=' + Date.now(), { cache:'no-store' }),
+        fetch('../pricing.html?v=' + Date.now(), { cache:'no-store' }),
+      ]);
+      const [aHtml, sHtml, pHtml] = await Promise.all([aRes.text(), sRes.text(), pRes.text()]);
+
+      eState.aboutRaw    = aHtml;
+      eState.servicesRaw = sHtml;
+      eState.pricingRaw  = pHtml;
+
+      parseTeam(aHtml);
+      parseServices(sHtml);
+      parsePricing(pHtml);
+      eState.loaded = true;
+
+    } catch (err) {
+      ['team','services','pricing'].forEach(tab => {
+        const el = document.getElementById('list-' + tab);
+        if (el) el.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div>Could not load site content.<br><small>' + err.message + '</small></div>';
+      });
+    }
+  }
+
+  // ─────────────────────────────────────────
+  //  PARSERS
+  // ─────────────────────────────────────────
+  function parseTeam(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    eState.team = Array.from(doc.querySelectorAll('.team-card')).map(card => ({
+      name:     txt(card, 'h3'),
+      role:     txt(card, '.team-card__role'),
+      bio:      txt(card, 'p'),
+      photoUrl: attr(card, '.team-card__photo img', 'src'),
+      photoB64: null,
+      photoMime:'image/jpeg',
+      badges:   Array.from(card.querySelectorAll('.badge')).map(b => b.textContent.trim()),
+    }));
+    renderTeam();
+  }
+
+  function parseServices(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    eState.services = Array.from(doc.querySelectorAll('.service-card')).map(card => ({
+      name:   txt(card, 'h3'),
+      desc:   txt(card, 'p'),
+      imgUrl: attr(card, '.service-card__img', 'src'),
+      link:   attr(card, 'a', 'href'),
+    }));
+    renderServices();
+  }
+
+  function parsePricing(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    eState.pricing = Array.from(doc.querySelectorAll('.pricing-card')).map(card => ({
+      name:     txt(card, '.plan-name'),
+      tagline:  txt(card, '.plan-tagline'),
+      price:    txt(card, '.plan-price .amount'),
+      note:     txt(card, '.plan-note'),
+      features: Array.from(card.querySelectorAll('.plan-features li')).map(li => li.textContent.trim()),
+      link:     attr(card, 'a', 'href'),
+      featured: card.classList.contains('pricing-card--featured'),
+    }));
+    renderPricing();
+  }
+
+  function txt(el, sel) { const n = el.querySelector(sel); return n ? n.textContent.trim() : ''; }
+  function attr(el, sel, a) { const n = el.querySelector(sel); return n ? (n.getAttribute(a) || '') : ''; }
+
+  // ─────────────────────────────────────────
+  //  RENDERERS
+  // ─────────────────────────────────────────
+  function renderTeam() {
+    const list = document.getElementById('list-team');
+    if (!eState.team.length) { list.innerHTML = '<div class="empty-state"><div class="empty-icon">👤</div>No team members yet.</div>'; return; }
+    list.innerHTML = eState.team.map((m, i) => {
+      const src = m.photoB64 ? ('data:' + m.photoMime + ';base64,' + m.photoB64) : m.photoUrl;
+      return `<div class="edit-card">
+        <img class="edit-thumb" src="${esc(src)}" alt="${esc(m.name)}" onerror="this.style.opacity='.3'" />
+        <div class="edit-info">
+          <div class="edit-name">${esc(m.name)}</div>
+          <div class="edit-role">${esc(m.role)}</div>
+        </div>
+        <div class="edit-actions">
+          <button class="btn-edt" onclick="openTeamModal(${i})">Edit</button>
+          <button class="btn-del" onclick="delItem('team',${i})">Remove</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderServices() {
+    const list = document.getElementById('list-services');
+    if (!eState.services.length) { list.innerHTML = '<div class="empty-state"><div class="empty-icon">💼</div>No services yet.</div>'; return; }
+    list.innerHTML = eState.services.map((s, i) => `<div class="edit-card">
+      <img class="edit-thumb-sq" src="${esc(s.imgUrl)}" alt="${esc(s.name)}" onerror="this.style.opacity='.3'" />
+      <div class="edit-info">
+        <div class="edit-name">${esc(s.name)}</div>
+        <div class="edit-role">${esc(s.desc.slice(0,80))}${s.desc.length > 80 ? '…' : ''}</div>
+      </div>
+      <div class="edit-actions">
+        <button class="btn-edt" onclick="openServiceModal(${i})">Edit</button>
+        <button class="btn-del" onclick="delItem('services',${i})">Remove</button>
+      </div>
+    </div>`).join('');
+  }
+
+  function renderPricing() {
+    const list = document.getElementById('list-pricing');
+    if (!eState.pricing.length) { list.innerHTML = '<div class="empty-state"><div class="empty-icon">💰</div>No plans yet.</div>'; return; }
+    list.innerHTML = eState.pricing.map((p, i) => `<div class="edit-card">
+      <div class="edit-info">
+        <div class="edit-name">$${esc(p.price)} — ${esc(p.name)}${p.featured ? '<span class="plan-feat-tag">⭐ Featured</span>' : ''}</div>
+        <div class="edit-role">${esc(p.tagline)} · ${p.features.length} features</div>
+      </div>
+      <div class="edit-actions">
+        <button class="btn-edt" onclick="openPricingModal(${i})">Edit</button>
+        <button class="btn-del" onclick="delItem('pricing',${i})">Remove</button>
+      </div>
+    </div>`).join('');
+  }
+
+  function delItem(type, i) {
+    const names = { team: eState.team[i]?.name, services: eState.services[i]?.name, pricing: eState.pricing[i]?.name };
+    if (!confirm('Remove "' + (names[type] || 'this item') + '"?')) return;
+    eState[type].splice(i, 1);
+    markDirty();
+    if (type === 'team') renderTeam();
+    else if (type === 'services') renderServices();
+    else renderPricing();
+  }
+
+  function markDirty() {
+    eState.dirty = true;
+    document.getElementById('publish-bar').classList.add('show');
+  }
+
+  // ─────────────────────────────────────────
+  //  MODAL SYSTEM
+  // ─────────────────────────────────────────
+  function openModal(title, body, onSave) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-body').innerHTML = body;
+    document.getElementById('modal-save').onclick = onSave;
+    document.getElementById('modal').classList.add('open');
+  }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); editCtx = null; }
+
+  // ─────────────────────────────────────────
+  //  TEAM MODAL
+  // ─────────────────────────────────────────
+  function openTeamModal(i) {
+    const m = i === -1
+      ? { name:'', role:'', bio:'', photoUrl:'', photoB64:null, photoMime:'image/jpeg', badges:[] }
+      : Object.assign({}, eState.team[i], { badges: [...eState.team[i].badges] });
+    editCtx = { type:'team', idx:i, data:m };
+    const src = m.photoB64 ? ('data:'+m.photoMime+';base64,'+m.photoB64) : m.photoUrl;
+    openModal(i === -1 ? 'Add Team Member' : 'Edit Team Member', `
+      <div class="form-group">
+        <label>Photo</label>
+        <img id="ph-prev" class="photo-thumb" src="${esc(src)}" onerror="this.style.opacity='.3'" />
+        <input type="file" id="ph-file" accept="image/*" style="display:none" onchange="handlePhoto(event)" />
+        <button class="btn-file" onclick="document.getElementById('ph-file').click()">📷 Upload Photo</button>
+        <div class="url-or">— or paste an image URL —</div>
+        <input type="text" id="ph-url" value="${esc(m.photoUrl)}" placeholder="https://..." oninput="previewUrl(this.value)" />
+      </div>
+      <div class="form-group"><label>Full Name *</label><input type="text" id="m-name" value="${esc(m.name)}" /></div>
+      <div class="form-group"><label>Title / Role *</label><input type="text" id="m-role" value="${esc(m.role)}" placeholder="e.g. Web Designer · Developer" /></div>
+      <div class="form-group"><label>Bio</label><textarea id="m-bio">${esc(m.bio)}</textarea></div>
+      <div class="form-group">
+        <label>Skill Badges</label>
+        <div id="badge-container" class="badge-row"></div>
+        <div class="badge-add-row">
+          <input type="text" id="badge-inp" placeholder="Add a badge, press Enter…" onkeydown="if(event.key==='Enter'){event.preventDefault();addBadge();}" />
+          <button class="btn-badge" onclick="addBadge()">+ Add</button>
+        </div>
+      </div>
+    `, saveTeam);
+    renderBadges(m.badges);
+  }
+
+  function previewUrl(url) {
+    const el = document.getElementById('ph-prev');
+    if (el) el.src = url;
+    if (editCtx) editCtx.data.photoUrl = url;
+  }
+
+  function handlePhoto(e) {
+    const file = e.target.files[0];
+    if (!file || !editCtx) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const b64 = ev.target.result.split(',')[1];
+      editCtx.data.photoB64 = b64;
+      editCtx.data.photoMime = file.type || 'image/jpeg';
+      editCtx.data.photoUrl = '';
+      const prev = document.getElementById('ph-prev');
+      if (prev) prev.src = ev.target.result;
+      const urlEl = document.getElementById('ph-url');
+      if (urlEl) urlEl.value = '(file uploaded ✓)';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function renderBadges(badges) {
+    const c = document.getElementById('badge-container');
+    if (!c) return;
+    c.innerHTML = badges.map((b,i) =>
+      `<span class="badge-chip">${esc(b)} <button onclick="removeBadge(${i})">×</button></span>`
+    ).join('');
+  }
+  function removeBadge(i) { if (editCtx) { editCtx.data.badges.splice(i,1); renderBadges(editCtx.data.badges); } }
+  function addBadge() {
+    const inp = document.getElementById('badge-inp');
+    const val = inp ? inp.value.trim() : '';
+    if (!val || !editCtx) return;
+    editCtx.data.badges.push(val);
+    inp.value = '';
+    renderBadges(editCtx.data.badges);
+  }
+
+  function saveTeam() {
+    const name = document.getElementById('m-name').value.trim();
+    const role = document.getElementById('m-role').value.trim();
+    if (!name || !role) { alert('Name and Role are required.'); return; }
+    const urlVal = document.getElementById('ph-url').value.trim();
+    const member = {
+      name, role,
+      bio: document.getElementById('m-bio').value.trim(),
+      photoUrl: editCtx.data.photoB64 ? ('assets/' + slugify(name) + '-' + Date.now() + '.' + extFromMime(editCtx.data.photoMime)) : (urlVal === '(file uploaded ✓)' ? editCtx.data.photoUrl : urlVal),
+      photoB64: editCtx.data.photoB64 || null,
+      photoMime: editCtx.data.photoMime || 'image/jpeg',
+      badges: editCtx.data.badges || [],
+    };
+    if (editCtx.idx === -1) eState.team.push(member);
+    else eState.team[editCtx.idx] = member;
+    markDirty();
+    renderTeam();
+    closeModal();
+  }
+
+  // ─────────────────────────────────────────
+  //  SERVICE MODAL
+  // ─────────────────────────────────────────
+  function openServiceModal(i) {
+    const s = i === -1 ? { name:'', desc:'', imgUrl:'', link:'' } : Object.assign({}, eState.services[i]);
+    editCtx = { type:'service', idx:i, data:s };
+    openModal(i === -1 ? 'Add Service' : 'Edit Service', `
+      <div class="form-group"><label>Service Name *</label><input type="text" id="s-name" value="${esc(s.name)}" /></div>
+      <div class="form-group"><label>Description *</label><textarea id="s-desc">${esc(s.desc)}</textarea></div>
+      <div class="form-group">
+        <label>Image</label>
+        <img id="svc-prev" class="photo-thumb-sq" src="${esc(s.imgUrl)}" onerror="this.style.opacity='.3'" />
+        <input type="file" id="svc-file" accept="image/*" style="display:none" onchange="handleSvcPhoto(event)" />
+        <button class="btn-file" onclick="document.getElementById('svc-file').click()">📷 Upload Image</button>
+        <div class="url-or">— or paste image URL —</div>
+        <input type="text" id="s-img" value="${esc(s.imgUrl)}" placeholder="https://..." oninput="document.getElementById('svc-prev').src=this.value" />
+      </div>
+      <div class="form-group"><label>Learn More Link</label><input type="text" id="s-link" value="${esc(s.link)}" placeholder="services/my-service.html" /></div>
+    `, saveService);
+  }
+
+  function handleSvcPhoto(e) {
+    const file = e.target.files[0];
+    if (!file || !editCtx) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      editCtx.data.imgB64 = ev.target.result.split(',')[1];
+      editCtx.data.imgMime = file.type || 'image/jpeg';
+      editCtx.data.imgUrl = '';
+      const prev = document.getElementById('svc-prev');
+      if (prev) prev.src = ev.target.result;
+      const urlEl = document.getElementById('s-img');
+      if (urlEl) urlEl.value = '(file uploaded ✓)';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function saveService() {
+    const name = document.getElementById('s-name').value.trim();
+    if (!name) { alert('Service name is required.'); return; }
+    const imgVal = document.getElementById('s-img').value.trim();
+    const svc = {
+      name, desc: document.getElementById('s-desc').value.trim(),
+      imgUrl: editCtx.data.imgB64 ? ('assets/svc-' + slugify(name) + '-' + Date.now() + '.' + extFromMime(editCtx.data.imgMime)) : (imgVal === '(file uploaded ✓)' ? editCtx.data.imgUrl : imgVal),
+      imgB64: editCtx.data.imgB64 || null,
+      imgMime: editCtx.data.imgMime || 'image/jpeg',
+      link: document.getElementById('s-link').value.trim(),
+    };
+    if (editCtx.idx === -1) eState.services.push(svc);
+    else eState.services[editCtx.idx] = svc;
+    markDirty();
+    renderServices();
+    closeModal();
+  }
+
+  // ─────────────────────────────────────────
+  //  PRICING MODAL
+  // ─────────────────────────────────────────
+  function openPricingModal(i) {
+    const p = i === -1
+      ? { name:'', tagline:'', price:'', note:'One-time payment', features:[], link:'', featured:false }
+      : Object.assign({}, eState.pricing[i], { features: [...eState.pricing[i].features] });
+    editCtx = { type:'pricing', idx:i, data:p };
+    openModal(i === -1 ? 'Add Pricing Plan' : 'Edit Pricing Plan', `
+      <div class="form-group"><label>Plan Name *</label><input type="text" id="p-name" value="${esc(p.name)}" placeholder="e.g. Essentials" /></div>
+      <div class="form-group"><label>Tagline</label><input type="text" id="p-tagline" value="${esc(p.tagline)}" /></div>
+      <div class="two-col">
+        <div class="form-group"><label>Price ($) *</label><input type="text" id="p-price" value="${esc(p.price)}" placeholder="950" /></div>
+        <div class="form-group"><label>Price Note</label><input type="text" id="p-note" value="${esc(p.note)}" placeholder="One-time payment" /></div>
+      </div>
+      <div class="form-group">
+        <label>Features (one per line)</label>
+        <textarea id="p-features" style="min-height:130px">${p.features.map(f => esc(f)).join('\n')}</textarea>
+        <div class="feat-hint">Each line → one bullet point on the pricing card.</div>
+      </div>
+      <div class="form-group"><label>Get Started Link</label><input type="text" id="p-link" value="${esc(p.link)}" placeholder="contact.html?plan=essentials" /></div>
+      <div class="form-group">
+        <label style="flex-direction:row;display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:.88rem;cursor:pointer">
+          <input type="checkbox" id="p-feat" ${p.featured?'checked':''} style="width:auto;accent-color:var(--orange)" />
+          Mark as "Most Popular" (featured highlight)
+        </label>
+      </div>
+    `, savePricing);
+  }
+
+  function savePricing() {
+    const name = document.getElementById('p-name').value.trim();
+    const price = document.getElementById('p-price').value.trim();
+    if (!name || !price) { alert('Plan name and price are required.'); return; }
+    const features = document.getElementById('p-features').value.split('\n').map(f=>f.trim()).filter(Boolean);
+    const plan = {
+      name, price,
+      tagline: document.getElementById('p-tagline').value.trim(),
+      note: document.getElementById('p-note').value.trim(),
+      features, link: document.getElementById('p-link').value.trim(),
+      featured: document.getElementById('p-feat').checked,
+    };
+    if (editCtx.idx === -1) eState.pricing.push(plan);
+    else eState.pricing[editCtx.idx] = plan;
+    markDirty();
+    renderPricing();
+    closeModal();
+  }
+
+  // ─────────────────────────────────────────
+  //  HTML BUILDERS
+  // ─────────────────────────────────────────
+  function buildTeamGrid() {
+    return eState.team.map(m => {
+      const src  = m.photoUrl;
+      const st   = 'width:100%;height:100%;object-fit:cover;' + (m.photoB64 ? 'object-position:center top;' : '');
+      const badges = m.badges.map(b=>'<span class="badge">'+esc(b)+'</span>').join('');
+      return `        <div class="team-card">\n          <div class="team-card__photo" style="background:none;overflow:hidden;width:110px;height:110px;">\n            <img src="${esc(src)}" alt="${esc(m.name)} at Raleway Studio" style="${st}" />\n          </div>\n          <h3>${esc(m.name)}</h3>\n          <div class="team-card__role">${esc(m.role)}</div>\n          <p>${esc(m.bio)}</p>\n          <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center;">${badges}</div>\n        </div>`;
+    }).join('\n');
+  }
+
+  function buildServicesGrid() {
+    return eState.services.map(s => {
+      const src = s.imgUrl;
+      return `        <div class="service-card">\n          <img src="${esc(src)}" alt="${esc(s.name)}" class="service-card__img" loading="lazy" />\n          <div class="service-card__body">\n            <h3>${esc(s.name)}</h3>\n            <p>${esc(s.desc)}</p>\n            <a href="${esc(s.link)}" class="btn btn-outline btn-sm">Learn More</a>\n          </div>\n        </div>`;
+    }).join('\n');
+  }
+
+  function buildPricingGrid() {
+    return eState.pricing.map(p => {
+      const cls = p.featured ? ' pricing-card--featured' : '';
+      const pop = p.featured ? '\n          <div class="popular-badge">⭐ Most Popular</div>' : '';
+      const fts = p.features.map(f=>'            <li>'+esc(f)+'</li>').join('\n');
+      return `        <div class="pricing-card${cls}">${pop}\n          <div class="plan-name">${esc(p.name)}</div>\n          <div class="plan-tagline">${esc(p.tagline)}</div>\n          <div class="plan-price"><span class="currency">$</span><span class="amount">${esc(p.price)}</span></div>\n          <div class="plan-note">${esc(p.note)}</div>\n          <hr class="plan-divider" />\n          <ul class="plan-features">\n${fts}\n          </ul>\n          <a href="${esc(p.link)}" class="btn btn-outline">Get Started</a>\n        </div>`;
+    }).join('\n');
+  }
+
+  // Use the browser's own DOM parser to safely replace grid content —
+  // much more reliable than regex/string counting which breaks when
+  // HTML contains attributes, comments, or nested divs at the boundary.
+  function rebuildPage(rawHtml, gridSelector, newInnerHtml) {
+    const doc = new DOMParser().parseFromString(rawHtml, 'text/html');
+    const grid = doc.querySelector(gridSelector);
+    if (grid) {
+      grid.innerHTML = newInnerHtml;
+    } else {
+      console.warn('rebuildPage: selector not found:', gridSelector);
+    }
+    // Preserve original DOCTYPE declaration
+    const dtMatch = rawHtml.match(/^[\s\S]*?<!DOCTYPE[^>]*>/i);
+    const dt = dtMatch ? dtMatch[0].trim() + '\n' : '<!DOCTYPE html>\n';
+    return dt + doc.documentElement.outerHTML;
+  }
+
+  function textToB64(text) {
+    const bytes = new TextEncoder().encode(text);
+    let bin = '';
+    for (let i=0; i<bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+
+  // ─────────────────────────────────────────
+  //  PUBLISH
+  // ─────────────────────────────────────────
+  function dlog(msg, cls) {
+    const el = document.getElementById('deploy-log');
+    if (el) { el.innerHTML += '<div class="'+(cls||'')+'">'+msg+'</div>'; el.scrollTop = el.scrollHeight; }
+  }
+
+  function jsStringLiteral(s) {
+    return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n');
+  }
+
+  async function publishChanges() {
+    document.getElementById('deploy-overlay').classList.add('open');
+    document.getElementById('deploy-log').innerHTML = '';
+    document.getElementById('deploy-success').style.display = 'none';
+    document.getElementById('btn-open-site').style.display = 'none';
+    document.getElementById('btn-close-deploy').style.display = 'none';
+    document.getElementById('btn-do-publish').disabled = true;
+
+    try {
+      const baseDpl = getBaseDeployment();
+      dlog('Preparing updated pages…', 'inf');
+
+      const newAbout    = rebuildPage(eState.aboutRaw,    '.team-grid',     buildTeamGrid());
+      const newServices = rebuildPage(eState.servicesRaw, '.services-grid', buildServicesGrid());
+      const newPricing  = rebuildPage(eState.pricingRaw,  '.pricing-grid',  buildPricingGrid());
+      dlog('Rebuilt HTML pages ✓', 'inf');
+
+      const newAssets = [];
+      eState.team.forEach(m => {
+        if (m.photoB64) {
+          const assetPath = m.photoUrl.replace(/^\.\.\//,'').replace(/^\//,'');
+          newAssets.push({ path: assetPath, b64: m.photoB64 });
+          dlog('Including new photo: ' + assetPath, 'inf');
+        }
+      });
+      eState.services.forEach(s => {
+        if (s.imgB64) {
+          const assetPath = s.imgUrl.replace(/^\.\.\//,'').replace(/^\//,'');
+          newAssets.push({ path: assetPath, b64: s.imgB64 });
+          dlog('Including new image: ' + assetPath, 'inf');
+        }
+      });
+
+      let currentPortalHtml = '';
+      try {
+        currentPortalHtml = await (await fetch(location.href.split('?')[0] + '?v=' + Date.now(), { cache:'no-store' })).text();
+        const savedPw = localStorage.getItem(PW_STORE_KEY);
+        if (savedPw) {
+          currentPortalHtml = currentPortalHtml.replace(
+            /const DEFAULT_PASSWORD\s*=\s*'[^']*';/,
+            "const DEFAULT_PASSWORD    = '" + jsStringLiteral(savedPw) + "';"
+          );
+        }
+      } catch(e) {
+        currentPortalHtml = '';
+      }
+
+      dlog('Sending secure publish request…', 'inf');
+      const dRes = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          baseDpl,
+          projectName: 'raleway-studio',
+          aboutHtml: newAbout,
+          servicesHtml: newServices,
+          pricingHtml: newPricing,
+          portalHtml: currentPortalHtml,
+          assets: newAssets
+        })
+      });
+      const dData = await dRes.json();
+      if (!dRes.ok || !dData.ok) throw new Error(dData.error || JSON.stringify(dData));
+
+      const newId = dData.id;
+      dlog('Deployment created: ' + newId, 'inf');
+
+      for (let i=0; i<40; i++) {
+        await new Promise(r => setTimeout(r, 3500));
+        const cRes = await fetch('/api/deployment-status?id=' + encodeURIComponent(newId));
+        const cData = await cRes.json();
+        if (!cRes.ok || !cData.ok) throw new Error(cData.error || JSON.stringify(cData));
+        const st = cData.readyState || cData.status;
+        dlog('Status: ' + st, 'inf');
+        if (st === 'READY') {
+          localStorage.setItem(BASE_DPL_KEY, newId);
+          eState.team.forEach(m => { m.photoB64 = null; });
+          eState.services.forEach(s => { s.imgB64 = null; });
+          eState.aboutRaw    = newAbout;
+          eState.servicesRaw = newServices;
+          eState.pricingRaw  = newPricing;
+          eState.dirty       = false;
+          document.getElementById('publish-bar').classList.remove('show');
+          document.getElementById('btn-do-publish').disabled = false;
+          dlog('✅ Site is live!');
+          document.getElementById('deploy-success').style.display = 'block';
+          document.getElementById('btn-open-site').style.display  = 'inline-block';
+          document.getElementById('btn-close-deploy').style.display = 'inline-block';
+          return;
+        }
+        if (st === 'ERROR' || st === 'CANCELED') throw new Error('Deployment failed: ' + st);
+      }
+      throw new Error('Deployment timed out');
+
+    } catch(err) {
+      dlog('ERROR: ' + err.message, 'err');
+      document.getElementById('btn-close-deploy').style.display = 'inline-block';
+      document.getElementById('btn-do-publish').disabled = false;
+    }
+  }
+
+  function esc(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+</script>
+</body>
+</html>

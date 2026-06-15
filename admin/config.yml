@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets"
+public_folder: "/assets"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "_data/settings.json"
+        fields:
+          - label: "Site Logo"
+            name: "logo"
+            widget: "image"
+            hint: "Upload your logo here. Use PNG with transparent background for best results. Recommended height: 48px."
+            default: "/assets/logo.png"
+          - label: "Site Name"
+            name: "site_name"
+            widget: "string"
+            default: "Raleway Studio"
+          - label: "Tagline"
+            name: "tagline"
+            widget: "string"
+            default: "Remote web design & digital services for small businesses"
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title",          name: "title",       widget: "string" }
+      - { label: "Publish Date",   name: "date",        widget: "datetime" }
+      - { label: "Category",       name: "category",    widget: "select", options: ["Web Design","SEO","Graphic Design","AI & Automation","Business Tips","Social Media"] }
+      - { label: "Excerpt",        name: "excerpt",     widget: "text",   hint: "Short summary shown on the blog listing page (1–2 sentences)." }
+      - { label: "Featured Image", name: "image",       widget: "image",  required: false }
+      - { label: "Body",           name: "body",        widget: "markdown" }
+      - { label: "SEO Title",      name: "seo_title",   widget: "string", required: false, hint: "Leave blank to use the post title. Max 60 characters." }
+      - { label: "SEO Description",name: "seo_desc",    widget: "text",   required: false, hint: "Max 160 characters. Shown in Google search results." }

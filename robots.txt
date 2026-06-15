@@ -1,0 +1,46 @@
+# robots.txt — Raleway Studio
+# https://www.ralewaystudio.com
+
+# Allow all standard web crawlers
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# AI crawlers — allowed so Raleway Studio appears in AI-generated answers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Sitemap
+Sitemap: https://www.ralewaystudio.com/sitemap.xml
