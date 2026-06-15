@@ -1,118 +1,111 @@
-const fs = require('fs');
+// Publishes changes from the admin portal to Vercel.
+// Strategy: fetch the full file tree from GitHub (the canonical source of truth),
+// then override with portal-managed content. This avoids all issues with old
+// Vercel deployment file trees (src/ prefix, missing files, GitHub deploys with
+// inaccessible tree endpoints, etc.).
+
+const fs   = require('fs');
 const path = require('path');
 
-function flat(nodes, pre) {
-  let out = [];
-  for (const n of nodes || []) {
-    const p = pre ? `${pre}/${n.name}` : n.name;
-    if (n.type === 'file') out.push({ file: p, sha: n.uid });
-    else if (n.children) out = out.concat(flat(n.children, p));
-  }
-  return out;
+const BINARY_EXTS = new Set([
+  '.png','.jpg','.jpeg','.gif','.webp','.ico',
+  '.woff','.woff2','.ttf','.eot','.otf',
+  '.mp4','.mp3','.pdf','.zip'
+]);
+
+function isBinaryPath(p) {
+  return BINARY_EXTS.has(path.extname(p).toLowerCase());
 }
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed' });
 
-  const token = process.env.VERCEL_TOKEN || process.env.RS_VERCEL_TOKEN;
-  if (!token) {
-    return res.status(500).json({ ok: false, error: 'Missing VERCEL_TOKEN environment variable in Vercel.' });
-  }
+  const token   = process.env.VERCEL_TOKEN || process.env.RS_VERCEL_TOKEN;
+  const ghToken = process.env.GITHUB_TOKEN;
+
+  if (!token)   return res.status(500).json({ ok: false, error: 'Missing VERCEL_TOKEN env var.' });
+  if (!ghToken) return res.status(500).json({ ok: false, error: 'Missing GITHUB_TOKEN env var. Add it in Vercel project settings → Environment Variables.' });
 
   try {
-    const body = req.body || {};
+    const body        = req.body || {};
     const projectName = body.projectName || 'raleway-studio';
+    const ghOwner     = 'Shizune07';
+    const ghRepo      = 'raleway-studio';
+    const ghBranch    = 'main';
 
-    // Read own content plus sibling API files — these are always injected into
-    // every deployment so they're never accidentally dropped when a GitHub-triggered
-    // deployment becomes the base (those have no accessible file tree via API).
+    // Files the portal directly manages (we use the portal-provided content, not GitHub)
+    const PORTAL_MANAGED = new Set(['about.html', 'services.html', 'pricing.html', 'admin/portal.html']);
+    // API files: always inject from this running function's own filesystem
+    const SELF_MANAGED   = new Set(['api/publish.js', 'api/deployment-status.js', 'vercel.json']);
+
+    // Read own API files (these are always injected so they survive every deploy)
     const publishJs  = fs.readFileSync(__filename, 'utf8');
     const statusJs   = fs.readFileSync(path.join(__dirname, 'deployment-status.js'), 'utf8');
     const vjPath     = path.join(__dirname, '..', 'vercel.json');
     const vercelJson = fs.existsSync(vjPath) ? fs.readFileSync(vjPath, 'utf8') : '{"cleanUrls":true}';
 
-    // Fetch the last 20 READY production deployments and find the most recent one
-    // that has an accessible file tree (GitHub-triggered deployments return
-    // "File tree not found" from /v7/deployments/{id}/files).
-    const listRes = await fetch(
-      `https://api.vercel.com/v6/deployments?projectId=${encodeURIComponent(projectName)}&target=production&state=READY&limit=20`,
-      { headers: { Authorization: `Bearer ${token}` } }
+    const ghHeaders = {
+      Authorization: `Bearer ${ghToken}`,
+      Accept: 'application/vnd.github.v3+json',
+      'User-Agent': 'raleway-portal'
+    };
+
+    // Fetch the full repo file tree
+    const treeRes  = await fetch(
+      `https://api.github.com/repos/${ghOwner}/${ghRepo}/git/trees/${ghBranch}?recursive=1`,
+      { headers: ghHeaders }
     );
-    const listData = await listRes.json();
-    if (!listRes.ok) {
-      return res.status(listRes.status).json({ ok: false, error: 'List deployments failed: ' + JSON.stringify(listData) });
+    const treeData = await treeRes.json();
+    if (!treeRes.ok || !Array.isArray(treeData.tree)) {
+      return res.status(500).json({ ok: false, error: 'GitHub tree fetch failed: ' + JSON.stringify(treeData) });
     }
 
-    let existing = [];
-    let baseDplId = null;
+    const assets     = Array.isArray(body.assets) ? body.assets : [];
+    const assetPaths = new Set(assets.map(a => String(a.path || '').replace(/^\.\.\//,'').replace(/^\//,'')));
 
-    for (const dpl of (listData.deployments || [])) {
-      try {
-        const treeRes = await fetch(`https://api.vercel.com/v7/deployments/${dpl.uid}/files`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (!treeRes.ok) continue;
-        const treeData = await treeRes.json();
-        if (treeData && treeData.error) continue;
-        const files = flat(Array.isArray(treeData) ? treeData : (treeData.fileTree || []));
-        if (files.length > 0) {
-          existing = files;
-          baseDplId = dpl.uid;
-          break;
-        }
-      } catch (_) {
-        continue;
-      }
-    }
+    // Fetch all non-overridden files from GitHub in parallel
+    const githubBlobs = treeData.tree.filter(f => f.type === 'blob');
+    const fetchResults = await Promise.all(
+      githubBlobs
+        .filter(f => !PORTAL_MANAGED.has(f.path) && !SELF_MANAGED.has(f.path) && !assetPaths.has(f.path))
+        .map(async (ghFile) => {
+          try {
+            const rawUrl = `https://raw.githubusercontent.com/${ghOwner}/${ghRepo}/${ghBranch}/`
+              + ghFile.path.split('/').map(encodeURIComponent).join('/');
+            const r = await fetch(rawUrl, {
+              headers: { Authorization: `Bearer ${ghToken}`, 'User-Agent': 'raleway-portal' }
+            });
+            if (!r.ok) return null;
+            if (isBinaryPath(ghFile.path)) {
+              const buf = await r.arrayBuffer();
+              return { file: ghFile.path, data: Buffer.from(buf).toString('base64'), encoding: 'base64' };
+            }
+            return { file: ghFile.path, data: await r.text() };
+          } catch (_) { return null; }
+        })
+    );
 
-    if (!baseDplId) {
-      return res.status(500).json({
-        ok: false,
-        error: 'No API-created deployment with accessible file tree found in the last 20 deployments. ' +
-               'Try pushing a direct API deployment first, or contact support.'
-      });
-    }
+    const files = fetchResults.filter(Boolean);
 
-    const usesSrcPrefix = existing.some(ef => ef.file === 'src/about.html' || ef.file === 'src/admin/portal.html');
-    const filePrefix = usesSrcPrefix ? 'src/' : '';
-    const pathFor = p => filePrefix + String(p || '').replace(/^\.\.\//,'').replace(/^\//,'');
+    // Always inject latest API function files
+    files.push({ file: 'api/publish.js',           data: publishJs });
+    files.push({ file: 'api/deployment-status.js', data: statusJs });
+    files.push({ file: 'vercel.json',              data: vercelJson });
 
-    const assets = Array.isArray(body.assets) ? body.assets : [];
-    // Binary assets: already base64-encoded by the browser
-    const assetFiles = assets.map(a => ({ file: pathFor(a.path), data: a.b64, encoding: 'base64' }));
+    // Portal-managed pages
+    files.push({ file: 'about.html',    data: String(body.aboutHtml    || '') });
+    files.push({ file: 'services.html', data: String(body.servicesHtml || '') });
+    files.push({ file: 'pricing.html',  data: String(body.pricingHtml  || '') });
+    if (body.portalHtml) files.push({ file: 'admin/portal.html', data: String(body.portalHtml) });
 
-    // These paths are always replaced with fresh content
-    const overrides = new Set([
-      'api/publish.js',
-      'api/deployment-status.js',
-      'vercel.json',
-      pathFor('about.html'),
-      pathFor('services.html'),
-      pathFor('pricing.html'),
-      pathFor('admin/portal.html'),
-      ...assetFiles.map(a => a.file)
-    ]);
+    // Binary asset uploads from the portal (e.g. team photo)
+    assets.forEach(a => {
+      const fp = String(a.path || '').replace(/^\.\.\//,'').replace(/^\//,'');
+      if (fp) files.push({ file: fp, data: a.b64, encoding: 'base64' });
+    });
 
-    // Reuse all other existing files by SHA
-    const files = existing.filter(ef => !overrides.has(ef.file)).map(ef => ({ file: ef.file, sha: ef.sha }));
-
-    // Always inject the latest API function files so they survive every deploy
-    files.push({ file: 'api/publish.js',            data: publishJs });
-    files.push({ file: 'api/deployment-status.js',  data: statusJs });
-    files.push({ file: 'vercel.json',               data: vercelJson });
-
-    // HTML files: pass as plain strings
-    files.push({ file: pathFor('about.html'),    data: String(body.aboutHtml    || '') });
-    files.push({ file: pathFor('services.html'), data: String(body.servicesHtml || '') });
-    files.push({ file: pathFor('pricing.html'),  data: String(body.pricingHtml  || '') });
-    if (body.portalHtml) {
-      files.push({ file: pathFor('admin/portal.html'), data: String(body.portalHtml) });
-    }
-
-    // Binary assets with explicit encoding so Vercel decodes them correctly
-    assetFiles.forEach(a => files.push(a));
-
-    const deployRes = await fetch('https://api.vercel.com/v13/deployments', {
+    // Create the Vercel deployment
+    const deployRes  = await fetch('https://api.vercel.com/v13/deployments', {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: projectName, files, projectSettings: { framework: null }, target: 'production' })
