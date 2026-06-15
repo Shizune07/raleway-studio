@@ -705,7 +705,7 @@
       name:     txt(card, 'h3'),
       role:     txt(card, '.team-card__role'),
       bio:      txt(card, 'p'),
-      photoUrl: attr(card, '.team-card__photo img', 'src'),
+      photoUrl: (s => s && !s.startsWith('http') && !s.startsWith('/') && !s.startsWith('data:') ? '/'+s : s)(attr(card, '.team-card__photo img', 'src')),
       photoB64: null,
       photoMime:'image/jpeg',
       badges:   Array.from(card.querySelectorAll('.badge')).map(b => b.textContent.trim()),
@@ -718,7 +718,7 @@
     eState.services = Array.from(doc.querySelectorAll('.service-card')).map(card => ({
       name:   txt(card, 'h3'),
       desc:   txt(card, 'p'),
-      imgUrl: attr(card, '.service-card__img', 'src'),
+      imgUrl: (s => s && !s.startsWith('http') && !s.startsWith('/') && !s.startsWith('data:') ? '/'+s : s)(attr(card, '.service-card__img', 'src')),
       link:   attr(card, 'a', 'href'),
     }));
     renderServices();
@@ -901,7 +901,7 @@
     const member = {
       name, role,
       bio: document.getElementById('m-bio').value.trim(),
-      photoUrl: editCtx.data.photoB64 ? ('assets/' + slugify(name) + '-' + Date.now() + '.' + extFromMime(editCtx.data.photoMime)) : (urlVal === '(file uploaded ✓)' ? editCtx.data.photoUrl : urlVal),
+      photoUrl: editCtx.data.photoB64 ? ('/assets/' + slugify(name) + '-' + Date.now() + '.' + extFromMime(editCtx.data.photoMime)) : (urlVal === '(file uploaded ✓)' ? editCtx.data.photoUrl : urlVal),
       photoB64: editCtx.data.photoB64 || null,
       photoMime: editCtx.data.photoMime || 'image/jpeg',
       badges: editCtx.data.badges || [],
@@ -956,7 +956,7 @@
     const imgVal = document.getElementById('s-img').value.trim();
     const svc = {
       name, desc: document.getElementById('s-desc').value.trim(),
-      imgUrl: editCtx.data.imgB64 ? ('assets/svc-' + slugify(name) + '-' + Date.now() + '.' + extFromMime(editCtx.data.imgMime)) : (imgVal === '(file uploaded ✓)' ? editCtx.data.imgUrl : imgVal),
+      imgUrl: editCtx.data.imgB64 ? ('/assets/svc-' + slugify(name) + '-' + Date.now() + '.' + extFromMime(editCtx.data.imgMime)) : (imgVal === '(file uploaded ✓)' ? editCtx.data.imgUrl : imgVal),
       imgB64: editCtx.data.imgB64 || null,
       imgMime: editCtx.data.imgMime || 'image/jpeg',
       link: document.getElementById('s-link').value.trim(),
