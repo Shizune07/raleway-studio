@@ -58,6 +58,13 @@ img { max-width: 100%; height: auto; display: block; }
 ul { list-style: none; }
 
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+/* Paw emoji — force white so it contrasts on both orange banner and dark footer */
+.paw-emoji {
+  display: inline-block;
+  filter: brightness(0) invert(1);
+  vertical-align: middle;
+}
+
 /* Screen-reader-only utility */
 .sr-only {
   position: absolute;
