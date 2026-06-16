@@ -28,8 +28,12 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
 
-  <!-- Main stylesheet — blocking (prevents CLS from unstyled content) -->
+  <!-- Main stylesheet: preload hint starts download immediately, blocking link has zero wait -->
+  <link rel="preload" as="style" href="css/style.css" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- LCP hero image — preload so Wix CDN download starts before parser reaches <body> -->
+  <link rel="preload" as="image" href="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg/v1/fill/w_380,h_380,al_c,q_85,enc_auto/11062b_cb911216de184296b79f70f64177f00a~mv2.webp" fetchpriority="high" />
 
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="preconnect" href="https://static.wixstatic.com" crossorigin />
@@ -277,7 +281,7 @@
       </div>
             <div class="services-grid">
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp" alt="Website Design" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp" alt="Website Design" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Website Design</h3>
             <p>Modern, responsive websites built to represent your brand clearly and convert visitors into clients.</p>
@@ -285,7 +289,7 @@
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.webp" alt="Graphic Design" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.webp" alt="Graphic Design" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Graphic Design</h3>
             <p>Logos, social media graphics, and brand visuals that make your business look polished and professional.</p>
@@ -293,7 +297,7 @@
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_3040ce30c4fd456089061867709bc60f~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_3040ce30c4fd456089061867709bc60f~mv2.webp" alt="SEO" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/11062b_3040ce30c4fd456089061867709bc60f~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_3040ce30c4fd456089061867709bc60f~mv2.webp" alt="SEO" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>SEO</h3>
             <p>Keyword research, on-page optimization, and content strategy to help the right people find you online.</p>
@@ -301,7 +305,7 @@
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/3d7bc412c43340e08591ef32a3aab71e.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/3d7bc412c43340e08591ef32a3aab71e.webp" alt="Project Management" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/3d7bc412c43340e08591ef32a3aab71e.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/3d7bc412c43340e08591ef32a3aab71e.webp" alt="Project Management" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Project Management</h3>
             <p>Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.</p>
@@ -309,7 +313,7 @@
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_23a136fa16544a95856bb9758f77a155~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_23a136fa16544a95856bb9758f77a155~mv2.webp" alt="AI Automation" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/11062b_23a136fa16544a95856bb9758f77a155~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_23a136fa16544a95856bb9758f77a155~mv2.webp" alt="AI Automation" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>AI Automation</h3>
             <p>Save time with smart workflow automation — so your business runs more efficiently with less manual effort.</p>
@@ -317,7 +321,7 @@
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/da934b39b32b473f8e2a39b2fa185f48.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/da934b39b32b473f8e2a39b2fa185f48.webp" alt="Social Media Management" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/da934b39b32b473f8e2a39b2fa185f48.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/da934b39b32b473f8e2a39b2fa185f48.webp" alt="Social Media Management" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Social Media Management</h3>
             <p>Consistent, on-brand content managed for you — so you stay visible without the daily stress.</p>
@@ -325,7 +329,7 @@
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_e0e2d79140ef4c559035a696fc808052~mv2.webp" alt="Virtual Assistance" class="service-card__img" loading="lazy" width="320" height="200" />
+          <img src="https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_e0e2d79140ef4c559035a696fc808052~mv2.webp" alt="Virtual Assistance" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Virtual Assistance</h3>
             <p>Remote admin and business support to free up your time for what actually moves the needle.</p>
@@ -347,7 +351,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:2.5rem;">
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_cb911216de184296b79f70f64177f00a~mv2.webp"
+          <img src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_cb911216de184296b79f70f64177f00a~mv2.webp"
                alt="Salon and beauty business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
                width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
@@ -357,7 +361,7 @@
         </div>
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.webp"
+          <img src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.webp"
                alt="Creative and artisan business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
                width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
@@ -367,7 +371,7 @@
         </div>
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/b69a347cdbfd4c1eb90e1336b57c5bc0.webp"
+          <img src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/b69a347cdbfd4c1eb90e1336b57c5bc0.webp"
                alt="Restaurant and food business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
                width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
@@ -377,7 +381,7 @@
         </div>
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.webp"
+          <img src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.webp"
                alt="Handmade and product business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
                width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
