@@ -4,13 +4,13 @@
    Fonts: Raleway (headings) + Inter (body)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+/* Google Fonts moved to <link> in HTML for non-blocking load */
 
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary:      #E45800;
+  --primary:      #C04300;
   --primary-dark: #9B4015;
   --primary-light:#F8C7B0;
   --dark:         #2E2F2F;
@@ -58,6 +58,19 @@ img { max-width: 100%; height: auto; display: block; }
 ul { list-style: none; }
 
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+/* Screen-reader-only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .section { padding: 5rem 0; }
 .section--light { background: var(--light); }
 .section--dark { background: var(--dark); }
@@ -198,10 +211,14 @@ ul { list-style: none; }
   gap: 0.25rem;
 }
 
-.nav__links a:hover,
-.nav__links a.active {
+.nav__links a:hover {
   color: var(--primary);
   background: var(--primary-light);
+}
+.nav__links a.active {
+  color: var(--dark);
+  background: var(--primary-light);
+  font-weight: 700;
 }
 
 /* Dropdown */

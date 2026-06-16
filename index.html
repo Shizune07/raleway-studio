@@ -22,7 +22,29 @@
   <meta name="twitter:description" content="Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online." />
   <meta name="twitter:image" content="https://www.ralewaystudio.com/assets/og-image.png" />
 
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- Critical inline styles to prevent FOUC while stylesheets load async -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#C04300;--primary-dark:#9B4015;--primary-light:#F8C7B0;--dark:#2E2F2F;--white:#ffffff;--light:#FEF9F0;--gray:#666260}
+    body{font-family:'Inter',system-ui,sans-serif;color:var(--dark);background:var(--white);line-height:1.7}
+    .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+    .banner{background:var(--primary);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.85rem}
+    .nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid #E8EAED;padding:0 1.5rem}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+    .nav__logo-img{width:auto;height:48px;display:block}
+    picture{display:contents}
+  </style>
+
+  <!-- Google Fonts — async, non-blocking -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
+
+  <!-- Main stylesheet — async, non-blocking -->
+  <link rel="preload" as="style" href="css/style.css" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
+
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="preconnect" href="https://static.wixstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://static.wixstatic.com" />
@@ -158,8 +180,8 @@
       <div class="nav__inner">
         <a href="/" class="nav__logo">
           <picture>
-            <source srcset="assets/logo.webp" type="image/webp" />
-            <img src="assets/logo.png" alt="Raleway Studio" class="nav__logo-img" width="800" height="327" />
+            <source srcset="assets/logo-nav.webp" type="image/webp" />
+            <img src="assets/logo-nav.png" alt="Raleway Studio" class="nav__logo-img" width="250" height="102" />
           </picture>
         </a>
         <ul class="nav__links" id="navLinks">
@@ -273,7 +295,7 @@
           <div class="service-card__body">
             <h3>Website Design</h3>
             <p>Modern, responsive websites built to represent your brand clearly and convert visitors into clients.</p>
-            <a href="services/website-design.html" class="btn btn-outline btn-sm" aria-label="Learn more about Website Design">Learn More</a>
+            <a href="services/website-design.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about Website Design</span></a>
           </div>
         </div>
         <div class="service-card">
@@ -281,7 +303,7 @@
           <div class="service-card__body">
             <h3>Graphic Design</h3>
             <p>Logos, social media graphics, and brand visuals that make your business look polished and professional.</p>
-            <a href="services/graphic-design.html" class="btn btn-outline btn-sm" aria-label="Learn more about Graphic Design">Learn More</a>
+            <a href="services/graphic-design.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about Graphic Design</span></a>
           </div>
         </div>
         <div class="service-card">
@@ -289,7 +311,7 @@
           <div class="service-card__body">
             <h3>SEO</h3>
             <p>Keyword research, on-page optimization, and content strategy to help the right people find you online.</p>
-            <a href="services/seo.html" class="btn btn-outline btn-sm" aria-label="Learn more about SEO">Learn More</a>
+            <a href="services/seo.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about SEO</span></a>
           </div>
         </div>
         <div class="service-card">
@@ -297,7 +319,7 @@
           <div class="service-card__body">
             <h3>Project Management</h3>
             <p>Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.</p>
-            <a href="services/project-management.html" class="btn btn-outline btn-sm" aria-label="Learn more about Project Management">Learn More</a>
+            <a href="services/project-management.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about Project Management</span></a>
           </div>
         </div>
         <div class="service-card">
@@ -305,7 +327,7 @@
           <div class="service-card__body">
             <h3>AI Automation</h3>
             <p>Save time with smart workflow automation — so your business runs more efficiently with less manual effort.</p>
-            <a href="services/ai-automation.html" class="btn btn-outline btn-sm" aria-label="Learn more about AI Automation">Learn More</a>
+            <a href="services/ai-automation.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about AI Automation</span></a>
           </div>
         </div>
         <div class="service-card">
@@ -313,7 +335,7 @@
           <div class="service-card__body">
             <h3>Social Media Management</h3>
             <p>Consistent, on-brand content managed for you — so you stay visible without the daily stress.</p>
-            <a href="services/social-media-management.html" class="btn btn-outline btn-sm" aria-label="Learn more about Social Media Management">Learn More</a>
+            <a href="services/social-media-management.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about Social Media Management</span></a>
           </div>
         </div>
         <div class="service-card">
@@ -321,7 +343,7 @@
           <div class="service-card__body">
             <h3>Virtual Assistance</h3>
             <p>Remote admin and business support to free up your time for what actually moves the needle.</p>
-            <a href="services/virtual-assistance.html" class="btn btn-outline btn-sm" aria-label="Learn more about Virtual Assistance">Learn More</a>
+            <a href="services/virtual-assistance.html" class="btn btn-outline btn-sm">Learn More<span class="sr-only"> about Virtual Assistance</span></a>
           </div>
         </div>
       </div>
@@ -562,8 +584,8 @@
         <div class="footer__brand">
           <div class="nav__logo">
             <picture>
-              <source srcset="assets/logo-white.webp" type="image/webp" />
-              <img src="assets/logo-white.png" alt="Raleway Studio" class="nav__logo-img footer__logo-img" width="800" height="327" loading="lazy" />
+              <source srcset="assets/logo-footer.webp" type="image/webp" />
+              <img src="assets/logo-white.png" alt="Raleway Studio" class="nav__logo-img footer__logo-img" width="250" height="102" loading="lazy" />
             </picture>
           </div>
           <p>Custom websites and digital services for small businesses — remote, professional, and built to grow.</p>
