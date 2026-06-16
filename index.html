@@ -24,6 +24,8 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://static.wixstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://static.wixstatic.com" />
 
   <!-- E-E-A-T & AI signals -->
   <meta name="author" content="Seira Jho, Raleway Studio" />
@@ -155,7 +157,10 @@
     <div class="container">
       <div class="nav__inner">
         <a href="/" class="nav__logo">
-          <img src="assets/logo.png" alt="Raleway Studio" class="nav__logo-img" />
+          <picture>
+            <source srcset="assets/logo.webp" type="image/webp" />
+            <img src="assets/logo.png" alt="Raleway Studio" class="nav__logo-img" width="800" height="327" />
+          </picture>
         </a>
         <ul class="nav__links" id="navLinks">
           <li><a href="/" class="active">Home</a></li>
@@ -183,6 +188,8 @@
       </div>
     </div>
   </nav>
+
+  <main>
 
   <!-- Hero -->
   <section class="hero" style="background:var(--light);padding:5rem 0;">
@@ -212,30 +219,34 @@
 
           <!-- Top right — salon/beauty owner -->
           <div style="position:absolute;top:0;right:0;width:190px;height:190px;border-radius:50%;overflow:hidden;border:4px solid var(--primary);box-shadow:0 8px 28px rgba(228,88,0,0.2);">
-            <img src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg"
+            <img src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg/v1/fill/w_380,h_380,al_c,q_85,enc_auto/11062b_cb911216de184296b79f70f64177f00a~mv2.webp"
                  alt="Small business owner helped by Raleway Studio"
-                 style="width:100%;height:100%;object-fit:cover;" />
+                 style="width:100%;height:100%;object-fit:cover;"
+                 width="190" height="190" fetchpriority="high" />
           </div>
 
           <!-- Centre — creative/craft business owner -->
           <div style="position:absolute;top:110px;left:50%;transform:translateX(-50%);width:205px;height:205px;border-radius:50%;overflow:hidden;border:4px solid var(--primary);box-shadow:0 8px 28px rgba(228,88,0,0.2);">
-            <img src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg"
+            <img src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg/v1/fill/w_410,h_410,al_c,q_85,enc_auto/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.webp"
                  alt="Creative business owner helped by Raleway Studio"
-                 style="width:100%;height:100%;object-fit:cover;" />
+                 style="width:100%;height:100%;object-fit:cover;"
+                 width="205" height="205" />
           </div>
 
           <!-- Bottom left — handmade/product business -->
           <div style="position:absolute;bottom:20px;left:0;width:172px;height:172px;border-radius:50%;overflow:hidden;border:4px solid var(--primary);box-shadow:0 8px 28px rgba(228,88,0,0.2);">
-            <img src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg"
+            <img src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg/v1/fill/w_344,h_344,al_c,q_85,enc_auto/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.webp"
                  alt="Product business owner helped by Raleway Studio"
-                 style="width:100%;height:100%;object-fit:cover;" />
+                 style="width:100%;height:100%;object-fit:cover;"
+                 width="172" height="172" />
           </div>
 
           <!-- Bottom right — restaurant/food business -->
           <div style="position:absolute;bottom:0;right:15px;width:168px;height:168px;border-radius:50%;overflow:hidden;border:4px solid var(--primary);box-shadow:0 8px 28px rgba(228,88,0,0.2);">
-            <img src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg"
+            <img src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg/v1/fill/w_336,h_336,al_c,q_85,enc_auto/b69a347cdbfd4c1eb90e1336b57c5bc0.webp"
                  alt="Restaurant business owner helped by Raleway Studio"
-                 style="width:100%;height:100%;object-fit:cover;" />
+                 style="width:100%;height:100%;object-fit:cover;"
+                 width="168" height="168" />
           </div>
 
           <!-- Floating label -->
@@ -258,59 +269,59 @@
       </div>
             <div class="services-grid">
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg" alt="Website Design" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp" alt="Website Design" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Website Design</h3>
             <p>Modern, responsive websites built to represent your brand clearly and convert visitors into clients.</p>
-            <a href="services/website-design.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/website-design.html" class="btn btn-outline btn-sm" aria-label="Learn more about Website Design">Learn More</a>
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.jpg" alt="Graphic Design" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.webp" alt="Graphic Design" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Graphic Design</h3>
             <p>Logos, social media graphics, and brand visuals that make your business look polished and professional.</p>
-            <a href="services/graphic-design.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/graphic-design.html" class="btn btn-outline btn-sm" aria-label="Learn more about Graphic Design">Learn More</a>
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_3040ce30c4fd456089061867709bc60f~mv2.jpg" alt="SEO" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/11062b_3040ce30c4fd456089061867709bc60f~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_3040ce30c4fd456089061867709bc60f~mv2.webp" alt="SEO" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>SEO</h3>
             <p>Keyword research, on-page optimization, and content strategy to help the right people find you online.</p>
-            <a href="services/seo.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/seo.html" class="btn btn-outline btn-sm" aria-label="Learn more about SEO">Learn More</a>
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/3d7bc412c43340e08591ef32a3aab71e.jpg" alt="Project Management" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/3d7bc412c43340e08591ef32a3aab71e.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/3d7bc412c43340e08591ef32a3aab71e.webp" alt="Project Management" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Project Management</h3>
             <p>Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.</p>
-            <a href="services/project-management.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/project-management.html" class="btn btn-outline btn-sm" aria-label="Learn more about Project Management">Learn More</a>
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_23a136fa16544a95856bb9758f77a155~mv2.jpg" alt="AI Automation" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/11062b_23a136fa16544a95856bb9758f77a155~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_23a136fa16544a95856bb9758f77a155~mv2.webp" alt="AI Automation" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>AI Automation</h3>
             <p>Save time with smart workflow automation — so your business runs more efficiently with less manual effort.</p>
-            <a href="services/ai-automation.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/ai-automation.html" class="btn btn-outline btn-sm" aria-label="Learn more about AI Automation">Learn More</a>
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/da934b39b32b473f8e2a39b2fa185f48.jpg" alt="Social Media Management" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/da934b39b32b473f8e2a39b2fa185f48.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/da934b39b32b473f8e2a39b2fa185f48.webp" alt="Social Media Management" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Social Media Management</h3>
             <p>Consistent, on-brand content managed for you — so you stay visible without the daily stress.</p>
-            <a href="services/social-media-management.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/social-media-management.html" class="btn btn-outline btn-sm" aria-label="Learn more about Social Media Management">Learn More</a>
           </div>
         </div>
         <div class="service-card">
-          <img src="https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg" alt="Virtual Assistance" class="service-card__img" loading="lazy" />
+          <img src="https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_e0e2d79140ef4c559035a696fc808052~mv2.webp" alt="Virtual Assistance" class="service-card__img" loading="lazy" width="320" height="200" />
           <div class="service-card__body">
             <h3>Virtual Assistance</h3>
             <p>Remote admin and business support to free up your time for what actually moves the needle.</p>
-            <a href="services/virtual-assistance.html" class="btn btn-outline btn-sm">Learn More</a>
+            <a href="services/virtual-assistance.html" class="btn btn-outline btn-sm" aria-label="Learn more about Virtual Assistance">Learn More</a>
           </div>
         </div>
       </div>
@@ -328,8 +339,9 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:2.5rem;">
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg"
-               alt="Salon and beauty business owner" style="width:100%;height:200px;object-fit:cover;display:block;" />
+          <img src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_cb911216de184296b79f70f64177f00a~mv2.webp"
+               alt="Salon and beauty business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
+               width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
             <div style="font-family:'Raleway',sans-serif;font-weight:700;font-size:0.95rem;color:var(--dark);margin-bottom:0.3rem;">Beauty & Wellness</div>
             <p style="font-size:0.88rem;margin:0;color:var(--gray);">Helping salons, spas, and wellness businesses look as professional online as they do in person.</p>
@@ -337,8 +349,9 @@
         </div>
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg"
-               alt="Creative and artisan business owner" style="width:100%;height:200px;object-fit:cover;display:block;" />
+          <img src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.webp"
+               alt="Creative and artisan business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
+               width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
             <div style="font-family:'Raleway',sans-serif;font-weight:700;font-size:0.95rem;color:var(--dark);margin-bottom:0.3rem;">Creatives & Artisans</div>
             <p style="font-size:0.88rem;margin:0;color:var(--gray);">Giving artists, makers, and creatives a digital home that truly represents their craft.</p>
@@ -346,8 +359,9 @@
         </div>
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg"
-               alt="Restaurant and food business owner" style="width:100%;height:200px;object-fit:cover;display:block;" />
+          <img src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/b69a347cdbfd4c1eb90e1336b57c5bc0.webp"
+               alt="Restaurant and food business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
+               width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
             <div style="font-family:'Raleway',sans-serif;font-weight:700;font-size:0.95rem;color:var(--dark);margin-bottom:0.3rem;">Restaurants & Food</div>
             <p style="font-size:0.88rem;margin:0;color:var(--gray);">Helping cafés, restaurants, and food businesses attract more customers with a site that sells.</p>
@@ -355,8 +369,9 @@
         </div>
 
         <div style="background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <img src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg"
-               alt="Handmade and product business owner" style="width:100%;height:200px;object-fit:cover;display:block;" />
+          <img src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg/v1/fill/w_640,h_400,al_c,q_85,enc_auto/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.webp"
+               alt="Handmade and product business owner" style="width:100%;height:200px;object-fit:cover;display:block;"
+               width="640" height="400" loading="lazy" />
           <div style="padding:1.25rem;">
             <div style="font-family:'Raleway',sans-serif;font-weight:700;font-size:0.95rem;color:var(--dark);margin-bottom:0.3rem;">Product & E-Commerce</div>
             <p style="font-size:0.88rem;margin:0;color:var(--gray);">Building online stores for handmade, product, and e-commerce businesses ready to scale.</p>
@@ -387,28 +402,28 @@
           <div class="feature">
             <div class="feature__icon">✨</div>
             <div>
-              <h4>Custom, responsive design</h4>
+              <h3>Custom, responsive design</h3>
               <p>No cookie-cutter templates. Every site is built to fit your brand.</p>
             </div>
           </div>
           <div class="feature">
             <div class="feature__icon">🔍</div>
             <div>
-              <h4>SEO-aware from the start</h4>
+              <h3>SEO-aware from the start</h3>
               <p>Structure, content, and meta setup built for search engines.</p>
             </div>
           </div>
           <div class="feature">
             <div class="feature__icon">🌍</div>
             <div>
-              <h4>Fully remote — work with us anywhere</h4>
+              <h3>Fully remote — work with us anywhere</h3>
               <p>We serve businesses worldwide with no location restrictions.</p>
             </div>
           </div>
           <div class="feature">
             <div class="feature__icon">🤝</div>
             <div>
-              <h4>Support beyond the website</h4>
+              <h3>Support beyond the website</h3>
               <p>From branding to automation, we're one partner for multiple needs.</p>
             </div>
           </div>
@@ -538,13 +553,18 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
           <div class="nav__logo">
-            <img src="assets/logo-white.png" alt="Raleway Studio" class="nav__logo-img footer__logo-img" />
+            <picture>
+              <source srcset="assets/logo-white.webp" type="image/webp" />
+              <img src="assets/logo-white.png" alt="Raleway Studio" class="nav__logo-img footer__logo-img" width="800" height="327" loading="lazy" />
+            </picture>
           </div>
           <p>Custom websites and digital services for small businesses — remote, professional, and built to grow.</p>
           <div class="footer__charity">🐾 5% of every sale goes to animal shelters</div>
@@ -602,6 +622,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

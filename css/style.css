@@ -474,7 +474,7 @@ ul { list-style: none; }
   color: var(--primary);
 }
 
-.feature h4 { margin-bottom: 0.4rem; font-size: 1rem; }
+.feature h3, .feature h4 { margin-bottom: 0.4rem; font-size: 1rem; }
 .feature p { font-size: 0.9rem; margin: 0; }
 
 /* ── Two-col layout ── */
