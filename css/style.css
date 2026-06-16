@@ -181,6 +181,7 @@ ul { list-style: none; }
   height: 48px;
   display: block;
   flex-shrink: 0;
+  aspect-ratio: 250 / 102;
 }
 
 .nav__logo-text {
