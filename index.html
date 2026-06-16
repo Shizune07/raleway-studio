@@ -22,28 +22,14 @@
   <meta name="twitter:description" content="Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online." />
   <meta name="twitter:image" content="https://www.ralewaystudio.com/assets/og-image.png" />
 
-  <!-- Critical inline styles to prevent FOUC while stylesheets load async -->
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--primary:#C04300;--primary-dark:#9B4015;--primary-light:#F8C7B0;--dark:#2E2F2F;--white:#ffffff;--light:#FEF9F0;--gray:#666260}
-    body{font-family:'Inter',system-ui,sans-serif;color:var(--dark);background:var(--white);line-height:1.7}
-    .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
-    .banner{background:var(--primary);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.85rem}
-    .nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid #E8EAED;padding:0 1.5rem}
-    .nav__inner{display:flex;align-items:center;justify-content:space-between;height:72px}
-    .nav__logo-img{width:auto;height:48px;display:block}
-    picture{display:contents}
-  </style>
-
   <!-- Google Fonts — async, non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
 
-  <!-- Main stylesheet — async, non-blocking -->
-  <link rel="preload" as="style" href="css/style.css" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
+  <!-- Main stylesheet — blocking (prevents CLS from unstyled content) -->
+  <link rel="stylesheet" href="css/style.css" />
 
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="preconnect" href="https://static.wixstatic.com" crossorigin />
@@ -633,13 +619,13 @@
           </ul>
           <div style="margin-top:1.5rem;">
             <div class="footer__heading" style="margin-bottom:0.5rem;">Available Worldwide</div>
-            <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin:0;">Remote services for businesses everywhere.</p>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.8);margin:0;">Remote services for businesses everywhere.</p>
           </div>
         </div>
       </div>
       <div class="footer__bottom">
         <span>© 2025 Raleway Studio. Created by Seira Jho. All rights reserved.</span>
-        <span style="color:rgba(255,255,255,0.4);">Built with care for small businesses worldwide.</span>
+        <span style="color:rgba(255,255,255,0.75);">Built with care for small businesses worldwide.</span>
       </div>
     </div>
   </footer>
