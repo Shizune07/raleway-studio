@@ -7,7 +7,7 @@ if (hamburger && navLinks) {
   });
 }
 
-// ── FAQ Accordion ──
+// ── FAQ Accordion ─
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
     const answer  = btn.nextElementSibling;
@@ -55,8 +55,7 @@ document.querySelectorAll('.service-card, .feature, .testimonial-card, .blog-car
 // Replace the three placeholder values below with your credentials from emailjs.com
 const EMAILJS_PUBLIC_KEY  = 'bMePVKBzytA-ocUv3';
 const EMAILJS_SERVICE_ID  = 'service_5leqyib';
-const EMAILJS_TEMPLATE_ID = 'template_y8a40s4';
-
+const EMAILJS_TEMPLATE_ID = 'template_xubdg7b';
 const form = document.getElementById('contactForm');
 if (form && typeof emailjs !== 'undefined') {
   emailjs.init(EMAILJS_PUBLIC_KEY);
