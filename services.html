@@ -17,11 +17,9 @@
   <link rel="preconnect" href="https://static.wixstatic.com" crossorigin />
 
   <!-- Preload LCP image -->
-  <link rel="preload" as="image" href="https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp" />
+  <link rel="preload" as="image" href="https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp" fetchpriority="high" />
 
-  <!-- Non-render-blocking CSS load -->
-  <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
+  <link rel="stylesheet" href="css/style.css" />
 
   <!-- Schema: WebPage + BreadcrumbList -->
   <script type="application/ld+json">
@@ -192,7 +190,10 @@
       <div class="footer__grid">
         <div class="footer__brand">
           <div class="nav__logo">
-            <img src="assets/logo-white.png" alt="Raleway Studio" class="nav__logo-img footer__logo-img" width="200" height="82" loading="lazy" />
+            <picture>
+              <source srcset="assets/logo-white.webp" type="image/webp" />
+              <img src="assets/logo-white.png" alt="Raleway Studio" class="nav__logo-img footer__logo-img" width="200" height="82" loading="lazy" />
+            </picture>
           </div>
           <p>Custom websites and digital services for small businesses — remote, professional, and built to grow.</p>
           <div class="footer__charity"><span class="paw-emoji">🐾</span> 5% of every sale goes to animal shelters</div>
@@ -239,13 +240,13 @@
           </ul>
           <div style="margin-top:1.5rem;">
             <div class="footer__heading" style="margin-bottom:0.5rem;">Available Worldwide</div>
-            <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin:0;">Remote services for businesses everywhere.</p>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0;">Remote services for businesses everywhere.</p>
           </div>
         </div>
       </div>
       <div class="footer__bottom">
         <span>© 2025 Raleway Studio. Created by Seira Jho. All rights reserved.</span>
-        <span style="color:rgba(255,255,255,0.4);">Built with care for small businesses worldwide.</span>
+        <span style="color:rgba(255,255,255,0.7);">Built with care for small businesses worldwide.</span>
       </div>
     </div>
   </footer>
