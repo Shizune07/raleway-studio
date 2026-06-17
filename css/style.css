@@ -429,7 +429,7 @@ ul { list-style: none; }
 }
 
 .service-card__body {
-  padding: 1.5rem;
+  padding: 1.5rem 2rem 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -793,7 +793,7 @@ ul { list-style: none; }
   text-align: center;
 }
 .page-hero h1 { color: var(--white); margin-bottom: 0.75rem; }
-.page-hero p { color: rgba(255,255,255,0.85); font-size: 1.05rem; max-width: 580px; margin: 0 auto; }
+.page-hero p { color: rgba(255,255,255,0.92); font-size: 1.05rem; max-width: 580px; margin: 0 auto; }
 
 /* ── Breadcrumb ── */
 .breadcrumb {
@@ -801,11 +801,11 @@ ul { list-style: none; }
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.92);
   margin-bottom: 1.25rem;
   justify-content: center;
 }
-.breadcrumb a { color: rgba(255,255,255,0.75); }
+.breadcrumb a { color: white; }
 .breadcrumb a:hover { color: white; }
 
 /* ── Pricing ── */
