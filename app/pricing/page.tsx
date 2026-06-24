@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Pricing Plans | Raleway Studio — Website Design & Digital Services',
@@ -99,9 +100,27 @@ const faqs = [
   { q: 'How do I get started?', a: 'Click "Get Started" on any plan, or fill out the contact form. We\'ll reply within 1–2 business days to set up a discovery call.' },
 ]
 
+const pricingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Pricing Plans | Raleway Studio — Website Design & Digital Services',
+  url: 'https://www.ralewaystudio.com/pricing',
+  description: 'Transparent pricing for website design, SEO, graphic design, and digital services. No hidden fees — choose the plan that fits your business.',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://www.ralewaystudio.com/pricing' },
+    ],
+  },
+}
+
 export default function PricingPage() {
   return (
     <>
+      <JsonLd data={pricingSchema} />
       <section className="page-hero">
         <div className="container">
           <nav className="breadcrumb"><Link href="/">Home</Link> › Pricing</nav>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Web Design, SEO & Digital Services | Raleway Studio',
@@ -55,9 +56,27 @@ const services = [
   },
 ]
 
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Our Services | Raleway Studio — Web Design & Digital Solutions',
+  url: 'https://www.ralewaystudio.com/services',
+  description: 'Website design, graphic design, SEO, project management, AI automation, social media management, and virtual assistance — all from one remote studio.',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.ralewaystudio.com/services' },
+    ],
+  },
+}
+
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={servicesSchema} />
       <section className="page-hero">
         <div className="container">
           <nav className="breadcrumb"><Link href="/">Home</Link> › Services</nav>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import JsonLd from '@/components/JsonLd'
 
 /* ── Service data ─────────────────────────────────────────────── */
 const services = {
@@ -163,8 +164,27 @@ export default async function ServicePage(
   const svc = services[slug as Slug]
   if (!svc) notFound()
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: svc.title,
+    description: svc.description,
+    url: `https://www.ralewaystudio.com/services/${slug}`,
+    provider: { '@type': 'Organization', name: 'Raleway Studio', url: 'https://www.ralewaystudio.com' },
+    areaServed: { '@type': 'Place', name: 'Worldwide' },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.ralewaystudio.com/services' },
+        { '@type': 'ListItem', position: 3, name: svc.title, item: `https://www.ralewaystudio.com/services/${slug}` },
+      ],
+    },
+  }
+
   return (
     <>
+      <JsonLd data={serviceSchema} />
       <section className="page-hero">
         <div className="container">
           <nav className="breadcrumb">

@@ -1,3 +1,4 @@
+import JsonLd from '@/components/JsonLd'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import CalendlyEmbed from '@/components/CalendlyEmbed'

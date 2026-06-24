@@ -1,3 +1,4 @@
+import JsonLd from '@/components/JsonLd'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import ContactForm from '@/components/ContactForm'
@@ -9,9 +10,27 @@ export const metadata: Metadata = {
   openGraph: { url: 'https://www.ralewaystudio.com/contact' },
 }
 
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Work With Us | Raleway Studio',
+  url: 'https://www.ralewaystudio.com/contact',
+  description: 'Ready to build your website or grow your online presence? Get in touch with Raleway Studio — we work remotely with businesses worldwide.',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://www.ralewaystudio.com/contact' },
+    ],
+  },
+}
+
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={contactSchema} />
       <section className="page-hero">
         <div className="container">
           <nav className="breadcrumb"><Link href="/">Home</Link> › Contact</nav>

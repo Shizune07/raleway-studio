@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Client Reviews & Testimonials | Raleway Studio',
@@ -47,9 +48,27 @@ const testimonials = [
   },
 ]
 
+const testimonialsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Client Reviews & Testimonials | Raleway Studio',
+  url: 'https://www.ralewaystudio.com/testimonials',
+  description: 'See what clients say about working with Raleway Studio — real results from real businesses we\'ve helped grow online.',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Testimonials', item: 'https://www.ralewaystudio.com/testimonials' },
+    ],
+  },
+}
+
 export default function TestimonialsPage() {
   return (
     <>
+      <JsonLd data={testimonialsSchema} />
       <section className="page-hero">
         <div className="container">
           <nav className="breadcrumb"><Link href="/">Home</Link> › Testimonials</nav>

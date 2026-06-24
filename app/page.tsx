@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Raleway Studio | Custom Websites & Digital Services to Grow Your Business',
@@ -36,9 +37,21 @@ const faqs = [
   { q: 'How do I get started?', a: 'Simply reach out through our Contact page and share what you need. We\'ll guide you through the next steps.' },
 ]
 
+const homeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Raleway Studio | Custom Websites & Digital Services',
+  url: 'https://www.ralewaystudio.com/',
+  description: 'Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online. Remote-friendly, available worldwide.',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
+  about: { '@type': 'Organization', name: 'Raleway Studio' },
+}
+
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={homeSchema} />
       {/* Hero */}
       <section className="hero">
         <div className="container">

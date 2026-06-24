@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import JsonLd from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'About Raleway Studio | Remote Web Design & Digital Services',
@@ -52,9 +53,27 @@ const certImages = [
   { src: 'https://static.wixstatic.com/media/3837bb_a7d5041ddb7d40f980b9cdb7c6304c26~mv2.png', alt: 'Web Accessibility badge' },
 ]
 
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Raleway Studio | Remote Web Design & Digital Services',
+  url: 'https://www.ralewaystudio.com/about',
+  description: 'Meet the team behind Raleway Studio — certified web designers and digital specialists helping small businesses grow online, remotely, from anywhere in the world.',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
+      { '@type': 'ListItem', position: 2, name: 'About', item: 'https://www.ralewaystudio.com/about' },
+    ],
+  },
+}
+
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={aboutSchema} />
       <section className="page-hero">
         <div className="container">
           <nav className="breadcrumb"><Link href="/">Home</Link> › About</nav>
