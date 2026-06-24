@@ -49,7 +49,7 @@ export default function HomePage() {
               <p>We design websites that look professional, load fast, and help your business grow — backed by SEO, graphic design, and creative support. Work with us from anywhere.</p>
               <div className="btn-group">
                 <Link href="/contact" className="btn btn-primary">Let&apos;s Build Your Website</Link>
-                <Link href="/services" className="btn btn-outline">Explore Services</Link>
+                <Link href="/book" className="btn btn-outline">Book a Free Call</Link>
               </div>
               <p style={{marginTop:'1.5rem',fontSize:'0.85rem',color:'var(--gray)'}}>✓ No location barriers &nbsp;·&nbsp; ✓ Flexible services &nbsp;·&nbsp; ✓ Real results</p>
             </div>
@@ -197,7 +197,7 @@ export default function HomePage() {
           <p>Tell us about your project and let&apos;s figure out the best way to move forward.</p>
           <div className="btn-group" style={{justifyContent:'center'}}>
             <Link href="/contact" className="btn btn-white">Start a Project</Link>
-            <Link href="/pricing" className="btn btn-outline" style={{color:'white',borderColor:'rgba(255,255,255,0.55)'}}>View Pricing</Link>
+            <Link href="/book" className="btn btn-outline" style={{color:'white',borderColor:'rgba(255,255,255,0.55)'}}>Book a Free Call</Link>
           </div>
         </div>
       </section>

@@ -47,7 +47,10 @@ export default function Navbar() {
               <li><Link href="/pricing" onClick={() => setOpen(false)}>Pricing</Link></li>
             </ul>
 
-            <Link href="/contact" className="btn btn-primary btn-sm nav__cta">Get in Touch</Link>
+            <div className="nav__cta-group">
+              <Link href="/book" className="btn btn-outline btn-sm">Book a Call</Link>
+              <Link href="/contact" className="btn btn-primary btn-sm">Get in Touch</Link>
+            </div>
 
             <button className="nav__hamburger" onClick={() => setOpen(!open)} aria-label="Menu">
               <span /><span /><span />
