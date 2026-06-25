@@ -131,7 +131,7 @@ export default async function AboutPage() {
             <p className="section-subtitle">Certified, experienced, and genuinely invested in your success.</p>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'2rem',marginTop:'3rem'}}>
-            {team.map(m => (
+            {team.map((m: any) => (
               <div key={m.name} style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:'2rem',textAlign:'center'}}>
                 <div style={{width:110,height:110,borderRadius:'50%',overflow:'hidden',margin:'0 auto 1rem',background:'var(--primary-light)',display:'flex',alignItems:'center',justifyContent:'center'}}>
                   {m.img ? (
@@ -144,7 +144,7 @@ export default async function AboutPage() {
                 <div style={{color:'var(--primary)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.75rem'}}>{m.role}</div>
                 <p style={{fontSize:'0.88rem',lineHeight:1.6,marginBottom:'1rem'}}>{m.bio}</p>
                 <div style={{display:'flex',flexWrap:'wrap',gap:'0.4rem',justifyContent:'center'}}>
-                  {m.badges.map(b => (
+                  {m.badges.map((b: any) => (
                     <span key={b} style={{background:'var(--primary-light)',color:'var(--primary-dark)',fontSize:'0.75rem',fontWeight:700,padding:'0.25rem 0.65rem',borderRadius:50}}>{b}</span>
                   ))}
                 </div>
