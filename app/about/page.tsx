@@ -15,7 +15,7 @@ const team = [
     name: 'Seira Jho',
     role: 'Founder · Lead Designer · SEO Specialist',
     img: '/assets/seira-jho.jpg',
-    imgStyle: { objectFit: 'contain' as const, objectPosition: 'center' },
+    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center 15%' },
     bio: 'Certified Wix Studio Designer, Wix SEO Wizard, AI Automation Specialist, and Wix Accessibility Specialist. Seira leads the creative direction of every project.',
     badges: ['Wix Studio Certified','SEO Wizard','AI Automation','Accessibility'],
   },

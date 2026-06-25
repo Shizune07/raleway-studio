@@ -135,7 +135,7 @@ ul  { list-style: none; }
 .footer { background: var(--footer-bg); padding: 4rem 0 2rem; }
 .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
 .footer__brand p { color: rgba(255,255,255,0.75); font-size: 0.9rem; margin-top: 1rem; }
-.footer__charity { color: rgba(255,255,255,0.6); font-size: 0.82rem; margin-top: 0.5rem; }
+.footer__charity { color: rgba(255,255,255,0.9); font-size: 0.82rem; margin-top: 0.5rem; }
 .footer__heading { font-family: var(--font-raleway),'Raleway',sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
 .footer__links li { margin-bottom: 0.5rem; }
 .footer__links a { color: rgba(255,255,255,0.75); font-size: 0.9rem; transition: color var(--transition); }
