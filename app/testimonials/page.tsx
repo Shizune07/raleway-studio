@@ -81,7 +81,7 @@ export default async function TestimonialsPage() {
       <section className="section">
         <div className="container">
           <div className="testimonials-grid">
-            {testimonials.map((t: any, i) => (
+            {testimonials.map((t: any, i: number) => (
               <div className="testimonial-card" key={`${t.name}-${i}`}>
                 <div className="testimonial-card__stars">★★★★★</div>
                 <p className="testimonial-card__text">{t.text}</p>
