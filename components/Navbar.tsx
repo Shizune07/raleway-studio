@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="banner">🐾 For every sale, 5% goes to non-government animal shelters</div>
+      <div className="banner"><span style={{filter:'brightness(0) invert(1)'}}>🐾</span> For every sale, 5% goes to non-government animal shelters</div>
       <nav className="nav">
         <div className="container">
           <div className="nav__inner">
