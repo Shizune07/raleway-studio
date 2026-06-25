@@ -14,22 +14,24 @@ const team = [
   {
     name: 'Seira Jho',
     role: 'Founder · Lead Designer · SEO Specialist',
-    img: 'https://static.wixstatic.com/media/3837bb_d0b2555023a84ad9940cc5fcc6c1ebc1~mv2.jpg',
+    img: '/assets/seira-jho.jpg',
+    imgStyle: { objectFit: 'contain' as const, objectPosition: 'center' },
     bio: 'Certified Wix Studio Designer, Wix SEO Wizard, AI Automation Specialist, and Wix Accessibility Specialist. Seira leads the creative direction of every project.',
     badges: ['Wix Studio Certified','SEO Wizard','AI Automation','Accessibility'],
   },
   {
     name: 'Gabriel De Leon',
     role: 'Web Designer · Developer · Velo PRO',
-    img: 'https://static.wixstatic.com/media/3837bb_e827785facbe46918febb622b093be53~mv2.jpg',
+    img: '/assets/gabriel-de-leon.jpg',
+    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center top' },
     bio: 'Wix Studio Designer, Developer, and Velo PRO with deep expertise in Adobe Photoshop. Gabriel handles complex builds and custom development.',
     badges: ['Wix Studio','Velo PRO','Adobe Photoshop'],
   },
   {
     name: 'Jet Danila',
     role: 'Website Design & Graphic Specialist',
-    img: null,
-    initials: 'JD',
+    img: '/assets/jet-danila.jpg',
+    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center' },
     bio: 'Jet is our all-around creative specialist — handling everything from pixel-perfect frontend builds to striking visual assets. He bridges the gap between great design and clean code, ensuring every project looks sharp and runs seamlessly across all devices.',
     badges: ['Frontend Dev','Graphic Design','UI/UX','Branding'],
   },
@@ -118,11 +120,7 @@ export default function AboutPage() {
             {team.map(m => (
               <div key={m.name} style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:'2rem',textAlign:'center'}}>
                 <div style={{width:110,height:110,borderRadius:'50%',overflow:'hidden',margin:'0 auto 1rem',background:'var(--primary-light)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  {m.img ? (
-                    <Image src={m.img} alt={m.name} width={110} height={110} style={{objectFit:'cover',objectPosition:'top'}} />
-                  ) : (
-                    <span style={{fontSize:'2rem',fontWeight:800,color:'var(--primary)'}}>{m.initials}</span>
-                  )}
+                  <Image src={m.img} alt={m.name} width={110} height={110} style={m.imgStyle} />
                 </div>
                 <h3 style={{marginBottom:'0.25rem'}}>{m.name}</h3>
                 <div style={{color:'var(--primary)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.75rem'}}>{m.role}</div>
