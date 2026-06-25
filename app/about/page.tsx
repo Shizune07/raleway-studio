@@ -24,7 +24,7 @@ const fallbackTeam = [
     name: 'Gabriel De Leon',
     role: 'Web Designer · Developer · Velo PRO',
     img: '/assets/gabriel-de-leon.jpg',
-    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center top' },
+    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center' },
     bio: 'Wix Studio Designer, Developer, and Velo PRO with deep expertise in Adobe Photoshop. Gabriel handles complex builds and custom development.',
     badges: ['Wix Studio','Velo PRO','Adobe Photoshop'],
   },
