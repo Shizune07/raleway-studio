@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
+import { client, featuredTestimonialsQuery } from '@/lib/sanity'
 
 export const metadata: Metadata = {
   title: 'Raleway Studio | Custom Websites & Digital Services to Grow Your Business',
@@ -22,7 +23,7 @@ const services = [
 
 const industries = ['Media & Entertainment','Fashion & Beauty','Construction & Architecture','Healthcare','Hospitality & Travel','Restaurants & Food','Technology & Startups','Coaching & Professional Services','Non-Profit & Education','E-Commerce','Real Estate','Home & Commercial Services']
 
-const testimonials = [
+const fallbackTestimonials = [
   { stars: '★★★★★', text: '"Raleway Studio completely transformed our online presence. The website is beautiful, fast, and we\'re already getting more inquiries."', name: 'Alex M.', role: 'Small Business Owner', initial: 'A' },
   { stars: '★★★★★', text: '"Professional, communicative, and the results exceeded expectations. The SEO improvements alone made it worth every penny."', name: 'Jamie L.', role: 'E-Commerce Founder', initial: 'J' },
   { stars: '★★★★★', text: '"Working with Raleway Studio remotely was seamless. They understood our brand immediately and delivered exactly what we needed."', name: 'Maria S.', role: 'Creative Agency', initial: 'M' },
@@ -48,7 +49,18 @@ const homeSchema = {
   about: { '@type': 'Organization', name: 'Raleway Studio' },
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const sanityTestimonials = await client.fetch(featuredTestimonialsQuery).catch(() => [])
+  const testimonials = sanityTestimonials.length > 0
+    ? sanityTestimonials.map((t: any) => ({
+        stars: '★★★★★',
+        text: t.quote.startsWith('"') ? t.quote : `"${t.quote}"`,
+        name: t.clientName,
+        role: t.businessName || t.service || '',
+        initial: t.initials || t.clientName?.[0] || '?',
+      }))
+    : fallbackTestimonials
+
   return (
     <>
       <JsonLd data={homeSchema} />
@@ -162,8 +174,8 @@ export default function HomePage() {
             <h2 className="section-title">What Our Clients Say</h2>
           </div>
           <div className="testimonials-grid">
-            {testimonials.map(t => (
-              <div className="testimonial-card" key={t.name}>
+            {testimonials.map((t, i) => (
+              <div className="testimonial-card" key={`${t.name}-${i}`}>
                 <div className="testimonial-card__stars">{t.stars}</div>
                 <p className="testimonial-card__text">{t.text}</p>
                 <div className="testimonial-card__author">

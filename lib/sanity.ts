@@ -33,3 +33,45 @@ export const postBySlugQuery = `
 export const allSlugsQuery = `
   *[_type == "post"] { "slug": slug.current }
 `
+
+export const teamMembersQuery = `
+  *[_type == "teamMember"] | order(order asc) {
+    _id, name, role, bio, badges, order,
+    photo { asset->{ url }, hotspot }
+  }
+`
+
+export const servicesQuery = `
+  *[_type == "service"] | order(order asc) {
+    _id, title, slug, icon, tagline, description, features, order
+  }
+`
+
+export const serviceBySlugQuery = `
+  *[_type == "service" && slug.current == $slug][0] {
+    _id, title, slug, icon, tagline, description, features
+  }
+`
+
+export const testimonialsQuery = `
+  *[_type == "testimonial"] | order(order asc) {
+    _id, clientName, businessName, location, rating, quote, service, initials,
+    photo { asset->{ url }, hotspot }
+  }
+`
+
+export const featuredTestimonialsQuery = `
+  *[_type == "testimonial" && featured == true] | order(order asc) {
+    _id, clientName, businessName, location, rating, quote, service, initials,
+    photo { asset->{ url }, hotspot }
+  }
+`
+
+export const siteSettingsQuery = `
+  *[_type == "siteSettings"][0] {
+    siteName, tagline, email, heroHeadline, heroSubtext, charityText,
+    socialLinks,
+    logo { asset->{ url } },
+    logoWhite { asset->{ url } }
+  }
+`

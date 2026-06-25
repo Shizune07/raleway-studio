@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import { client, testimonialsQuery } from '@/lib/sanity'
 
 export const metadata: Metadata = {
   title: 'Client Reviews & Testimonials | Raleway Studio',
@@ -9,43 +10,13 @@ export const metadata: Metadata = {
   openGraph: { url: 'https://www.ralewaystudio.com/testimonials' },
 }
 
-const testimonials = [
-  {
-    initial: 'A',
-    name: 'Alex M.',
-    role: 'Small Business Owner',
-    text: '"Raleway Studio completely transformed our online presence. The website is beautiful, fast, and we\'re already getting more inquiries from clients we wouldn\'t have reached before."',
-  },
-  {
-    initial: 'J',
-    name: 'Jamie L.',
-    role: 'E-Commerce Founder',
-    text: '"Professional, communicative, and the results exceeded expectations. The SEO improvements alone made it worth every penny — we\'re ranking for keywords we never appeared for before."',
-  },
-  {
-    initial: 'M',
-    name: 'Maria S.',
-    role: 'Creative Agency Director',
-    text: '"Working with Raleway Studio remotely was completely seamless. They understood our brand immediately and delivered exactly what we needed — on time and without any back-and-forth frustration."',
-  },
-  {
-    initial: 'R',
-    name: 'Rachel T.',
-    role: 'Freelance Coach',
-    text: '"I needed a website redesign and wasn\'t sure where to start. Seira walked me through everything and the final result looked more professional than I imagined. Highly recommend."',
-  },
-  {
-    initial: 'D',
-    name: 'David K.',
-    role: 'Restaurant Owner',
-    text: '"The graphic design work was outstanding. Every visual felt intentional and on-brand. I\'ve gotten multiple compliments from clients about how polished everything looks now."',
-  },
-  {
-    initial: 'L',
-    name: 'Leila M.',
-    role: 'Startup Founder',
-    text: '"I hired Raleway Studio for virtual assistance and it freed up so much of my time. Reliable, responsive, and genuinely helpful. Worth every dollar."',
-  },
+const fallbackTestimonials = [
+  { initial: 'A', name: 'Alex M.', role: 'Small Business Owner', text: '"Raleway Studio completely transformed our online presence. The website is beautiful, fast, and we\'re already getting more inquiries from clients we wouldn\'t have reached before."' },
+  { initial: 'J', name: 'Jamie L.', role: 'E-Commerce Founder', text: '"Professional, communicative, and the results exceeded expectations. The SEO improvements alone made it worth every penny — we\'re ranking for keywords we never appeared for before."' },
+  { initial: 'M', name: 'Maria S.', role: 'Creative Agency Director', text: '"Working with Raleway Studio remotely was completely seamless. They understood our brand immediately and delivered exactly what we needed — on time and without any back-and-forth frustration."' },
+  { initial: 'R', name: 'Rachel T.', role: 'Freelance Coach', text: '"I needed a website redesign and wasn\'t sure where to start. Seira walked me through everything and the final result looked more professional than I imagined. Highly recommend."' },
+  { initial: 'D', name: 'David K.', role: 'Restaurant Owner', text: '"The graphic design work was outstanding. Every visual felt intentional and on-brand. I\'ve gotten multiple compliments from clients about how polished everything looks now."' },
+  { initial: 'L', name: 'Leila M.', role: 'Startup Founder', text: '"I hired Raleway Studio for virtual assistance and it freed up so much of my time. Reliable, responsive, and genuinely helpful. Worth every dollar."' },
 ]
 
 const testimonialsSchema = {
@@ -65,7 +36,17 @@ const testimonialsSchema = {
   },
 }
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const sanityTestimonials = await client.fetch(testimonialsQuery).catch(() => [])
+  const testimonials = sanityTestimonials.length > 0
+    ? sanityTestimonials.map((t: any) => ({
+        initial: t.initials || t.clientName?.[0] || '?',
+        name: t.clientName,
+        role: [t.businessName, t.location].filter(Boolean).join(' · ') || t.service || '',
+        text: t.quote.startsWith('"') ? t.quote : `"${t.quote}"`,
+      }))
+    : fallbackTestimonials
+
   return (
     <>
       <JsonLd data={testimonialsSchema} />
@@ -100,8 +81,8 @@ export default function TestimonialsPage() {
       <section className="section">
         <div className="container">
           <div className="testimonials-grid">
-            {testimonials.map(t => (
-              <div className="testimonial-card" key={t.name}>
+            {testimonials.map((t, i) => (
+              <div className="testimonial-card" key={`${t.name}-${i}`}>
                 <div className="testimonial-card__stars">★★★★★</div>
                 <p className="testimonial-card__text">{t.text}</p>
                 <div className="testimonial-card__author">

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
+import { client, teamMembersQuery, urlFor } from '@/lib/sanity'
 
 export const metadata: Metadata = {
   title: 'About Raleway Studio | Remote Web Design & Digital Services',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: { url: 'https://www.ralewaystudio.com/about' },
 }
 
-const team = [
+const fallbackTeam = [
   {
     name: 'Seira Jho',
     role: 'Founder · Lead Designer · SEO Specialist',
@@ -72,7 +73,20 @@ const aboutSchema = {
   },
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Fetch from Sanity; fall back to hardcoded if studio is empty
+  const sanityTeam = await client.fetch(teamMembersQuery).catch(() => [])
+  const team = sanityTeam.length > 0
+    ? sanityTeam.map((m: any) => ({
+        name: m.name,
+        role: m.role,
+        img: m.photo?.asset?.url ? urlFor(m.photo).width(220).height(220).fit('crop').url() : null,
+        imgStyle: { objectFit: 'cover' as const, objectPosition: 'center 15%' },
+        bio: m.bio,
+        badges: m.badges || [],
+      }))
+    : fallbackTeam
+
   return (
     <>
       <JsonLd data={aboutSchema} />
@@ -120,7 +134,11 @@ export default function AboutPage() {
             {team.map(m => (
               <div key={m.name} style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:'2rem',textAlign:'center'}}>
                 <div style={{width:110,height:110,borderRadius:'50%',overflow:'hidden',margin:'0 auto 1rem',background:'var(--primary-light)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  <Image src={m.img} alt={m.name} width={110} height={110} style={m.imgStyle} />
+                  {m.img ? (
+                    <Image src={m.img} alt={m.name} width={110} height={110} style={m.imgStyle} unoptimized={m.img.startsWith('https://cdn.sanity.io')} />
+                  ) : (
+                    <span style={{fontSize:'2rem',fontWeight:800,color:'var(--primary)'}}>{m.name.split(' ').map((n:string)=>n[0]).join('')}</span>
+                  )}
                 </div>
                 <h3 style={{marginBottom:'0.25rem'}}>{m.name}</h3>
                 <div style={{color:'var(--primary)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.75rem'}}>{m.role}</div>
