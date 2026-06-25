@@ -22,14 +22,14 @@ const serviceImages: Record<string, string> = {
   'virtual-assistance': 'https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_e0e2d79140ef4c559035a696fc808052~mv2.webp',
 }
 
-const fallbackServices = [
+const fallbackServices: Array<{slug: string, title: string, desc: string, priority: boolean}> = [
   { slug: 'website-design', title: 'Website Design', desc: 'Modern, responsive websites built to represent your brand clearly and convert visitors into clients.', priority: true },
-  { slug: 'graphic-design', title: 'Graphic Design', desc: 'Logos, social media graphics, and brand visuals that make your business look polished and professional.' },
-  { slug: 'seo', title: 'SEO', desc: 'Keyword research, on-page optimization, and content strategy to help the right people find you online.' },
-  { slug: 'project-management', title: 'Project Management', desc: 'Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.' },
-  { slug: 'ai-automation', title: 'AI Automation', desc: 'Save time with smart workflow automation — so your business runs more efficiently with less manual effort.' },
-  { slug: 'social-media-management', title: 'Social Media Management', desc: 'Consistent, on-brand content managed for you — so you stay visible without the daily stress.' },
-  { slug: 'virtual-assistance', title: 'Virtual Assistance', desc: 'Remote admin and business support to free up your time for what actually moves the needle.' },
+  { slug: 'graphic-design', title: 'Graphic Design', desc: 'Logos, social media graphics, and brand visuals that make your business look polished and professional.', priority: false },
+  { slug: 'seo', title: 'SEO', desc: 'Keyword research, on-page optimization, and content strategy to help the right people find you online.', priority: false },
+  { slug: 'project-management', title: 'Project Management', desc: 'Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.', priority: false },
+  { slug: 'ai-automation', title: 'AI Automation', desc: 'Save time with smart workflow automation — so your business runs more efficiently with less manual effort.', priority: false },
+  { slug: 'social-media-management', title: 'Social Media Management', desc: 'Consistent, on-brand content managed for you — so you stay visible without the daily stress.', priority: false },
+  { slug: 'virtual-assistance', title: 'Virtual Assistance', desc: 'Remote admin and business support to free up your time for what actually moves the needle.', priority: false },
 ]
 
 const servicesSchema = {
