@@ -133,11 +133,11 @@ export default async function AboutPage() {
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'2rem',marginTop:'3rem'}}>
             {team.map((m: any) => (
               <div key={m.name} style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:'2rem',textAlign:'center'}}>
-                <div style={{width:110,height:110,borderRadius:'50%',overflow:'hidden',margin:'0 auto 1rem',background:'var(--primary-light)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                <div style={{width:110,height:110,borderRadius:'50%',overflow:'hidden',margin:'0 auto 1rem',background:'var(--primary-light)',position:'relative'}}>
                   {m.img ? (
-                    <Image src={m.img} alt={m.name} width={110} height={110} style={m.imgStyle} unoptimized={m.img.startsWith('https://cdn.sanity.io')} />
+                    <Image src={m.img} alt={m.name} fill style={{objectFit:'cover', objectPosition: m.imgStyle?.objectPosition || 'center'}} unoptimized={m.img.startsWith('https://cdn.sanity.io')} />
                   ) : (
-                    <span style={{fontSize:'2rem',fontWeight:800,color:'var(--primary)'}}>{m.name.split(' ').map((n:string)=>n[0]).join('')}</span>
+                    <span style={{fontSize:'2rem',fontWeight:800,color:'var(--primary)',position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center'}}>{m.name.split(' ').map((n:string)=>n[0]).join('')}</span>
                   )}
                 </div>
                 <h3 style={{marginBottom:'0.25rem'}}>{m.name}</h3>
