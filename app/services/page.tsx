@@ -75,7 +75,7 @@ export default async function ServicesPage() {
       <section className="section">
         <div className="container">
           <div className="services-grid">
-            {services.map(s => (
+            {services.map((s: any) => (
               <div className="service-card" key={s.slug}>
                 {s.img && (
                   <Image

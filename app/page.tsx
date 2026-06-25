@@ -174,7 +174,7 @@ export default async function HomePage() {
             <h2 className="section-title">What Our Clients Say</h2>
           </div>
           <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
+            {testimonials.map((t: any, i) => (
               <div className="testimonial-card" key={`${t.name}-${i}`}>
                 <div className="testimonial-card__stars">{t.stars}</div>
                 <p className="testimonial-card__text">{t.text}</p>
