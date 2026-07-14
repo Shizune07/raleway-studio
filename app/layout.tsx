@@ -26,6 +26,11 @@ export const metadata: Metadata = {
     template: '%s | Raleway Studio',
   },
   description: 'Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online. Remote-friendly, available worldwide.',
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
   openGraph: {
     siteName: 'Raleway Studio',
     type: 'website',
