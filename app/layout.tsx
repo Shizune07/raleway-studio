@@ -22,10 +22,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ralewaystudio.com'),
   title: {
-    default: 'Raleway Studio | Custom Websites & Digital Services to Grow Your Business',
+    default: 'Raleway Studio — We help good businesses be seen for what they are',
     template: '%s | Raleway Studio',
   },
-  description: 'Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online. Remote-friendly, available worldwide.',
+  description: 'Raleway Studio closes the gap between what your business genuinely is and what the world can currently see it to be. Premium website design, brand identity, and digital strategy.',
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',
@@ -47,7 +47,7 @@ const orgSchema = {
   url: 'https://www.ralewaystudio.com',
   logo: 'https://www.ralewaystudio.com/assets/logo.png',
   foundingDate: '2024',
-  description: 'Custom websites, SEO, graphic design, and digital services for small businesses — remote, professional, and available worldwide.',
+  description: 'We help good businesses be seen for what they are. Premium website design, brand identity, and digital strategy.',
   email: 'info@ralewaystudio.com',
   sameAs: [
     'https://www.instagram.com/raleway_studio/',
@@ -55,7 +55,7 @@ const orgSchema = {
     'https://www.linkedin.com/company/104446233',
   ],
   areaServed: { '@type': 'Place', name: 'Worldwide' },
-  serviceType: ['Website Design', 'Graphic Design', 'SEO', 'Social Media Management', 'Virtual Assistance', 'AI Automation', 'Project Management'],
+  serviceType: ['Website Design', 'Brand Identity', 'Digital Strategy', 'SEO', 'AI Automation', 'Business Systems'],
 }
 
 const websiteSchema = {
