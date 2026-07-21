@@ -12,7 +12,39 @@
  */
 import { useEffect } from 'react'
 
+declare global {
+  interface Window {
+    __motionReady?: boolean
+    __motionFailsafe?: ReturnType<typeof setTimeout>
+  }
+}
+
 export default function MotionInit() {
+  useEffect(() => {
+    // Signal successful hydration and cancel the layout.tsx blank-page failsafe.
+    window.__motionReady = true
+    if (window.__motionFailsafe) clearTimeout(window.__motionFailsafe)
+  }, [])
+
+  useEffect(() => {
+    // ── Pattern 07 — Hero Entrance (mount, not scroll) ──
+    // Hero elements use .hero-entrance and are held at opacity:0 by
+    // .js-motion-ready in motion.css. They are NOT observed by the scroll
+    // observer below, so they must be revealed here on mount.
+    // Stagger (headline → body → CTA) is handled in CSS via
+    // .hero-entrance--headline / --body / --cta transition-delay.
+    //
+    // rAF defers one frame so the browser paints the initial opacity:0 state
+    // before the class flips — without it the transition is skipped.
+    const heroElements = document.querySelectorAll<HTMLElement>('.hero-entrance')
+
+    if (heroElements.length > 0) {
+      requestAnimationFrame(() => {
+        heroElements.forEach((el) => el.classList.add('motion-entered'))
+      })
+    }
+  }, [])
+
   useEffect(() => {
     // ── Pattern 06 — Scroll Entrance ──
     // Trigger: threshold 0.15 (15% visible)

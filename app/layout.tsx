@@ -110,7 +110,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js-motion-ready');`,
+            __html: `document.documentElement.classList.add('js-motion-ready');
+(function(){
+  // Failsafe: if MotionInit never hydrates (bundle fails to load, JS error),
+  // entrance elements would stay at opacity:0 forever — a blank page.
+  // After 4s, drop the class so all content renders at its final state.
+  // MotionInit sets __motionReady on mount, which cancels this.
+  window.__motionFailsafe = setTimeout(function(){
+    if (!window.__motionReady) {
+      document.documentElement.classList.remove('js-motion-ready');
+    }
+  }, 4000);
+})();`,
           }}
         />
         <JsonLd data={orgSchema} />
