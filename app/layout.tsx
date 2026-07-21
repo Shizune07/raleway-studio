@@ -23,10 +23,12 @@ const inter = Inter({
 })
 
 // Design system fonts — Source Serif 4 (editorial) + DM Sans (interface)
+// Variable font — `axes` requires omitting `weight` (next/font constraint).
+// The variable range covers 200–900, which includes the 300/400 weights
+// the design system references via font-weight in CSS.
 const sourceSerif4 = Source_Serif_4({
   subsets: ['latin'],
   axes: ['opsz'],
-  weight: ['300', '400'],
   variable: '--font-source-serif-4',
   display: 'swap',
 })
