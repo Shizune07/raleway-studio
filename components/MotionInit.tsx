@@ -9,8 +9,16 @@
  *
  * FOIC mitigation (Pattern 07) is handled via an inline <script> in layout.tsx
  * so it fires synchronously before first paint, before this component hydrates.
+ *
+ * IMPORTANT — route changes:
+ * This component lives in the root layout, so it mounts once and persists across
+ * client-side navigations. Effects therefore key on `pathname`: on every route
+ * change the incoming page renders fresh .hero-entrance / .animate-entrance
+ * nodes at opacity:0, and they must be re-revealed and re-observed. Without the
+ * pathname dependency, navigating in-app leaves the new page permanently blank.
  */
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 declare global {
   interface Window {
@@ -20,8 +28,11 @@ declare global {
 }
 
 export default function MotionInit() {
+  const pathname = usePathname()
+
   useEffect(() => {
     // Signal successful hydration and cancel the layout.tsx blank-page failsafe.
+    // One-time only — not keyed to pathname.
     window.__motionReady = true
     if (window.__motionFailsafe) clearTimeout(window.__motionFailsafe)
   }, [])
@@ -43,7 +54,7 @@ export default function MotionInit() {
         heroElements.forEach((el) => el.classList.add('motion-entered'))
       })
     }
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     // ── Pattern 06 — Scroll Entrance ──
@@ -72,9 +83,10 @@ export default function MotionInit() {
 
       entranceElements.forEach((el) => observer.observe(el))
 
+      // Disconnected on route change so the next page rebuilds its own observer.
       return () => observer.disconnect()
     }
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     // ── Pattern 08 — Navbar Scroll-Aware (mobile only) ──
