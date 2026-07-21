@@ -45,15 +45,17 @@ export default function MotionInit() {
     // Stagger (headline → body → CTA) is handled in CSS via
     // .hero-entrance--headline / --body / --cta transition-delay.
     //
-    // rAF defers one frame so the browser paints the initial opacity:0 state
-    // before the class flips — without it the transition is skipped.
+    // No rAF here (deliberately). The opacity:0 "before" state is already
+    // painted by the browser prior to this effect running — either from the
+    // server-rendered HTML (initial load) or from React's commit of the new
+    // route's DOM (client-side navigation), both of which paint before any
+    // useEffect fires. Wrapping in rAF adds a dependency on visual paint
+    // scheduling, which is throttled to near-zero in backgrounded/hidden
+    // tabs — a real scenario (opening a link in a background tab) that
+    // would leave the page permanently blank until the tab gains focus.
+    // Plain execution here is not subject to that throttling.
     const heroElements = document.querySelectorAll<HTMLElement>('.hero-entrance')
-
-    if (heroElements.length > 0) {
-      requestAnimationFrame(() => {
-        heroElements.forEach((el) => el.classList.add('motion-entered'))
-      })
-    }
+    heroElements.forEach((el) => el.classList.add('motion-entered'))
   }, [pathname])
 
   useEffect(() => {
