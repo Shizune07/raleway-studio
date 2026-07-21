@@ -1,0 +1,375 @@
+/* ============================================================
+   Raleway Studio — Design Tokens
+   Version 1.0 — Production CSS Custom Properties
+
+   Source documents:
+     Pillar IV — Design System (Sections I–IV)
+     Pillar IV — Layout Primitives (Primitives 01–08)
+     Pillar IV — Motion Specifications (Patterns 01–09)
+
+   Rule 06: All components reference var(--token-name).
+   No raw values in component CSS. If a value is needed that
+   does not have a token, add the token here first.
+
+   Token names are frozen. Values may be adjusted during
+   browser testing (see Readiness Assessment §05).
+   ============================================================ */
+
+
+/* ============================================================
+   1. COLOURS
+   ============================================================ */
+
+:root {
+
+  /* — Surface —
+     The near-achromatic field. Two surfaces (light + dark),
+     each with a secondary variant for cards and subtle tints.
+     No coloured surfaces. No gradients. No patterns. */
+
+  --colour-surface:                 #F6F4EF;  /* Primary background — all pages, all sections */
+  --colour-surface-secondary:       #EFEDE7;  /* Card backgrounds, code blocks, subtle tints */
+  --colour-surface-dark:            #1A1A18;  /* Dark section background (inverted field) */
+  --colour-surface-dark-secondary:  #242421;  /* Dark cards, dark secondary surfaces */
+
+
+  /* — Ink —
+     Three ink weights for text hierarchy, plus inverted
+     variants for use on dark field sections. */
+
+  --colour-ink:                     #1A1A18;  /* Primary text — all body copy, all headings */
+  --colour-ink-secondary:           #6B6B67;  /* Nav links (default), captions, metadata */
+  --colour-ink-tertiary:            #9F9F9A;  /* Placeholder text, deeply muted labels only
+                                                 ⚠ 2.8:1 contrast — not for informational text */
+  --colour-ink-inverted:            #F6F4EF;  /* Primary text on dark backgrounds */
+  --colour-ink-secondary-inverted:  #B5B3AE;  /* Secondary text on dark backgrounds */
+
+
+  /* — Border —
+     Three border strengths for the light and dark fields.
+     Infrastructure only — never decorative. */
+
+  --colour-border:                  #DED9D0;  /* Default — dividers, card edges, input borders */
+  --colour-border-strong:           #C8C3BA;  /* Strong — focused inputs, prominent dividers */
+  --colour-border-dark:             #2E2E2B;  /* Borders on dark field sections */
+
+
+  /* — Accent —
+     Orange appears in exactly three contexts:
+       1. Primary CTA button (fill)
+       2. Single defining case study result (text at display/h2 scale)
+       3. Keyboard focus ring (outline)
+     One orange element per viewport. Never decorative.
+     See Colour Behaviour (DS Section III) for full rules. */
+
+  --colour-accent:                  #E05C1A;  /* The threshold orange */
+  --colour-accent-hover:            #C85015;  /* CTA hover — orange darkens toward commitment */
+  --colour-accent-on:               #1A1A18;  /* Text ON an orange surface (≈5.1:1 contrast) */
+
+
+  /* — Error —
+     Functional infrastructure only. Never decorative.
+     Never outside error conditions. Not a brand decision. */
+
+  --colour-error:                   #8B2318;  /* Error text, error icon (≈7.5:1 on surface) */
+  --colour-error-border:            #A83228;  /* Error field border */
+
+
+/* ============================================================
+   2. TYPOGRAPHY
+   ============================================================ */
+
+  /* — Font families —
+     Editorial layer: Source Serif 4 (variable, optical sizing).
+     Interface layer: DM Sans (wayfinding, no personality assertion). */
+
+  --font-editorial:   'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-interface:   'DM Sans', system-ui, -apple-system, sans-serif;
+
+
+  /* — Source Serif 4 — Editorial layer —
+     All sizes: font-optical-sizing: auto; font-variation-settings: 'opsz' N;
+     Uppercase is reserved for the interface layer. Never apply to Source Serif 4.
+
+     Full specification per token:
+     --text-display  72px  wght 300  lh 1.00  opsz 96  ls −0.02em
+     --text-h1       56px  wght 400  lh 1.08  opsz 36  ls −0.015em
+     --text-h2       40px  wght 400  lh 1.12  opsz 36  ls −0.012em
+     --text-h3       28px  wght 400  lh 1.20  opsz 36  ls −0.008em
+     --text-h4       20px  wght 500  lh 1.30  opsz 8   ls 0
+     --text-body-lg  18px  wght 300  lh 1.75  opsz 8   ls 0
+     --text-body     16px  wght 300  lh 1.72  opsz 8   ls 0
+     --text-body-sm  14px  wght 300  lh 1.65  opsz 8   ls 0
+     --text-pull     24px  wght 400  lh 1.40  opsz 36  ls 0  (italic) */
+
+  --text-display:   72px;
+  --text-h1:        56px;
+  --text-h2:        40px;
+  --text-h3:        28px;
+  --text-h4:        20px;
+  --text-body-lg:   18px;
+  --text-body:      16px;
+  --text-body-sm:   14px;
+  --text-pull:      24px;
+
+
+  /* — DM Sans — Interface layer —
+     All-caps where noted — apply text-transform: uppercase in component CSS.
+
+     Full specification per token:
+     --text-nav      12px  wght 300  lh 1    ls 0.02em
+     --text-label    10px  wght 500  lh 1    ls 0.14em  uppercase
+     --text-cta      11px  wght 500  lh 1    ls 0.10em  uppercase
+     --text-meta     11px  wght 300  lh 1.5  ls 0.04em
+     --text-caption  11px  wght 400  lh 1.5  ls 0.03em
+     --text-ui-sm    10px  wght 400  lh 1    ls 0.06em */
+
+  --text-nav:       12px;
+  --text-label:     10px;
+  --text-cta:       11px;
+  --text-meta:      11px;
+  --text-caption:   11px;
+  --text-ui-sm:     10px;
+
+
+  /* — Wordmark —
+     Source Serif 4 / 11.5px / wght 400 / opsz 36 / ls 0.22em / uppercase
+     Applied in Component 01 (Navbar) and Component 07 (Footer)
+     per Document Architecture Rule 02. */
+
+  --text-wordmark:     11.5px;
+  --text-wordmark-ls:  0.22em;
+
+
+  /* — Optical sizing axes —
+     Use in font-variation-settings: 'opsz' var(--opsz-*);
+     or font-optical-sizing: auto where browser support is sufficient. */
+
+  --opsz-display:    96;  /* --text-display only */
+  --opsz-editorial:  36;  /* --text-h1, h2, h3, pull, wordmark */
+  --opsz-body:        8;  /* --text-h4, body-lg, body, body-sm, and all interface tokens */
+
+
+  /* — Line measure —
+     Body copy max-width: 70 characters ≈ 600–640px at --text-body.
+     Apply max-width to all body text containers. */
+
+  --text-measure:  640px;
+
+
+/* ============================================================
+   3. SPACING
+   ============================================================ */
+
+  /* Base unit: 4px. Every value is a multiple of 4.
+     Use semantic tokens in components — not raw scale values.
+     Raw scale is the implementation substrate, not the interface. */
+
+  /* — Raw scale — */
+
+  --space-1:   4px;    /* Hairline gaps — icon-to-label */
+  --space-2:   8px;    /* Tight internal — label to element */
+  --space-3:   12px;   /* Form element padding, tag internal */
+  --space-4:   16px;   /* Base component padding */
+  --space-5:   24px;   /* Comfortable padding, nav gap, card padding */
+  --space-6:   32px;   /* Related content groups within a component */
+  --space-7:   48px;   /* Headline-to-body, element-to-element within section */
+  --space-8:   64px;   /* Component-to-component within a section */
+  --space-9:   96px;   /* Section internal breathing */
+  --space-10:  128px;  /* Standard section vertical padding */
+  --space-11:  192px;  /* Hero, major editorial sections */
+  --space-12:  256px;  /* Maximum editorial — homepage hero and centrepiece statements */
+
+
+  /* — Layout tokens —
+     Container values are overridden at tablet and mobile via media queries below. */
+
+  --space-container-max:  1200px;
+  --space-container-x:    80px;   /* desktop: 80px | tablet: 48px | mobile: 24px */
+  --space-grid-gutter:    24px;   /* desktop + tablet: 24px | mobile: 16px */
+
+  --space-section-y:      var(--space-10);   /* 128px — default section vertical padding */
+  --space-section-y-lg:   var(--space-11);   /* 192px — hero, case study openers, About */
+  --space-section-y-sm:   var(--space-9);    /* 96px  — footer, secondary content */
+
+
+  /* — Editorial tokens — */
+
+  --space-headline-after:   var(--space-7);  /* 48px — headline → body copy */
+  --space-subhead-after:    var(--space-5);  /* 24px — subheading → following content */
+  --space-body-gap:         var(--space-5);  /* 24px — between body paragraphs */
+  --space-statement-after:  var(--space-9);  /* 96px — after major positioning statement */
+  --space-image-y:          var(--space-8);  /* 64px — vertical space around images */
+  --space-section-label:    var(--space-4);  /* 16px — eyebrow label → headline below */
+
+
+  /* — Component tokens — */
+
+  --space-nav-y:      var(--space-5);  /* 24px — navbar vertical padding */
+  --space-nav-gap:    var(--space-6);  /* 32px — gap between navigation links */
+  --space-btn-x:      var(--space-5);  /* 24px — button horizontal padding */
+  --space-btn-y:      var(--space-3);  /* 12px — button vertical padding */
+  --space-card-pad:   var(--space-6);  /* 32px — internal card padding */
+  --space-card-gap:   var(--space-7);  /* 48px — gap between cards in a grid */
+  --space-input-x:    var(--space-4);  /* 16px — form input horizontal padding */
+  --space-input-y:    var(--space-3);  /* 12px — form input vertical padding */
+  --space-form-gap:   var(--space-5);  /* 24px — gap between form fields */
+
+
+/* ============================================================
+   4. LAYOUT
+   ============================================================ */
+
+  /* — Cover — Primitive 04 —
+     Structural presence for arrival and decision moments.
+     Use min-height, not height — never clip content. */
+
+  --cover-arrival:    100svh;  /* Complete, undivided attention — Hero and first-arrival sections */
+  --cover-threshold:  70svh;   /* Dominant with a suggestion of what follows — decision moments */
+
+
+  /* — Frame aspect ratios — Primitive 08 —
+     Use as: aspect-ratio: var(--frame-card);
+     overflow: hidden on container; object-fit: cover on img.
+     Two ratios only. A third requires formal specification before use. */
+
+  --frame-landscape:  16 / 9;  /* Case study hero images, full-width photography */
+  --frame-card:       3 / 2;   /* Case study card thumbnails, project previews */
+
+
+  /* — Stack gaps — Primitive 05 —
+     Vertical arrangement with consistent spacing.
+     Reference these in Stack contexts — not raw space tokens. */
+
+  --stack-xs:  var(--space-2);  /* 8px  — label + input pairs, icon + text */
+  --stack-sm:  var(--space-4);  /* 16px — card content elements */
+  --stack-md:  var(--space-6);  /* 32px — related content groups within a component */
+  --stack-lg:  var(--space-8);  /* 64px — major content divisions within a section */
+  --stack-xl:  var(--space-9);  /* 96px — headline + opening content of a section */
+
+
+/* ============================================================
+   5. MOTION
+   ============================================================ */
+
+  /* — Duration scale —
+     Named durations, not arbitrary milliseconds.
+     Reference these tokens in transition and animation declarations. */
+
+  --motion-instant:     0ms;    /* Text decoration changes, discrete state flips */
+  --motion-responsive:  80ms;   /* Press and active states — tactile confirmation */
+  --motion-quick:       150ms;  /* Colour and fill transitions — interactive hover */
+  --motion-moderate:    300ms;  /* Spatial transforms — image hover scale */
+  --motion-measured:    400ms;  /* Scroll entrances — lighter/content components */
+  --motion-deliberate:  500ms;  /* Scroll entrances — heavier/commercial components */
+  --motion-grand:       600ms;  /* Page-level arrivals — Hero entrance */
+
+
+  /* — Easing —
+     Two functions only. ease-out for everything except 80ms
+     press states (where duration is too short for easing to register).
+     No ease-in. No custom cubic-bezier in v1.0. */
+
+  --motion-ease:  ease-out;
+
+
+/* ============================================================
+   6. BORDER
+   ============================================================ */
+
+  /* Border colours are defined in the Colour section above:
+       --colour-border:        #DED9D0  default borders
+       --colour-border-strong: #C8C3BA  focused inputs, prominent dividers
+       --colour-border-dark:   #2E2E2B  borders on dark field sections
+
+     Focus ring specification (all interactive elements):
+       outline: 2px solid var(--colour-accent);
+       outline-offset: 3px;
+       box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+     Not tokenised in v1.0 — values are consistent enough to reference directly.
+
+     Border-radius: not specified in v1.0.
+     Will be defined when Form Component (Component 10) is specified,
+     as that component is the primary context for border-radius decisions. */
+
+
+/* ============================================================
+   7. Z-INDEX
+   ============================================================ */
+
+  /* Not formally specified in v1.0 documentation.
+     Values below are implementation placeholders — logical stacking
+     order derived from component relationships. Pending formal
+     specification when multi-layer interactions are encountered.
+
+     Sticky Navbar must clear all page content: 100
+     Mobile menu panel overlays page content: 200
+     Modal and overlay contexts (future): 300 */
+
+  --z-navbar:   100;
+  --z-overlay:  200;
+  --z-modal:    300;
+
+}
+
+
+/* ============================================================
+   RESPONSIVE TOKEN OVERRIDES
+   ============================================================ */
+
+/* — Tablet — */
+
+@media (max-width: 1023px) {
+  :root {
+    --space-container-x:   48px;
+    --space-grid-gutter:   24px;
+
+    /* Section padding reduction — not halved, considered floor */
+    --space-section-y:     96px;
+    --space-section-y-lg:  128px;
+    --space-section-y-sm:  80px;
+  }
+}
+
+/* — Mobile — */
+
+@media (max-width: 767px) {
+  :root {
+    --space-container-x:   24px;
+    --space-grid-gutter:   16px;
+
+    /* Section padding — mobile floor values */
+    --space-section-y:     80px;
+    --space-section-y-lg:  96px;
+    --space-section-y-sm:  64px;
+
+    /* Stack gap reduction — one step down the scale */
+    --stack-xl:  var(--space-8);  /* 96px → 64px */
+    --stack-lg:  var(--space-6);  /* 64px → 32px */
+    --stack-md:  var(--space-4);  /* 32px → 16px */
+    /* --stack-sm and --stack-xs unchanged */
+  }
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+/* Suppresses vestibular motion concerns:
+   - scroll-entrance animations (opacity + translateY)
+   - Hero entrance stagger
+   - Case Study Card image scale
+   - Button press scale
+   Retains colour and fill transitions (not vestibular).
+   The 0.01ms value (not 0ms) preserves transitionend events. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:      0.01ms !important;
+  }
+}

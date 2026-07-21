@@ -1,0 +1,36 @@
+/* ============================================================
+   Raleway Studio — Design System Cascade Entry Point
+   Version 1.0
+
+   Import order follows the layer model:
+     Tokens → Base → Primitives → Components → Utilities → Motion → Accessibility
+
+   All component and page CSS imports this file (or tokens.css directly).
+   Do not modify import order without updating the documentation.
+
+   Layer model (from Pillar IV — Layout Primitives):
+     Tokens   — CSS custom properties only. No rules.
+     Primitives — Structural building blocks. No visual personality.
+     Components — Interface elements with full visual specification.
+     Utilities  — Single-purpose helper classes.
+     Motion     — Animation base states and transition declarations.
+     Accessibility — Focus rings, skip nav, forced colours.
+   ============================================================ */
+
+/* 1. Design Tokens — all :root {} custom properties */
+@import './tokens.css';
+
+/* 2. Layout Primitives — Section, Container, Grid, Cover, Stack, Cluster, Flow, Frame */
+@import './primitives/index.css';
+
+/* 3. Components — Navbar through Threshold (01–09, frozen) */
+@import './components/index.css';
+
+/* 4. Utilities — sr-only, text-measure, disabled states */
+@import './utilities/utilities.css';
+
+/* 5. Motion — entrance base states, FOIC mitigation, scroll-aware nav */
+@import './motion/motion.css';
+
+/* 6. Accessibility — focus rings, skip nav, forced colours */
+@import './accessibility/accessibility.css';

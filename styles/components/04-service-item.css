@@ -1,0 +1,108 @@
+/* ============================================================
+   Component 04 — Service Item
+   Source: Pillar IV — Component Library, Component 04
+   Status: FROZEN
+
+   Two modes (conditional DOM — not toggled with CSS):
+     Static:       <div class="service-item"> ... </div>
+     Navigational: <a href="/services/[slug]" class="service-item"> ... </a>
+
+   DOM structure (static mode):
+   <div class="service-item">
+     <span class="service-name">Brand Identity</span>
+     <p class="service-description">What we do and why it matters...</p>
+   </div>
+
+   DOM structure (navigational mode):
+   <a href="/services/brand-identity" class="service-item service-item--linked">
+     <span class="service-name">Brand Identity</span>
+     <p class="service-description">What we do and why it matters...</p>
+   </a>
+   ============================================================ */
+
+
+/* ── Service item — no border, no card background ── */
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);   /* 16px between name and description */
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ── Service name — Source Serif 4 editorial layer ── */
+
+.service-name {
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: var(--text-h3);           /* 28px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  letter-spacing: -0.008em;
+  line-height: 1.2;
+  color: var(--colour-ink);
+}
+
+
+/* ── Service description — Source Serif 4 body ── */
+
+.service-description {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body);         /* 16px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.72;
+  color: var(--colour-ink-secondary);
+  max-width: var(--text-measure);      /* 640px — 70 char line measure */
+  margin: 0;
+}
+
+
+/* ── Navigational mode — hover states (Pattern 01 + 02) ── */
+
+.service-item--linked {
+  cursor: pointer;
+}
+
+.service-item--linked:hover .service-name {
+  /* Pattern 01 — underline, 0ms */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.service-item--linked:hover .service-name {
+  /* Pattern 02 — colour shift, 80ms */
+  color: var(--colour-ink-secondary);
+  transition: color 80ms var(--motion-ease);
+}
+
+.service-item--linked:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+
+/* ── Service counter — optional, via conditional DOM (Rule 04) ── */
+/* DEV-10 (Phase 5 audit): counter defined here, rendered as a sibling
+   BEFORE .service-name, not nested inside it. */
+
+.service-counter {
+  display: block;
+  font-family: var(--font-interface);
+  font-size: var(--text-label);      /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-tertiary);
+  margin-block-end: var(--stack-sm); /* 16px — space before the name */
+}
+
+
+/* ── Scroll entrance — Pattern 06 applied at section level ── */
+/* See motion/motion.css */

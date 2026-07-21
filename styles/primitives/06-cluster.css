@@ -1,0 +1,37 @@
+/* ============================================================
+   Primitive 06 — Cluster
+   Source: Pillar IV — Layout Primitives
+
+   Horizontal arrangement with wrap. Items belong together
+   without strict sequence. Never scrolls horizontally — wraps.
+
+   Context-specific variants:
+     Default:  12px gap — general inline groups
+     --btn:    24px gap — button groups (primary + secondary CTA)
+     --tag:     8px gap — tag or category clusters
+     --nav:    32px gap — navigation link clusters
+   ============================================================ */
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);       /* 12px */
+  align-items: flex-start;
+}
+
+/* Button group — primary + secondary action pair */
+.cluster--btn {
+  gap: var(--space-5);       /* 24px */
+  align-items: center;
+}
+
+/* Tag or category label cluster */
+.cluster--tag {
+  gap: var(--space-2);       /* 8px */
+}
+
+/* Navigation link cluster */
+.cluster--nav {
+  gap: var(--space-nav-gap); /* 32px */
+  align-items: center;
+}

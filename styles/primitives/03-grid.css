@@ -1,0 +1,58 @@
+/* ============================================================
+   Primitive 03 — Grid
+   Source: Pillar IV — Layout Primitives
+
+   Column arrangement for repeating or equivalent content.
+   Items in a Grid are the same categorical type — the Grid
+   declares equivalence.
+
+   Three permitted arrangements:
+     1-column:   full-width editorial, single-focus
+     2-column:   paired equivalent content (6+6)
+     3-column:   repeating units (4+4+4) — services, cards
+
+   No auto-fit or auto-fill — column count is explicit.
+   Gutter: --space-grid-gutter (responsive via tokens.css).
+   ============================================================ */
+
+.grid {
+  display: grid;
+  gap: var(--space-grid-gutter);
+}
+
+/* Column arrangements */
+.grid--1 {
+  grid-template-columns: 1fr;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Card grid — uses card-specific row gap */
+.grid--cards {
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--space-grid-gutter);
+  row-gap: var(--space-card-gap);  /* 48px */
+}
+
+/* Responsive reflow — three-column collapses to two, then one */
+
+@media (max-width: 1023px) {
+  .grid--3,
+  .grid--cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .grid--2,
+  .grid--3,
+  .grid--cards {
+    grid-template-columns: 1fr;
+  }
+}

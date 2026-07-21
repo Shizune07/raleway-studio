@@ -1,0 +1,142 @@
+/* ============================================================
+   Motion
+   Source: Pillar IV — Motion Specifications
+
+   This file contains:
+   1. FOIC mitigation — entrance base states via .js-motion-ready
+   2. Scroll entrance animation class (.animate-entrance)
+   3. Hero entrance stagger classes
+   4. Navbar scroll-aware classes
+   5. Mobile menu transition classes
+
+   Reduced motion: handled globally in tokens.css.
+   Duration and easing values: use --motion-* tokens from tokens.css.
+   ============================================================ */
+
+
+/* ── FOIC Mitigation (Pattern 07 + Pattern 06) ──
+   Applied via JavaScript before first paint:
+     document.documentElement.classList.add('js-motion-ready');
+
+   Without .js-motion-ready, elements are visible at full opacity
+   in their final position — degraded but not broken on slow connections.
+   Elements are never invisible in the no-JS path. */
+
+.js-motion-ready .animate-entrance {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.js-motion-ready .animate-entrance.motion-entered {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity   var(--motion-measured) var(--motion-ease),
+    transform var(--motion-measured) var(--motion-ease);
+}
+
+
+/* ── Scroll Entrance — Pattern 06 ──
+   Base: 400ms, translateY(16px).
+   Triggered by Intersection Observer (threshold: 0.15).
+   Each element animates exactly once (observer.unobserve after trigger).
+
+   Stagger delays are applied via inline style or data-delay attribute
+   at the component level. */
+
+.animate-entrance--deliberate.motion-entered {
+  transition-duration: var(--motion-deliberate);  /* 500ms — heavier components */
+}
+
+
+/* ── Hero Entrance — Pattern 07 ──
+   Plays at page mount, not on scroll.
+   Larger translateY(20px) than scroll entrances — more spatial weight.
+   Stagger: headline → body → CTA. */
+
+.js-motion-ready .hero-entrance {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.js-motion-ready .hero-entrance.motion-entered {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity   var(--motion-grand) var(--motion-ease),
+    transform var(--motion-grand) var(--motion-ease);
+}
+
+/* Stagger delays for hero elements */
+.js-motion-ready .hero-entrance--headline { transition-delay: 0ms; }
+.js-motion-ready .hero-entrance--body     { transition-delay: 150ms; }
+.js-motion-ready .hero-entrance--cta      { transition-delay: 300ms; }
+
+
+/* ── Navbar Scroll-Aware — Pattern 08 (mobile only) ──
+   Hide on scroll-down: translateY(-100%), 250ms, ease-in (retreating)
+   Reveal on scroll-up:  translateY(0),   200ms, ease-out (landing)
+   Applied via JavaScript scroll listener at mobile breakpoint only. */
+
+.site-nav {
+  transition: transform 250ms ease-in;
+}
+
+.site-nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.site-nav.nav-visible {
+  transform: translateY(0);
+  transition-duration: 200ms;
+  transition-timing-function: var(--motion-ease);
+}
+
+
+/* ── Mobile Menu — Pattern 09 ──
+   Open: panel expands below navbar, 250ms ease-out.
+   Close: panel collapses upward, 200ms ease-in.
+   The hidden attribute handles display — these classes handle the transition. */
+
+.nav-mobile {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 250ms var(--motion-ease);
+}
+
+.nav-mobile.is-open {
+  max-height: 100vh;  /* sufficiently large to accommodate any menu height */
+}
+
+/* Nav items fade in when menu opens */
+.js-motion-ready .nav-mobile .nav-mobile-item {
+  opacity: 0;
+  transition: opacity var(--motion-quick) var(--motion-ease);
+}
+
+.js-motion-ready .nav-mobile.is-open .nav-mobile-item {
+  opacity: 1;
+}
+
+
+/* ── Button Transitions — Pattern 03 + 04 ──
+   Applied globally to all button elements via component CSS.
+   Documented here for system visibility. */
+
+/* Fill transition: 150ms ease-out
+   .btn-primary  { transition: background-color var(--motion-quick) var(--motion-ease); }
+   .btn-secondary { transition: background-color var(--motion-quick) var(--motion-ease),
+                                color            var(--motion-quick) var(--motion-ease); }
+   Press state: transform scale(0.98), 80ms
+   Applied in 02-button.css via component specification. */
+
+
+/* ── Image Scale — Pattern 05 ──
+   Case Study Card image hover: scale(1.03), 300ms ease-out
+   Applied in 03-case-study-card.css via component specification.
+   Clipped by .frame overflow:hidden. */
+
+
+/* ── Colour Transition — Pattern 02 ──
+   Nav links: color 150ms ease-out
+   Applied in 01-navbar.css and 07-footer.css via component specification. */

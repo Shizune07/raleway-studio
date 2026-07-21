@@ -1,8 +1,8 @@
-# Raleway Studio — Next.js Site
+# Raleway Studio — Version 1.0
 
-**Branch:** `nextjs`  
-**Live URL (after cutover):** https://www.ralewaystudio.com  
-**Vercel Preview:** check the Vercel dashboard for the latest preview URL
+**Live:** https://www.ralewaystudio.com  
+**Hosting:** Vercel  
+**Status:** Version 1.0 — frozen. No design, copy, or structural changes without evidence trigger.
 
 ---
 
@@ -11,33 +11,53 @@
 | Layer | Tech |
 |---|---|
 | Framework | Next.js 14 App Router (TypeScript) |
-| Styling | Custom CSS (globals.css) + Tailwind |
-| Fonts | Raleway + Inter (Google Fonts via next/font) |
-| CMS | Sanity v3 (blog) |
-| Email | EmailJS |
+| Design system | Custom CSS (`styles/main.css` + `app/globals.css`) |
+| Fonts | Source Serif 4 + DM Sans (via `next/font/google`) |
+| CMS | Sanity v3 (Thinking articles + Services) |
 | Booking | Calendly inline embed |
 | Hosting | Vercel |
+
+---
+
+## Pages
+
+| Route | Status | Notes |
+|---|---|---|
+| `/` | V1.0 ✓ | Home |
+| `/about` | V1.0 ✓ | Founder portrait is placeholder — awaiting photography |
+| `/method` | V1.0 ✓ | |
+| `/services` | V1.0 ✓ | CMS-driven with static fallback |
+| `/work` | V1.0 ✓ | Self-case only — client cases added in V2 |
+| `/thinking` | V1.0 ✓ | CMS-driven; empty state active until first article published |
+| `/thinking/[slug]` | V1.0 ✓ | Sanity-powered article template |
+| `/start` | V1.0 ✓ | Calendly embed + What Happens Next |
+| `/services/[slug]` | Redirect → `/services` | Individual pages are V2 scope |
+| `/blog` | Redirect → `/thinking` | Route migration complete |
+| `/blog/[slug]` | Redirect → `/thinking/[slug]` | Route migration complete |
+| `/book` | Redirect → `/start` | Duplicate — removed |
+| `/contact` | Redirect → `/start` | Consolidated |
+| `/pricing` | Redirect → `/start` | Removed — contradicts V1.0 positioning |
+| `/testimonials` | Redirect → `/about` | Removed — awaiting real testimonials |
 
 ---
 
 ## Local Development
 
 ```bash
-# 1. Clone and install
-git clone https://github.com/Shizune07/raleway-studio.git
-cd raleway-studio
-git checkout nextjs
+# 1. Install
 npm install
 
-# 2. Set env vars
+# 2. Environment variables
 cp .env.local.example .env.local
-# Fill in NEXT_PUBLIC_SANITY_PROJECT_ID
+# Required:
+# NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+# NEXT_PUBLIC_SANITY_DATASET=production
 
-# 3. Run dev server
+# 3. Run
 npm run dev
 # → http://localhost:3000
 
-# 4. Sanity Studio (blog CMS)
+# 4. Sanity Studio
 # → http://localhost:3000/studio
 ```
 
@@ -45,52 +65,53 @@ npm run dev
 
 ## Environment Variables
 
-Create `.env.local` in the project root:
-
 ```
 NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 NEXT_PUBLIC_SANITY_DATASET=production
 ```
 
-Get your project ID at https://sanity.io after creating a project.
+Project ID available at https://sanity.io/manage.
 
 ---
 
-## Before Launch Checklist
+## Design System
 
-### Content
-- [ ] Replace Calendly URL in `components/CalendlyEmbed.tsx` (currently `https://calendly.com/ralewaystudio`)
-- [ ] Add your real OG image at `public/assets/og-image.png` (1200×630px)
-- [ ] Add logo files: `public/assets/logo.png`, `public/assets/logo-white.png`, `public/assets/logo-nav.webp`
-- [ ] Verify all team photos load (Wix CDN URLs in `app/about/page.tsx`)
-- [ ] Set up Sanity project + add `.env.local` with project ID
-- [ ] Create at least one blog post in Sanity Studio
+The V1.0 design system is frozen. Do not modify design system files without an evidence-based reason.
 
-### Technical
-- [ ] Run `npm install` to get all packages (including Sanity)
-- [ ] Run `npm run build` locally — fix any type or import errors
-- [ ] Test all 7 service pages at `/services/[slug]`
-- [ ] Test contact form (EmailJS keys are already set)
-- [ ] Test Calendly embed on `/book`
-- [ ] Test mobile nav (hamburger menu)
-- [ ] Check 404 page at `/anything-wrong`
+| File | Role |
+|---|---|
+| `styles/main.css` | Design system — tokens, components, layout primitives, motion |
+| `app/globals.css` | Legacy tokens + per-page supplement styles |
 
-### SEO
-- [ ] Verify `/sitemap.xml` generates correctly on Vercel preview
-- [ ] Verify `/robots.txt` is accessible
-- [ ] Test JSON-LD with Google Rich Results Test (https://search.google.com/test/rich-results)
-- [ ] Submit sitemap in Google Search Console after DNS cutover
+**Component classes in use:** `hero`, `section--divided`, `section--dark`, `threshold`, `service-item`, `service-item--linked`, `service-counter`, `service-name`, `service-description`, `section-intro`, `section-eyebrow`, `section-headline`, `section-body`, `btn-primary`, `btn-navigate`, `btn-navigate__arrow`, `site-nav`, `site-footer`
 
-### Vercel + DNS Cutover (Jun 30 target)
-1. In Vercel → Project Settings → Domains → Add `www.ralewaystudio.com` and `ralewaystudio.com`
-2. Vercel gives you a CNAME value (`cname.vercel-dns.com`)
-3. In your DNS registrar, update:
-   - `CNAME www → cname.vercel-dns.com`
-   - `A @ → 76.76.21.21` (Vercel's IP for apex domain)
-4. Set environment variables in Vercel → Project → Settings → Environment Variables
-5. Redeploy once env vars are set
-6. DNS propagates in 15 min – 48 hours (usually under 1 hour)
-7. Submit sitemap to Google Search Console: `https://www.ralewaystudio.com/sitemap.xml`
+**Legacy classes (non-V1.0 pages only, do not use on new pages):** `page-hero`, `btn`, `cta-banner`, `two-col`, `features-grid`, `section-label`, `section-title`
+
+---
+
+## CMS (Sanity)
+
+Studio at `/studio`. Two content types active:
+
+- **post** — Thinking articles. Fields: title, slug, excerpt, publishedAt, category, mainImage, body (Portable Text)
+- **service** — Services list. Fields: title, slug, tagline, description, order
+
+Publishing an article in Sanity automatically makes it appear on `/thinking`. No code changes required.
+
+---
+
+## Known Gaps (V2 Scope)
+
+The following are intentionally deferred to Version 2:
+
+- Individual service pages (`/services/[slug]`)
+- Client case studies on Work page
+- Testimonials component and page
+- Founder portrait photography
+- OG image (`/public/assets/og-image.png` — 1200×630px, not yet created)
+- Route: `/thinking/[slug]` template needs design system update (currently uses legacy `blog/[slug]` template with old styling)
+
+V2 trigger conditions: minimum 2 client case studies, 4 published Thinking articles, 2 real testimonials, 6 months of analytics.
 
 ---
 
@@ -98,37 +119,38 @@ Get your project ID at https://sanity.io after creating a project.
 
 ```
 app/
-  page.tsx                   ← Home
+  page.tsx                    ← Home
   about/page.tsx
-  contact/page.tsx
-  pricing/page.tsx
-  testimonials/page.tsx
-  services/page.tsx
-  services/[slug]/page.tsx   ← 7 services via dynamic route
-  blog/page.tsx
-  blog/[slug]/page.tsx
-  book/page.tsx              ← Calendly booking
-  not-found.tsx              ← Custom 404
-  error.tsx                  ← Error boundary
-  loading.tsx                ← Loading spinner
-  sitemap.ts
-  robots.ts
+  method/page.tsx
+  services/page.tsx           ← CMS-driven index
+  services/[slug]/page.tsx    ← Redirects to /services (V2 scope)
+  work/page.tsx
+  thinking/page.tsx           ← CMS-driven index
+  blog/[slug]/page.tsx        ← Redirects to /thinking/[slug]
+  start/page.tsx
+  not-found.tsx
+  error.tsx
+  loading.tsx
   layout.tsx
   globals.css
+  sitemap.ts
+  robots.ts
 
 components/
   Navbar.tsx
   Footer.tsx
-  ContactForm.tsx            ← EmailJS
-  CalendlyEmbed.tsx          ← Calendly widget
-  JsonLd.tsx                 ← Structured data
+  CalendlyEmbed.tsx
+  JsonLd.tsx
+  MotionInit.tsx
+
+styles/
+  main.css                    ← Design system (frozen)
 
 lib/
-  sanity.ts                  ← Sanity client + GROQ queries
+  sanity.ts                   ← Client + GROQ queries
 
 sanity/
-  schemas/post.ts
-  schemas/index.ts
+  schemas/
 
-sanity.config.ts             ← Studio at /studio
+next.config.ts                ← Redirects + image domains
 ```

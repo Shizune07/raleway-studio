@@ -1,0 +1,42 @@
+/* ============================================================
+   Primitive 08 — Frame
+   Source: Pillar IV — Layout Primitives
+
+   Aspect-ratio-constrained media. Ensures consistent image
+   proportions regardless of the source file's native dimensions.
+
+   Two named aspect ratios in v1.0:
+     --frame-landscape  (16/9)  Case study hero images, full-width photography
+     --frame-card       (3/2)   Card thumbnails, project previews
+
+   A third ratio requires formal specification before use.
+   Frame is always a leaf — it contains only an <img>.
+   Never clip the source destructively — use object-fit: cover.
+
+   Do not apply to: diagrams, charts, data visualisations,
+   or images that contain text content.
+   ============================================================ */
+
+.frame {
+  overflow: hidden;
+  position: relative;
+}
+
+/* 16:9 — full-width photography, case study openers */
+.frame--landscape {
+  aspect-ratio: var(--frame-landscape);  /* 16 / 9 */
+}
+
+/* 3:2 — card thumbnails, project previews */
+.frame--card {
+  aspect-ratio: var(--frame-card);       /* 3 / 2 */
+}
+
+/* Image inside any Frame */
+.frame > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;  /* Override in component CSS when subject is off-centre */
+  display: block;
+}

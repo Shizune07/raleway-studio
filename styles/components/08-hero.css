@@ -1,0 +1,155 @@
+/* ============================================================
+   Component 08 — Hero
+   Source: Pillar IV — Component Library, Component 08
+   Status: FROZEN
+
+   DOM structure:
+   <section id="main-content" class="hero" aria-label="Introduction">
+     <div class="hero-inner">
+       <div class="hero-content">
+         <h1 class="hero-headline">Building digital brands people trust.</h1>
+         <p class="hero-body">We design websites, brand identities,
+           and the digital systems that help businesses communicate clearly.</p>
+         <div class="hero-actions">
+           <a href="/contact" class="btn-primary">Start a project</a>
+           <a href="/work" class="btn-navigate">See our work</a>
+         </div>
+       </div>
+     </div>
+   </section>
+
+   Lower-anchored layout: content sits at the bottom of the viewport.
+   Cover variant: --cover-arrival (100svh min-height).
+   Entrance animation: Pattern 07 (plays at mount, not on scroll).
+   ============================================================ */
+
+
+/* ── Outer shell — Cover arrival height, lower-anchored ── */
+
+.hero {
+  /* Cover primitive applied inline via class="section section--generous cover cover--arrival"
+     OR via this component's own sizing below */
+  min-height: var(--cover-arrival);   /* 100svh */
+  width: 100%;
+  background-color: var(--colour-surface);
+
+  /* Lower-anchored: content sits at the bottom of the viewport
+     with section-level breathing room below it */
+  display: flex;
+  align-items: flex-end;
+  padding-block-end: var(--space-section-y);   /* 128px below content */
+
+  /* Top padding ensures content doesn't hide behind fixed navbar
+     Navbar height ≈ 66px; add comfortable clearance */
+  padding-block-start: calc(66px + var(--space-7));  /* ~114px */
+}
+
+
+/* ── Inner container — max-width constrained ── */
+
+.hero-inner {
+  width: 100%;
+  max-width: var(--space-container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-container-x);
+}
+
+@media (max-width: 1023px) {
+  .hero-inner {
+    padding-inline: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-inner {
+    padding-inline: 24px;
+  }
+}
+
+
+/* ── Content block — Stack xl ── */
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-xl);   /* 96px between major content blocks */
+}
+
+
+/* ── Headline — display scale, three-step responsive ── */
+
+.hero-headline {
+  font-family: var(--font-editorial);
+  font-size: var(--text-display);           /* 72px desktop */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-display);  /* opsz 96 */
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  color: var(--colour-ink);
+  margin: 0;
+  /* No max-width — full container width (12/12 columns at 1200px) */
+}
+
+/* Tablet: H1 scale */
+@media (max-width: 1023px) {
+  .hero-headline {
+    font-size: var(--text-h1);             /* 56px */
+    font-variation-settings: 'opsz' var(--opsz-editorial);
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+  }
+}
+
+/* Mobile: H2 scale */
+@media (max-width: 767px) {
+  .hero-headline {
+    font-size: var(--text-h2);             /* 40px */
+    letter-spacing: -0.012em;
+    line-height: 1.12;
+  }
+
+  .hero-content {
+    gap: var(--stack-lg);                  /* 64px at mobile */
+  }
+}
+
+
+/* ── Body copy — one clear job: audience or mechanism ── */
+
+.hero-body {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);           /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.75;
+  color: var(--colour-ink-secondary);
+  max-width: 640px;                         /* ~70 char: audience/mechanism fits comfortably */
+  margin: 0;
+  /* 18–25 words. Names the audience OR the mechanism — not both, not the headline. */
+}
+
+
+/* ── Action group — primary CTA + navigate ── */
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-5);                      /* 24px between actions */
+}
+
+
+/* ── Hero entrance animation — Pattern 07 ──
+   Applied via .js-motion-ready + .hero-entrance classes.
+   Elements start opacity:0 translateY(20px), animated on mount.
+
+   Stagger:
+     .hero-headline:  delay 0ms
+     .hero-body:      delay 150ms
+     .hero-actions:   delay 300ms
+   All: 600ms ease-out (--motion-grand)
+
+   FOIC mitigation: base state set via .js-motion-ready in motion.css.
+   Without JS, elements are visible at final position. ── */

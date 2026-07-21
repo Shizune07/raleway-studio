@@ -53,6 +53,29 @@ ul  { list-style: none; }
 .section-subtitle { font-size: 1.05rem; color: var(--gray); max-width: 600px; margin-bottom: 2.5rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
+/* Skip link — visually hidden until focused; satisfies WCAG 2.4.1 */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background: var(--colour-surface, #F6F4EF);
+  color: var(--colour-ink, #1A1917);
+  font-family: var(--font-interface, 'DM Sans', system-ui, sans-serif);
+  font-size: var(--text-nav, 13px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid var(--colour-border, rgba(26,25,23,0.12));
+  transition: top 120ms ease-out;
+}
+.skip-link:focus {
+  top: 1rem;
+  outline: 2px solid var(--colour-accent, #E05C1A);
+  outline-offset: 2px;
+}
+
 .btn { display: inline-block; padding: 0.85rem 2rem; border-radius: 50px; font-family: var(--font-raleway),'Raleway',sans-serif; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all var(--transition); border: 2px solid transparent; text-align: center; }
 .btn-primary { background: var(--primary); color: var(--white); border-color: var(--primary); }
 .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); color: var(--white); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,120,74,0.35); }
@@ -61,6 +84,8 @@ ul  { list-style: none; }
 .btn-white { background: var(--white); color: var(--primary); border-color: var(--white); }
 .btn-white:hover { background: var(--primary-light); transform: translateY(-2px); }
 .btn-sm { padding: 0.6rem 1.4rem; font-size: 0.85rem; }
+.btn-dark { background: var(--dark); color: var(--white); border-color: var(--dark); }
+.btn-dark:hover { background: #1a1a1a; border-color: #1a1a1a; color: var(--white); transform: translateY(-1px); }
 .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 
 .banner { background: var(--primary); color: var(--white); text-align: center; padding: 0.55rem 1rem; font-size: 0.82rem; font-family: var(--font-raleway),'Raleway',sans-serif; font-weight: 600; letter-spacing: 0.02em; }
@@ -82,6 +107,7 @@ ul  { list-style: none; }
 .nav__cta-group { display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem; flex-shrink: 0; }
 .nav__cta-group .btn { white-space: nowrap; font-size: 0.85rem !important; padding: 0.6rem 1.1rem !important; }
 .nav__hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+.nav__mobile-cta { display: none; }
 .nav__hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: all var(--transition); }
 
 .hero { background: var(--light); padding: 5rem 0; }
@@ -133,7 +159,7 @@ ul  { list-style: none; }
 .cta-banner p  { color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
 
 .footer { background: var(--footer-bg); padding: 4rem 0 2rem; }
-.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
 .footer__brand p { color: rgba(255,255,255,0.75); font-size: 0.9rem; margin-top: 1rem; }
 .footer__charity { color: rgba(255,255,255,0.9); font-size: 0.82rem; margin-top: 0.5rem; }
 .footer__heading { font-family: var(--font-raleway),'Raleway',sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
@@ -221,6 +247,7 @@ ul  { list-style: none; }
   .two-col,.two-col--wide { grid-template-columns: 1fr; gap: 2.5rem; }
   .features-grid { grid-template-columns: repeat(2,1fr); }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer__grid > :first-child { grid-column: 1 / -1; }
   .contact-grid { grid-template-columns: 1fr; }
   .pricing-card--featured { transform: none; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -257,3 +284,928 @@ ul  { list-style: none; }
 .prose a:hover { color: var(--primary-dark); }
 .prose blockquote { border-left: 4px solid var(--primary); padding: 0.75rem 1.5rem; margin: 1.5rem 0; background: var(--light); border-radius: 0 var(--radius) var(--radius) 0; font-style: italic; }
 .prose img { border-radius: var(--radius); margin: 1.5rem 0; width: 100%; height: auto; }
+
+/* ── Homepage ── */
+.hp-hero { padding: 8rem 0 7rem; background: var(--white); }
+.hp-hero__eyebrow { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 3rem; }
+.hp-hero__h1 { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: clamp(2.2rem,4.8vw,3.8rem); font-weight: 700; line-height: 1.18; color: var(--dark); max-width: 860px; margin: 0; }
+.hp-hero__or { display: block; color: var(--dark-2); font-weight: 400; font-style: italic; margin-top: 0.1em; }
+.hp-hero__refute { display: block; margin-top: 1.6em; }
+.hp-hero__reveal { display: block; margin-top: 1.6em; color: var(--dark); font-weight: 700; }
+
+.hp-diagnosis { padding: 5rem 0; border-top: 1px solid var(--border); }
+.hp-diagnosis__inner { max-width: 700px; }
+.hp-diagnosis__item { font-size: 1.02rem; line-height: 1.85; color: var(--gray); padding: 2rem 0; border-bottom: 1px solid var(--border); margin: 0; }
+.hp-diagnosis__item:first-child { padding-top: 0; }
+.hp-diagnosis__item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.hp-why { padding: 6rem 0; background: var(--light); }
+.hp-why__inner { max-width: 640px; }
+.hp-why__eyebrow { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 1.25rem; }
+.hp-why h2 { font-size: clamp(1.5rem,3vw,2rem); margin-bottom: 1.75rem; font-weight: 700; }
+.hp-why p { font-size: 1rem; line-height: 1.9; color: var(--gray); margin-bottom: 1.1rem; }
+.hp-why__close { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--dark) !important; margin-top: 0.5rem; }
+
+.hp-method { padding: 6rem 0; }
+.hp-method__label { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--dark); margin-bottom: 3rem; letter-spacing: 0.01em; }
+.hp-method__list { max-width: 760px; list-style: none; padding: 0; margin: 0; }
+.hp-method__item { display: grid; grid-template-columns: 3.5rem 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+.hp-method__item:first-child { border-top: 1px solid var(--border); }
+.hp-method__num { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--primary); letter-spacing: 0.1em; padding-top: 0.2rem; }
+.hp-method__content {}
+.hp-method__title { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.45rem; }
+.hp-method__desc { font-size: 0.92rem; color: var(--gray); line-height: 1.78; margin: 0; }
+.hp-method__link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--primary); margin-top: 2.5rem; transition: gap var(--transition), color var(--transition); }
+.hp-method__link:hover { gap: 0.8rem; color: var(--primary-dark); }
+
+.hp-proof { padding: 6rem 0; background: var(--light); }
+.hp-proof__inner { max-width: 700px; border-left: 3px solid var(--primary); padding-left: 2.5rem; }
+.hp-proof__eyebrow { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 1.25rem; }
+.hp-proof h2 { font-size: clamp(1.15rem,2.2vw,1.5rem); line-height: 1.35; margin-bottom: 1.75rem; font-weight: 700; }
+.hp-proof p { font-size: 0.97rem; line-height: 1.88; color: var(--gray); margin-bottom: 1rem; }
+.hp-proof__close { font-size: 0.97rem; font-weight: 700; color: var(--dark) !important; margin-top: 1.75rem !important; display: block; }
+.hp-proof__link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--primary); margin-top: 2rem; transition: gap var(--transition), color var(--transition); }
+.hp-proof__link:hover { gap: 0.8rem; color: var(--primary-dark); }
+
+.hp-cta { padding: 7rem 0; text-align: center; border-top: 1px solid var(--border); }
+.hp-cta__qualifier { max-width: 580px; margin: 0 auto 3.5rem; }
+.hp-cta__q1 { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--dark); line-height: 1.5; margin-bottom: 0.65rem; }
+.hp-cta__q2 { font-size: 0.97rem; color: var(--gray); line-height: 1.8; margin: 0; }
+.hp-cta__actions { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+.hp-cta__primary { display: inline-block; background: var(--dark); color: var(--white) !important; font-family: var(--font-raleway),'Raleway',sans-serif; font-weight: 700; font-size: 0.97rem; padding: 1rem 2.75rem; letter-spacing: 0.03em; transition: background var(--transition), transform var(--transition); text-decoration: none; }
+.hp-cta__primary:hover { background: #111; color: var(--white) !important; transform: translateY(-1px); }
+.hp-cta__secondary { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--gray); border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color var(--transition), border-color var(--transition); }
+.hp-cta__secondary:hover { color: var(--dark); border-color: var(--dark); }
+
+@media (max-width: 1024px) {
+  .nav__mobile-cta { display: block; }
+  .nav__cta-group { display: none; }
+}
+@media (max-width: 768px) {
+  .hp-hero { padding: 5rem 0 4rem; }
+  .hp-proof__inner { padding-left: 1.5rem; }
+  .hp-cta { padding: 5rem 0; }
+}
+@media (max-width: 480px) {
+  .hp-hero { padding: 3.5rem 0 3rem; }
+  .hp-method__item { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
+  .hp-proof__inner { padding-left: 1.25rem; }
+}
+
+/* ── About Page ── */
+.about-hero { padding: 8rem 0 6rem; background: var(--light); }
+.about-hero__eyebrow { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 2.5rem; }
+.about-hero__h1 { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: clamp(2rem,4.5vw,3.4rem); font-weight: 700; line-height: 1.18; color: var(--dark); max-width: 760px; margin: 0 0 2rem; }
+.about-hero__sub { font-size: 1.05rem; line-height: 1.8; color: var(--gray); max-width: 560px; margin: 0; }
+
+.about-story { padding: 6rem 0; }
+.about-story__body { max-width: 680px; }
+.about-story__body p { font-size: 1rem; line-height: 1.9; color: var(--gray); margin-bottom: 1.4rem; }
+.about-story__lead { font-size: 1.2rem !important; font-weight: 600; color: var(--dark) !important; }
+.about-story__pivot { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1.05rem !important; font-weight: 700; color: var(--dark) !important; }
+
+.about-standards { padding: 6rem 0; background: var(--dark); }
+.about-standards__label { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(254,249,240,0.4); display: block; margin-bottom: 3.5rem; }
+.about-standards__grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 3rem 5rem; }
+.about-standard h3 { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1rem; font-weight: 700; color: var(--light); margin-bottom: 0.65rem; }
+.about-standard p { font-size: 0.92rem; line-height: 1.78; color: rgba(254,249,240,0.55); margin: 0; }
+
+.about-team { padding: 7rem 0; }
+.about-team__intro { font-size: 1rem; line-height: 1.9; color: var(--gray); max-width: 600px; margin: 0 0 5rem; }
+.about-team__lead { display: grid; grid-template-columns: 380px 1fr; gap: 6rem; align-items: start; padding-bottom: 5rem; border-bottom: 1px solid rgba(46,47,47,0.08); margin-bottom: 4rem; }
+.about-team__placeholder { aspect-ratio: 4/5; background: rgba(46,47,47,0.07); width: 100%; }
+.about-team__role { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); font-weight: 700; display: block; margin-bottom: 0.6rem; }
+.about-team__name { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--dark); margin: 0 0 0.25rem; }
+.about-team__quote { font-size: 1.05rem; line-height: 1.82; color: var(--dark); font-style: italic; border-left: 2px solid var(--primary); padding-left: 1.75rem; margin: 1.75rem 0 1.5rem; }
+.about-team__desc { font-size: 0.95rem; line-height: 1.9; color: var(--gray); margin: 0 0 2.25rem; }
+.about-team__cta { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--primary); letter-spacing: 0.04em; transition: color var(--transition); display: inline-block; }
+.about-team__cta:hover { color: var(--primary-dark); }
+.about-team__members { display: flex; flex-direction: column; gap: 0; }
+.about-member { display: grid; grid-template-columns: 240px 1fr; gap: 4rem; align-items: start; padding: 3rem 0; border-bottom: 1px solid rgba(46,47,47,0.06); }
+.about-member:first-child { border-top: none; }
+.about-member:last-child { border-bottom: none; padding-bottom: 0; }
+.about-member__role { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); font-weight: 700; display: block; margin-bottom: 0.5rem; }
+.about-member__name { font-family: var(--font-raleway),'Raleway',sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--dark); margin: 0; }
+.about-member__desc { font-size: 0.95rem; line-height: 1.9; color: var(--gray); margin: 0; }
+
+@media (max-width: 1024px) {
+  .about-team__lead { grid-template-columns: 300px 1fr; gap: 4rem; }
+  .about-standards__grid { gap: 2.5rem 3.5rem; }
+}
+@media (max-width: 768px) {
+  .about-hero { padding: 5rem 0 4rem; }
+  .about-story { padding: 4.5rem 0; }
+  .about-standards { padding: 4.5rem 0; }
+  .about-standards__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-team { padding: 5rem 0; }
+  .about-team__intro { margin-bottom: 3.5rem; }
+  .about-team__lead { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3.5rem; margin-bottom: 0; }
+  .about-team__placeholder { max-width: 300px; }
+  .about-member { grid-template-columns: 1fr; gap: 1rem; }
+}
+@media (max-width: 480px) {
+  .about-hero__h1 { font-size: 1.85rem; }
+  .about-story__lead { font-size: 1.1rem !important; }
+  .about-team__quote { font-size: 1rem; padding-left: 1.25rem; }
+}
+
+/* ── Phase 7 Integration — Home Page Section Styles ──
+   Custom wrapper classes for the Home page sections.
+   All typography/colour/spacing references design system tokens.
+   These classes sit above the component layer — they orchestrate
+   components, they do not define visual personality. */
+
+/* Section 02 — Diagnosis */
+.home-diagnosis {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Poem continuation — three lines that complete the Hero hook.
+   Opened with Option B resolution: intro sits before the four diagnostic items. */
+.home-diagnosis__intro {
+  padding-block-end: var(--space-7);  /* 48px — matches item padding rhythm */
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+/* "Or a marketing problem." / "Or a website problem." */
+.home-diagnosis__intro-line {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);    /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.55;
+  color: var(--colour-ink-secondary);
+  margin: 0;
+}
+
+/* "It is none of these things." — closes ambiguity, elevated to primary ink */
+.home-diagnosis__intro-close {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);    /* 18px */
+  font-weight: 400;                  /* slight elevation — resolves, not describes */
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.55;
+  color: var(--colour-ink);
+  margin: var(--stack-md) 0 0;       /* 32px gap above this closing line */
+}
+
+.home-diagnosis__item {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);    /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.88;
+  color: var(--colour-ink-secondary);
+  padding-block: var(--space-7);     /* 48px */
+  border-bottom: 0.5px solid var(--colour-border);
+  margin: 0;
+}
+
+.home-diagnosis__item:first-child {
+  padding-block-start: 0;
+}
+
+.home-diagnosis__item:last-child {
+  border-bottom: none;
+  padding-block-end: 0;
+}
+
+/* Section 04 — Method */
+.home-method {
+  max-width: 760px;
+}
+
+.home-method__label {
+  font-family: var(--font-interface);
+  font-size: var(--text-label);      /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-secondary);
+  margin: 0 0 var(--space-8) 0;     /* 64px below label */
+  display: block;
+}
+
+.home-method__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-method__item {
+  padding-block: var(--space-7);     /* 48px */
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+.home-method__item:first-child {
+  border-top: 0.5px solid var(--colour-border);
+}
+
+.home-method__num {
+  font-family: var(--font-interface);
+  font-size: var(--text-label);      /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-secondary);
+  display: block;
+  margin-block-end: var(--stack-sm); /* 16px */
+}
+
+.home-method__link {
+  display: inline-flex;
+  align-items: center;
+  margin-block-start: var(--space-8); /* 64px */
+}
+
+/* Section 03 — Why closing line (primary ink weight) */
+/* Compound selector: overrides .section-body specificity (main.css loads after globals.css) */
+.section-body.home-why__close {
+  color: var(--colour-ink);
+  font-weight: 400;
+  margin-block-start: var(--stack-md); /* 32px — body paragraph rhythm */
+}
+
+/* Section 05 — Proof of Thinking (light field — DEV-HP-03 fix) */
+.home-proof {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-proof__body {
+  margin-block-start: var(--stack-md);          /* 32px headline → first paragraph */
+}
+
+/* Subsequent paragraphs within the proof body */
+/* Compound selectors: override .section-body margin/color (main.css > globals.css cascade) */
+.section-body.home-proof__body-continuation,
+.section-body.home-proof__body-close {
+  margin-block-start: var(--stack-md);          /* 32px between paragraphs */
+}
+
+/* Closing line: elevated to primary ink weight — the pivot sentence */
+.section-body.home-proof__body-close {
+  color: var(--colour-ink);
+  font-weight: 400;
+}
+
+/* Navigate link below the body */
+.home-proof__link {
+  margin-block-start: var(--stack-lg);          /* 64px editorial → action (Rule 12) */
+}
+
+/* ── Phase 7 Integration — Design System Supplement ──
+   Styles for content not covered by the frozen Component 07 spec.
+   Pending SG-03 spec amendment before formalising.
+   Uses design system tokens (available after main.css loads). */
+
+.footer-mission {
+  font-family: var(--font-interface, 'DM Sans', system-ui, sans-serif);
+  font-size: var(--text-meta, 11px);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--colour-ink-secondary-inverted, rgba(255,255,255,0.5));
+  margin: 0;
+  margin-block-start: var(--stack-sm, 16px);
+  max-width: 280px;
+  line-height: 1.65;
+}
+
+.footer-social-links {
+  display: flex;
+  gap: var(--space-4, 16px);
+  margin-block-start: var(--stack-sm, 16px);
+}
+
+.footer-social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-ink-secondary-inverted, rgba(255,255,255,0.45));
+  transition: color var(--motion-quick, 150ms) var(--motion-ease, ease-out);
+}
+
+.footer-social-links a:hover {
+  color: var(--colour-ink-inverted, #F6F4EF);
+}
+
+.footer-social-links a:focus-visible {
+  outline: 2px solid var(--colour-accent, #E05C1A);
+  outline-offset: 3px;
+}
+
+/* ── Phase 7 Integration — About Page Section Styles ──
+   Migrated from old about-* system to design system tokens.
+   Old about-hero / about-story / about-standards classes are obsolete but
+   retained below for non-migrated pages. These new classes take precedence. */
+
+/* Section 02 — Story (prose stack) */
+.about-story {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-md);    /* 32px between body paragraphs */
+}
+
+.about-story .section-body {
+  margin: 0;               /* gap handled by parent flex; reset default margin */
+}
+
+/* Lead paragraph — slightly elevated weight to open the narrative */
+/* Compound selector: overrides .section-body (main.css loads after globals.css) */
+.section-body.about-story__lead {
+  color: var(--colour-ink);
+  font-weight: 400;
+}
+
+/* Pivot sentence — the key beat in the story */
+.section-body.about-story__pivot {
+  color: var(--colour-ink);
+  font-weight: 400;
+}
+
+/* Section 03 — Standards (2-column grid, dark field) */
+.about-standards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8) var(--space-7);  /* 64px row, 48px column gap */
+  margin-block-start: var(--space-8);  /* 64px below the eyebrow */
+}
+
+/* Standard heading — editorial layer, inverted for dark field */
+.about-standard__title {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h3);           /* 28px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  letter-spacing: -0.008em;
+  line-height: 1.2;
+  color: var(--colour-ink-inverted, #F6F4EF);
+  margin: 0 0 var(--stack-sm);         /* 16px below title */
+}
+
+/* Standard body — secondary weight, inverted for dark field */
+.about-standard__body {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body);         /* 16px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.72;
+  color: var(--colour-ink-secondary-inverted, rgba(246,244,239,0.55));
+  margin: 0;
+}
+
+/* Section 04 — Founder (two-column: portrait + content) */
+.about-founder {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--space-8);                 /* 64px */
+  align-items: start;
+  max-width: 860px;
+}
+
+.about-founder__portrait {
+  width: 100%;
+}
+
+/* Placeholder — aspect-ratio box until photography is available */
+.about-founder__placeholder {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  background: var(--colour-surface-alt, #EDEAE4);
+}
+
+/* Founder name — editorial, primary ink */
+.about-founder__name {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h3);           /* 28px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  color: var(--colour-ink);
+  margin: 0 0 var(--stack-sm);         /* 16px — name → role */
+}
+
+/* Founder role — interface label layer */
+.about-founder__role {
+  font-family: var(--font-interface);
+  font-size: var(--text-label);        /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-tertiary);
+  margin: 0 0 var(--stack-md);         /* 32px — role → quote */
+}
+
+/* Founder quote — blockquote with left rule */
+.about-founder__quote {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);      /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.72;
+  color: var(--colour-ink-secondary);
+  border-inline-start: 2px solid var(--colour-border);
+  padding-inline-start: var(--stack-md); /* 32px — inset from rule */
+  margin: 0;
+  font-style: italic;
+}
+
+/* Studio model statement — below the quote, resolves "we" ambiguity */
+.about-founder__statement {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body);          /* 16px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.72;
+  color: var(--colour-ink-secondary);
+  margin: var(--stack-md) 0 0;          /* 32px — space below quote */
+}
+
+/* ── About page responsive ── */
+@media (max-width: 1024px) {
+  .about-standards-grid {
+    gap: var(--space-7) var(--space-6, 40px);
+  }
+  .about-founder {
+    grid-template-columns: 240px 1fr;
+    gap: var(--space-7);               /* 48px */
+  }
+}
+
+@media (max-width: 768px) {
+  .about-standards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);               /* 48px between stacked standards */
+  }
+  .about-founder {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+  .about-founder__placeholder {
+    max-width: 220px;
+  }
+}
+
+/* ── Phase 7 Integration — Design System Dark-Field Supplements ──
+   Component 04 (Service Item) has no dark-field spec in the frozen CSS.
+   These rules invert service item token colours when the component sits
+   inside a .section--dark primitive. Applied globally — any dark-field
+   section using Service Items benefits automatically. */
+
+.section--dark .service-name {
+  color: var(--colour-ink-inverted, #F6F4EF);
+}
+
+.section--dark .service-counter {
+  color: var(--colour-ink-secondary-inverted, rgba(246,244,239,0.45));
+}
+
+.section--dark .service-description {
+  color: var(--colour-ink-secondary-inverted, rgba(246,244,239,0.55));
+}
+
+/* Dark-field eyebrow — Component 05 frozen CSS does not invert .section-eyebrow.
+   If section primitive handles via color inheritance, this rule is harmless.
+   If not, this prevents invisible text on dark sections. */
+.section--dark .section-eyebrow {
+  color: var(--colour-ink-secondary-inverted, rgba(246,244,239,0.55));
+}
+
+/* ── Phase 7 Integration — Method Page Section Styles ── */
+
+/* Shared list for principles and process phases (Sections 03 + 04) */
+.method-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-8) 0 0;        /* 64px below section-intro */
+  display: flex;
+  flex-direction: column;
+}
+
+.method-list__item {
+  padding-block: var(--space-7);     /* 48px above and below each item */
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+.method-list__item:first-child {
+  border-top: 0.5px solid var(--colour-border);
+}
+
+/* On dark field — border uses inverted token */
+.section--dark .method-list__item {
+  border-bottom-color: var(--colour-border-inverted, rgba(246,244,239,0.12));
+}
+
+.section--dark .method-list__item:first-child {
+  border-top-color: var(--colour-border-inverted, rgba(246,244,239,0.12));
+}
+
+/* Section 02 — closing paragraph elevated to primary ink */
+/* Compound selector: overrides .section-body (main.css cascade) */
+.section-body.method-intro__close {
+  color: var(--colour-ink);
+  font-weight: 400;
+  margin-block-start: var(--stack-md); /* 32px between paragraphs */
+}
+
+/* ── Phase 7 Integration — Work Page Section Styles ── */
+
+/* Navigate link margin — Rule 12: editorial-to-action minimum gap */
+.work-case__link {
+  margin-block-start: var(--stack-lg);  /* 64px — editorial → action */
+}
+
+/* ── btn-navigate arrow — canonical icon margin ──
+   Replaces inline style={{ marginLeft: '6px' }} across all pages.
+   Applied as a class to the SVG inside any .btn-navigate element. */
+.btn-navigate__arrow {
+  margin-inline-start: 6px;
+}
+
+/* ── Phase 7 Integration — Thinking Page Section Styles ── */
+
+/* Article list — same separator rhythm as method-list */
+.thinking-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-8) 0 0;          /* 64px below eyebrow */
+  display: flex;
+  flex-direction: column;
+}
+
+.thinking-list__item {
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+.thinking-list__item:first-child {
+  border-top: 0.5px solid var(--colour-border);
+}
+
+/* Navigational article block — uses service-item service-item--linked */
+.thinking-article {
+  padding-block: var(--space-7);        /* 48px top + bottom */
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);                 /* 16px between meta / title / excerpt */
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Meta row — category + date side by side */
+.thinking-article__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--stack-md);                 /* 32px between category and date */
+}
+
+/* Reset service-counter margin when it's in the meta flex row */
+.thinking-article__meta .service-counter {
+  margin-block-end: 0;
+}
+
+/* Date — interface layer, tertiary ink */
+.thinking-article__date {
+  font-family: var(--font-interface);
+  font-size: var(--text-label);         /* 10px */
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--colour-ink-tertiary);
+}
+
+/* Empty state navigate link */
+.thinking-empty__link {
+  margin-block-start: var(--stack-lg);  /* 64px — Rule 12 */
+}
+
+/* ── Phase 7 Integration — Start Page Section Styles ── */
+
+/* Section 03 — Booking layout: intro text + Calendly widget */
+.start-booking {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-8);                  /* 64px */
+  align-items: start;
+}
+
+.start-booking__intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-booking__intro .section-eyebrow {
+  margin-block-end: var(--space-section-label, 16px);
+}
+
+/* Secondary option — "Prefer to write first?" */
+.start-booking__secondary {
+  font-family: var(--font-interface);
+  font-size: var(--text-nav);           /* 13px */
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--colour-ink-tertiary);
+  margin-block-start: var(--stack-lg);  /* 64px — editorial to secondary action (Rule 12) */
+  margin-block-end: 0;
+}
+
+.start-booking__link {
+  color: var(--colour-ink-secondary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 80ms var(--motion-ease, ease-out);
+}
+
+.start-booking__link:hover {
+  color: var(--colour-ink);
+}
+
+/* Calendly widget wrapper */
+.start-booking__calendly {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Responsive — stack on tablet and below */
+@media (max-width: 1023px) {
+  .start-booking {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);               /* 48px */
+  }
+}
+
+@media (max-width: 768px) {
+  .start-booking__secondary {
+    margin-block-start: var(--stack-md); /* 32px — tighter on mobile */
+  }
+}
+
+/* ── Phase 7 Integration — Services Page Section Styles ── */
+
+/* Service list — full-width navigational list */
+.services-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-list__item {
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+.services-list__item:first-child {
+  border-top: 0.5px solid var(--colour-border);
+}
+
+/* ── 404 Not Found ── */
+.not-found {
+  max-width: 560px;
+}
+
+.not-found__body {
+  margin-block-start: var(--stack-md);
+}
+
+.not-found__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-block-start: var(--stack-lg);
+  flex-wrap: wrap;
+}
+
+/* ── About Page — Version Review 2026-07 ── */
+
+/* Section 02 — Belief
+   One headline. One sentence. No eyebrow.
+   max-width constrains the headline for readable line length at section-headline size.
+   Generous space handled by section--divided padding. */
+.about-belief {
+  max-width: 720px;
+}
+
+.about-belief__body {
+  margin-block-start: var(--stack-md);   /* 32px — deliberate pause between belief and mechanism */
+}
+
+/* ── About Page Narrative Sections (Sections 02–05) ──
+   Prose column — max-width matches about-belief for visual consistency.
+   Paragraph spacing via adjacent sibling selector. */
+.about-narrative {
+  max-width: 720px;
+}
+
+.about-narrative .section-body + .section-body {
+  margin-block-start: var(--stack-md);   /* 32px between paragraphs */
+}
+
+/* ── Method Page — multi-paragraph spacing ──
+   .method-diagnostic: Section 02 (Diagnostic Standard) — three section-body paragraphs.
+   .method-phase-intro: Section 04 transition intro — two section-body paragraphs.
+   Both use the same 32px rhythm as .about-narrative. */
+.method-diagnostic .section-body + .section-body,
+.method-phase-intro .section-body + .section-body,
+.work-featured .section-body + .section-body {
+  margin-block-start: var(--stack-md);   /* 32px between paragraphs */
+}
+
+/* Phase body paragraphs within service-item —
+   service-description has no default sibling margin; this adds 16px between
+   multiple paragraphs inside a single phase description. */
+.service-description + .service-description {
+  margin-block-start: var(--stack-sm);   /* 16px between phase paragraphs */
+}
+
+/* Outcome line — visually distinct from body copy via secondary ink.
+   Applies in light-field sections only; .section--dark already inverts
+   service-description colour, so outcome distinction is preserved there. */
+.service-description--outcome {
+  color: var(--colour-ink-secondary);
+}
+
+/* Navigate on dark Threshold field ──
+   The About page Threshold uses btn-navigate, not btn-primary.
+   btn-navigate defaults to --colour-ink (dark); this override inverts it
+   for the dark --colour-surface-dark background. */
+.threshold .btn-navigate {
+  color: var(--colour-ink-inverted, #F6F4EF);
+}
+
+/* Section 03 — Principles
+   Full-width typographic rows. Borders via custom classes — mirrors service-item pattern.
+   No counter: eyebrow + border rhythm create sufficient structure. */
+.about-principles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-block-start: var(--stack-lg);   /* 64px — editorial separation from eyebrow */
+}
+
+.about-principle {
+  border-top: 0.5px solid var(--colour-border);
+  padding-block: var(--stack-lg);        /* 64px top and bottom — each principle owns its moment */
+}
+
+.about-principles .about-principle:last-child {
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+/* Principle title — set at section-headline size (--text-h2, 40px)
+   Typography IS the design. No decoration beyond the typeface and the space. */
+.about-principle__title {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h2);             /* 40px */
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--colour-ink-primary);
+  margin: 0;
+}
+
+/* Principle descriptor — single sentence below the title */
+.about-principle__body {
+  margin-block-start: var(--stack-sm);   /* 16px — tight but breathable below the title */
+  color: var(--colour-ink-secondary);
+  max-width: 56ch;
+}
+
+/* Responsive — mobile */
+@media (max-width: 768px) {
+  .about-principles {
+    margin-block-start: var(--stack-md); /* 32px on mobile */
+  }
+
+  .about-principle {
+    padding-block: var(--stack-md);      /* 32px on mobile — proportional */
+  }
+
+  .about-principle__title {
+    font-size: var(--text-h3);           /* Drop to --text-h3 (28px) on mobile for legibility */
+  }
+}
+
+/* ── Article Body — /thinking/[slug] page ──
+   Scoped prose styles for PortableText output. All values reference V1.0 tokens.
+   Max-width 720px matches about-narrative for consistent editorial reading width.
+   No global prose rule — this scope prevents side effects in other sections. */
+
+.article-body {
+  max-width: 720px;
+}
+
+.article-body p {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);        /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.75;
+  color: var(--colour-ink-secondary);
+  margin-block-start: var(--stack-md);   /* 32px between paragraphs */
+  margin-block-end: 0;
+}
+
+.article-body p:first-child {
+  margin-block-start: 0;
+}
+
+.article-body h2 {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h3);             /* 28px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  letter-spacing: -0.008em;
+  line-height: 1.20;
+  color: var(--colour-ink);
+  margin-block-start: var(--stack-lg);   /* 64px before a new h2 — structural breathing */
+  margin-block-end: var(--stack-sm);     /* 16px — headline to following paragraph */
+}
+
+.article-body h3 {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h4);             /* 20px */
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.30;
+  color: var(--colour-ink);
+  margin-block-start: var(--stack-md);   /* 32px */
+  margin-block-end: var(--stack-xs);     /* 8px */
+}
+
+.article-body ul,
+.article-body ol {
+  padding-inline-start: 1.5em;
+  margin-block-start: var(--stack-sm);   /* 16px */
+  margin-block-end: 0;
+}
+
+.article-body li {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--colour-ink-secondary);
+  margin-block-end: var(--stack-xs);     /* 8px between list items */
+}
+
+.article-body blockquote {
+  border-inline-start: 2px solid var(--colour-accent);
+  padding-inline-start: var(--stack-md); /* 32px */
+  margin-block: var(--stack-lg);         /* 64px — pull quotes own their moment */
+  margin-inline: 0;
+}
+
+.article-body blockquote p {
+  font-size: var(--text-pull);           /* 24px */
+  font-style: italic;
+  color: var(--colour-ink);
+  margin-block-start: 0;
+}
+
+.article-body strong {
+  font-weight: 500;
+  color: var(--colour-ink);
+}
+
+.article-body a {
+  color: var(--colour-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--colour-border-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--motion-quick) var(--motion-ease);
+}
+
+.article-body a:hover {
+  text-decoration-color: var(--colour-ink);
+}
+
+/* ── Threshold Actions — button row for pages with dual CTAs ──
+   Used on /thinking/[slug] Threshold: btn-primary + btn-navigate side by side. */
+
+.threshold-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--stack-md);                  /* 32px between buttons */
+  margin-block-start: var(--stack-lg);   /* 64px below body copy */
+}
+
+/* Invert btn-navigate on dark Threshold field */
+.threshold .btn-navigate {
+  color: var(--colour-ink-inverted, #F6F4EF);
+}

@@ -1,0 +1,100 @@
+/* ============================================================
+   Accessibility Helpers
+   Source: Pillar IV — Design System (Section III), Component Library
+
+   This file contains:
+   1. Skip navigation link
+   2. Focus ring enforcement
+   3. Focus management declarations
+   4. High contrast mode support
+   ============================================================ */
+
+
+/* ── Skip Navigation ──
+   Allows keyboard users to bypass repeated navigation.
+   Visually hidden until focused — then appears at top of viewport.
+   Target: id="main-content" on Component 08 (Hero) section element. */
+
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: var(--z-overlay);
+
+  font-family: var(--font-interface);
+  font-size: var(--text-nav);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--colour-ink-inverted);
+  background-color: var(--colour-ink);
+  padding: var(--space-btn-y) var(--space-btn-x);
+  text-decoration: none;
+
+  transition: top var(--motion-quick) var(--motion-ease);
+}
+
+.skip-nav:focus {
+  top: var(--space-4);
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+}
+
+
+/* ── Focus Ring — Design System Section III ──
+   All interactive elements use the compound focus ring.
+   Applied globally here — components may remove and re-apply
+   via their own :focus-visible rules if shape requires it.
+
+   Compound focus ring specification:
+     outline: 2px solid var(--colour-accent)   — orange, 2px
+     outline-offset: 3px                        — gap between element and ring
+     box-shadow: 0 0 0 5px rgba(224,92,26,0.2) — soft halo
+
+   Orange is structurally appropriate for focus — the keyboard user
+   is at a threshold moment, navigating toward action. */
+
+:focus {
+  outline: none;  /* Remove browser default — replaced by :focus-visible */
+}
+
+:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+/* Remove focus ring for mouse users where :focus-visible is supported.
+   The :focus-visible polyfill handles browsers without native support. */
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* ── High Contrast Mode ──
+   Windows High Contrast / Forced Colours mode adjustments.
+   The near-achromatic colour field and orange accent must
+   remain distinguishable when system colours override CSS. */
+
+@media (forced-colors: active) {
+  /* Allow the browser to substitute system colours.
+     Ensure interactive states are communicated via shape/weight
+     rather than colour alone. */
+  :focus-visible {
+    outline: 3px solid ButtonText;
+    outline-offset: 3px;
+    box-shadow: none;  /* box-shadow is ignored in forced-colors mode */
+  }
+
+  /* Ensure disabled states remain distinct from enabled */
+  .is-disabled {
+    opacity: 1;
+    color: GrayText;
+  }
+}
+
+
+/* ── Motion: Reduced ──
+   Global reduced motion rule is in tokens.css.
+   Component-specific suppression is documented in motion/motion.css.
+   No duplication here — the tokens.css rule is authoritative. */

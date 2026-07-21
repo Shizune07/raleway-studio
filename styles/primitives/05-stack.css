@@ -1,0 +1,31 @@
+/* ============================================================
+   Primitive 05 — Stack
+   Source: Pillar IV — Layout Primitives
+
+   Vertical arrangement with consistent spacing.
+   One gap value per Stack — declared once, applied between
+   every adjacent pair. If two items need different spacing,
+   they belong in separate Stacks.
+
+   Default: --stack-md (32px).
+   Responsive reductions are applied in tokens.css:
+     xl: 96px → 64px → 64px
+     lg: 64px → 64px → 32px
+     md: 32px → 32px → 16px
+   ============================================================ */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack > * + * {
+  margin-block-start: var(--stack-md);
+}
+
+/* Named gap variants */
+.stack--xs > * + * { margin-block-start: var(--stack-xs); }  /* 8px  */
+.stack--sm > * + * { margin-block-start: var(--stack-sm); }  /* 16px */
+.stack--md > * + * { margin-block-start: var(--stack-md); }  /* 32px */
+.stack--lg > * + * { margin-block-start: var(--stack-lg); }  /* 64px */
+.stack--xl > * + * { margin-block-start: var(--stack-xl); }  /* 96px */

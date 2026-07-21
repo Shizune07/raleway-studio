@@ -1,0 +1,197 @@
+/* ============================================================
+   Component 07 — Footer
+   Source: Pillar IV — Component Library, Component 07
+   Status: FROZEN
+
+   DOM structure:
+   <footer class="site-footer">
+     <div class="footer-inner">
+       <div class="footer-main">
+         <div class="footer-brand">
+           <a href="/" class="footer-wordmark">Raleway Studio</a>
+           <p class="footer-tagline">Building digital brands people trust.</p>
+         </div>
+         <nav class="footer-nav" aria-label="Footer navigation">
+           <ul>
+             <li><a href="/work">Work</a></li>
+             <li><a href="/services">Services</a></li>
+             <li><a href="/about">About</a></li>
+             <li><a href="/contact">Contact</a></li>
+             <li><a href="/studio">Studio</a></li>
+           </ul>
+         </nav>
+       </div>
+       <div class="footer-base">
+         <p class="footer-copyright">
+           © <span class="footer-year">2026</span> Raleway Studio. All rights reserved.
+         </p>
+       </div>
+     </div>
+   </footer>
+
+   Document Architecture Rule 02: Wordmark typography applies here.
+   Document Architecture Rule 08: Footer nav mirrors Navbar nav exactly.
+   No scroll entrance — Footer is a terminal, static component.
+   ============================================================ */
+
+
+/* ── Outer shell — dark field section ── */
+
+.site-footer {
+  width: 100%;
+  padding-block: var(--space-section-y-sm);   /* 96px compact variant */
+  background-color: var(--colour-surface-dark);
+  /* Terminal component — no scroll entrance, no motion */
+}
+
+
+/* ── Inner container — max-width constrained ── */
+
+.footer-inner {
+  max-width: var(--space-container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-container-x);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section-y-sm);    /* 96px between footer-main and footer-base */
+}
+
+@media (max-width: 1023px) {
+  .footer-inner {
+    padding-inline: 48px;
+    gap: var(--space-8);             /* 64px at tablet */
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-inner {
+    padding-inline: 24px;
+    gap: var(--space-7);             /* 48px at mobile */
+  }
+}
+
+
+/* ── Main section — brand block + nav ── */
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-9);               /* 96px between brand and nav */
+}
+
+@media (max-width: 767px) {
+  .footer-main {
+    flex-direction: column;
+    gap: var(--space-7);             /* 48px at mobile */
+  }
+}
+
+
+/* ── Brand block ── */
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);              /* 16px between wordmark and tagline */
+}
+
+
+/* ── Wordmark — Rule 02 typography ── */
+
+.footer-wordmark {
+  display: inline-block;
+  font-family: var(--font-editorial);
+  font-size: var(--text-wordmark);         /* 11.5px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  letter-spacing: var(--text-wordmark-ls); /* 0.22em */
+  text-transform: uppercase;
+  color: var(--colour-ink-inverted);       /* off-white on dark field */
+  text-decoration: none;
+}
+
+/* Hover: underline Pattern 01 (0ms) */
+.footer-wordmark:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.footer-wordmark:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+
+/* ── Tagline ── */
+
+.footer-tagline {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-sm);          /* 14px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.65;
+  color: var(--colour-ink-secondary-inverted);
+  margin: 0;
+  max-width: 280px;
+}
+
+
+/* ── Footer navigation — mirrors Navbar exactly (Rule 08) ── */
+
+.footer-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);              /* 16px between nav items */
+}
+
+.footer-nav a {
+  font-family: var(--font-interface);
+  font-size: var(--text-nav);        /* 12px */
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--colour-ink-secondary-inverted);
+  text-decoration: none;
+  /* Hover: colour Pattern 02 (0ms at footer position) + underline Pattern 01 */
+}
+
+.footer-nav a:hover {
+  color: var(--colour-ink-inverted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.footer-nav a:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+
+/* ── Base row — copyright ── */
+
+.footer-base {
+  border-top: 0.5px solid var(--colour-border-dark);
+  padding-block-start: var(--space-6);     /* 32px */
+}
+
+.footer-copyright {
+  font-family: var(--font-interface);
+  font-size: var(--text-meta);             /* 11px */
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--colour-ink-secondary-inverted);
+  margin: 0;
+}
+
+.footer-year {
+  font-variant-numeric: tabular-nums;
+}

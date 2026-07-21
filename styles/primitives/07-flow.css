@@ -1,0 +1,59 @@
+/* ============================================================
+   Primitive 07 — Flow
+   Source: Pillar IV — Layout Primitives
+
+   Editorial prose rhythm for long-form reading sequences.
+   Use inside: <article>, .case-study-body, .thinking-content.
+   Never apply to component layouts, section arrangements,
+   or interactive elements.
+
+   Mechanism: every element after the first inherits --flow-space.
+   Individual elements override --flow-space for deliberate departures.
+   Default: --space-body-gap (24px).
+   ============================================================ */
+
+.flow > * + * {
+  margin-block-start: var(--flow-space, var(--space-body-gap));
+}
+
+/* H2 preceded by content — needs more space than a paragraph pause */
+.flow h2 {
+  --flow-space: var(--space-8);               /* 64px */
+}
+
+/* H3 preceded by content — between space-6 (32px) and space-7 (48px) */
+.flow h3 {
+  --flow-space: 40px;
+}
+
+/* Content following H2 — headline-after token */
+.flow h2 + * {
+  --flow-space: var(--space-headline-after);  /* 48px */
+}
+
+/* Content following H3 — subhead-after token */
+.flow h3 + * {
+  --flow-space: var(--space-subhead-after);   /* 24px */
+}
+
+/* Images and Frame elements within editorial content */
+.flow figure,
+.flow .frame {
+  --flow-space: var(--space-image-y);         /* 64px */
+}
+
+.flow figure + *,
+.flow .frame + * {
+  --flow-space: var(--space-image-y);         /* 64px */
+}
+
+/* Pull quotes within editorial content */
+.flow blockquote,
+.flow [class*="pull-"] {
+  --flow-space: var(--space-headline-after);  /* 48px */
+}
+
+.flow blockquote + *,
+.flow [class*="pull-"] + * {
+  --flow-space: var(--space-headline-after);  /* 48px */
+}

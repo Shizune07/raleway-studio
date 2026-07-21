@@ -1,0 +1,96 @@
+/* ============================================================
+   Component 05 — Section Introduction
+   Source: Pillar IV — Component Library, Component 05
+   Status: FROZEN
+
+   DOM structure:
+   <div class="section-intro">
+     <!-- Optional: eyebrow — omitted from DOM entirely when absent -->
+     <span class="section-eyebrow">Our Work</span>
+     <h2 class="section-headline">Headline that makes an argument.</h2>
+     <!-- Optional: body — omitted from DOM entirely when absent -->
+     <p class="section-body">Supporting context in 40–80 words.</p>
+   </div>
+
+   Static component — no hover animations.
+   Scroll entrance: Pattern 06 (400ms, translateY 16px).
+   ============================================================ */
+
+
+/* ── Container — vertical Stack ── */
+
+.section-intro {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ── Eyebrow label — DM Sans interface layer ── */
+
+.section-eyebrow {
+  display: block;
+  font-family: var(--font-interface);
+  font-size: var(--text-label);     /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-secondary);
+  margin-block-end: var(--space-section-label);  /* 16px → headline */
+}
+
+/* Conditional DOM: .section-eyebrow is omitted from DOM entirely
+   when no eyebrow label exists. Never use display:none. */
+
+
+/* ── Section headline — Source Serif 4 editorial layer ── */
+
+.section-headline {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h2);           /* 40px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  letter-spacing: -0.012em;
+  line-height: 1.12;
+  color: var(--colour-ink);
+  margin: 0;
+}
+
+/* Responsive headline scale — Section level */
+@media (max-width: 1023px) {
+  .section-headline {
+    font-size: var(--text-h3);          /* 28px at tablet */
+  }
+}
+
+/* Headline on dark field sections */
+.section--dark .section-headline {
+  color: var(--colour-ink-inverted);
+}
+
+
+/* ── Section body copy — Source Serif 4, constrained width ── */
+
+.section-body {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);      /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.75;
+  color: var(--colour-ink-secondary);
+  max-width: var(--text-measure);      /* 640px — 70 char line measure */
+  margin-block-start: var(--space-headline-after);  /* 48px from headline */
+  margin-block-end: 0;
+}
+
+/* Body on dark field sections */
+.section--dark .section-body {
+  color: var(--colour-ink-secondary-inverted);
+}
+
+/* Conditional DOM: .section-body omitted from DOM when no body copy needed */
+
+
+/* ── Scroll entrance — Pattern 06 ── */
+/* .animate-entrance class applied by template, stagger via JS delay */

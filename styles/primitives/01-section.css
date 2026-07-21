@@ -1,0 +1,44 @@
+/* ============================================================
+   Primitive 01 — Section
+   Source: Pillar IV — Layout Primitives
+
+   The horizontal page band. One distinct content moment.
+   Every content-bearing area occupies a Section.
+   Nothing content-bearing exists outside a Section.
+
+   Three padding variants (responsive values in tokens.css):
+     Default:   128px / 96px / 80px
+     Generous:  192px / 128px / 96px
+     Compact:    96px / 80px / 64px
+
+   Two backgrounds only: --colour-surface (light), --colour-surface-dark (dark).
+   No images, gradients, or patterns at the Section level.
+   Two adjacent dark-field sections are never used consecutively.
+   ============================================================ */
+
+.section {
+  width: 100%;
+  padding-block: var(--space-section-y);
+  background-color: var(--colour-surface);
+}
+
+/* Generous variant — hero, case study openers, About */
+.section--generous {
+  padding-block: var(--space-section-y-lg);
+}
+
+/* Compact variant — footer, secondary content */
+.section--compact {
+  padding-block: var(--space-section-y-sm);
+}
+
+/* Dark field variant — inverted colour context */
+.section--dark {
+  background-color: var(--colour-surface-dark);
+}
+
+/* Optional divider between adjacent light sections.
+   Apply only when content does not already provide separation. */
+.section--divided {
+  border-top: 0.5px solid var(--colour-border);
+}

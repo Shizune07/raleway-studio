@@ -1,0 +1,138 @@
+/* ============================================================
+   Component 03 — Case Study Card
+   Source: Pillar IV — Component Library, Component 03
+   Status: FROZEN
+
+   DOM structure:
+   <article class="case-study-card">
+     <a href="/work/[slug]" class="card-link">
+       <div class="frame frame--card">
+         <img src="..." alt="[descriptive alt]">
+       </div>
+       <div class="card-content">
+         <!-- Optional: category label — omitted from DOM when absent -->
+         <span class="card-label">Brand Identity</span>
+         <h3 class="card-title">Project Name</h3>
+         <p class="card-result">Defining result in 100 characters or fewer.</p>
+       </div>
+     </a>
+   </article>
+   ============================================================ */
+
+
+/* ── Card wrapper — no border, no background, no shadow ── */
+
+.case-study-card {
+  /* The card is an editorial unit, not a UI component.
+     No box. Image and whitespace define card membership. */
+}
+
+.case-study-card .card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* ── Card image — handled by .frame .frame--card in primitives ──
+   Hover scale (Pattern 05) applied to the img inside .frame */
+
+.case-study-card .frame {
+  overflow: hidden;  /* enforced — scale(1.03) clips within frame boundary */
+}
+
+.case-study-card .frame > img {
+  transition: transform var(--motion-moderate) var(--motion-ease);  /* 300ms */
+}
+
+.case-study-card .card-link:hover .frame > img {
+  transform: scale(1.03);
+}
+
+.case-study-card .card-link:active .frame > img {
+  transform: scale(1.01);
+  transition-duration: var(--motion-responsive);  /* 80ms */
+}
+
+
+/* ── Card content area ── */
+
+.card-content {
+  padding: var(--space-card-pad);  /* 32px all sides */
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);            /* 16px between elements */
+}
+
+
+/* ── Category label — DM Sans interface layer ── */
+
+.card-label {
+  font-family: var(--font-interface);
+  font-size: var(--text-label);     /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-secondary);
+  display: block;
+}
+
+/* Conditional DOM: .card-label is omitted from DOM entirely
+   when no category exists. Never use display:none to hide it. */
+
+
+/* ── Project title — Source Serif 4 editorial layer ── */
+
+.card-title {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h3);          /* 28px */
+  font-weight: 400;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  font-optical-sizing: auto;
+  letter-spacing: -0.008em;
+  line-height: 1.2;
+  color: var(--colour-ink);
+  /* 2-line maximum — line-clamp enforced */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Hover: underline via text-decoration (Pattern 01, 0ms) */
+  text-decoration: none;
+}
+
+.case-study-card .card-link:hover .card-title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+
+/* ── Defining result — Source Serif 4 italic, 100 char max ── */
+
+.card-result {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-sm);     /* 14px */
+  font-weight: 300;
+  font-style: italic;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.65;
+  color: var(--colour-ink-secondary);
+  margin: 0;
+  /* 100 character maximum enforced in CMS/copy, not in CSS */
+}
+
+
+/* ── Focus ring — on the <a> element, not the article ── */
+
+.case-study-card .card-link:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+
+/* ── Scroll entrance — Pattern 06 applied at section template level ──
+   The .animate-entrance class is added to .case-study-card elements
+   by the section template, not here. See motion/motion.css. */

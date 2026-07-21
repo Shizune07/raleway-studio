@@ -1,0 +1,28 @@
+/* ============================================================
+   Components — Barrel Import
+   Source: Pillar IV — Component Library (Components 01–09, all FROZEN)
+
+   Components depend on tokens and primitives.
+   Import after: tokens.css, primitives/index.css.
+   See styles/main.css for the full cascade entry point.
+
+   Adding a new component:
+   1. Write the full specification (18 sections) in Pillar IV — Component Library
+   2. Complete resilience review (A/B/C classification)
+   3. Resolve all Category A items
+   4. Freeze the component
+   5. Add the CSS file here with the next sequential number
+   ============================================================ */
+
+@import './01-navbar.css';
+@import './02-button.css';
+@import './03-case-study-card.css';
+@import './04-service-item.css';
+@import './05-section-intro.css';
+@import './06-testimonial.css';
+@import './07-footer.css';
+@import './08-hero.css';
+@import './09-threshold.css';
+
+/* Component 10 — Form (pending specification) */
+/* @import './10-form.css'; */

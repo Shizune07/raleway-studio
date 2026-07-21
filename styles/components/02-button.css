@@ -1,0 +1,168 @@
+/* ============================================================
+   Component 02 — Button System
+   Source: Pillar IV — Component Library, Component 02
+   Status: FROZEN
+
+   Three variants — categorically distinct:
+     .btn-primary   commit action (orange)
+     .btn-secondary supporting action (outlined)
+     .btn-navigate  navigational action (text link)
+
+   One size. No border-radius. No shadow. No colour system.
+   Use <a> for navigation, <button> for actions.
+   One .btn-primary per viewport at any scroll position.
+   ============================================================ */
+
+
+/* ── Shared base — applied to all button variants ── */
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--space-btn-x);  /* 24px */
+  padding-block: var(--space-btn-y);   /* 12px */
+  font-family: var(--font-interface);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 0;       /* architectural — not rounded */
+  box-shadow: none;       /* hierarchy via colour and position, not elevation */
+  transition:
+    background-color var(--motion-quick) var(--motion-ease),
+    color            var(--motion-quick) var(--motion-ease),
+    border-color     var(--motion-quick) var(--motion-ease);
+  /* WCAG 2.5.5 minimum touch target — extended in mobile via min-height */
+}
+
+/* Mobile touch target */
+@media (max-width: 767px) {
+  .btn-primary,
+  .btn-secondary {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+
+/* ── Primary Button — the commitment ── */
+
+.btn-primary {
+  background-color: var(--colour-accent);         /* #E05C1A */
+  color: var(--colour-accent-on);                 /* #1A1A18 — near-black on orange */
+  border-color: var(--colour-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--colour-accent-hover);   /* #C85015 — orange deepens toward commitment */
+  border-color: var(--colour-accent-hover);
+  color: var(--colour-accent-on);
+}
+
+.btn-primary:active {
+  background-color: var(--colour-accent-hover);
+  border-color: var(--colour-accent-hover);
+  transform: scale(0.98);
+  transition-duration: var(--motion-responsive);  /* 80ms */
+}
+
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+  /* Colour unchanged — the action exists but is not available here */
+}
+
+/* Loading state — dots animation */
+.btn-primary[aria-busy="true"] .btn-label {
+  /* Original label hidden visually but preserved for screen readers */
+  display: none;
+}
+
+.btn-primary[aria-busy="true"]::after {
+  content: '• • •';
+  letter-spacing: 0.3em;
+  animation: btn-loading 1s ease-in-out infinite;
+  color: var(--colour-accent-on);
+  font-size: 6px;
+}
+
+@keyframes btn-loading {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+
+/* ── Secondary Button — the supporting action ── */
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--colour-ink);
+  border-color: var(--colour-ink);
+}
+
+.btn-secondary:hover {
+  background-color: var(--colour-ink);        /* fill arrives on hover */
+  color: var(--colour-ink-inverted);          /* text inverts */
+  border-color: var(--colour-ink);
+}
+
+.btn-secondary:active {
+  background-color: var(--colour-ink);
+  color: var(--colour-ink-inverted);
+  transform: scale(0.98);
+  transition-duration: var(--motion-responsive);
+}
+
+.btn-secondary:disabled,
+.btn-secondary[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Secondary on dark field sections */
+.section--dark .btn-secondary {
+  color: var(--colour-ink-inverted);
+  border-color: var(--colour-ink-inverted);
+}
+
+.section--dark .btn-secondary:hover {
+  background-color: var(--colour-ink-inverted);
+  color: var(--colour-ink);
+}
+
+
+/* ── Navigate / Text Link — navigational, not commitment ── */
+
+.btn-navigate {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-interface);
+  font-size: var(--text-nav);  /* 12px */
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;        /* sentence case — names a destination, not a command */
+  color: var(--colour-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: none;            /* 0ms — discrete underline change, not interpolated */
+}
+
+.btn-navigate:hover {
+  text-decoration-thickness: 1.5px;  /* weight increases, colour does not change */
+}
+
+/* Navigate on dark field sections */
+.section--dark .btn-navigate {
+  color: var(--colour-ink-inverted);
+}

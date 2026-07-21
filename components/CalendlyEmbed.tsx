@@ -23,7 +23,7 @@ export default function CalendlyEmbed() {
       />
       <div
         className="calendly-inline-widget"
-        data-url={`${CALENDLY_URL}?hide_gdpr_banner=1&primary_color=c04300`}
+        data-url={`${CALENDLY_URL}?hide_gdpr_banner=1&primary_color=e05c1a`}
         style={{ minWidth: 320, height: 700 }}
       />
     </>

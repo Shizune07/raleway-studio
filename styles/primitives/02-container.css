@@ -1,0 +1,19 @@
+/* ============================================================
+   Primitive 02 — Container
+   Source: Pillar IV — Layout Primitives
+
+   The width constraint. Every Section has exactly one Container.
+   Max-width is always 1200px — it does not vary across breakpoints.
+   Only padding-inline compresses (handled via --space-container-x
+   responsive override in tokens.css).
+
+   No vertical padding. No nesting. Content that needs to be
+   narrower uses the grid column system, not a different Container.
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--space-container-max);  /* 1200px */
+  margin-inline: auto;
+  padding-inline: var(--space-container-x);
+}

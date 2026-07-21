@@ -138,6 +138,9 @@ const services = {
 type Slug = keyof typeof services
 
 /* ── Static generation ────────────────────────────────────────── */
+// Note: all /services/[slug] routes redirect to /services via next.config.ts
+// (D4 decision — individual service pages are V2 scope).
+// generateStaticParams is retained to avoid build warnings; slugs match V1.0 offering.
 export function generateStaticParams() {
   return Object.keys(services).map((slug) => ({ slug }))
 }

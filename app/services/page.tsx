@@ -1,107 +1,139 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
 import { client, servicesQuery } from '@/lib/sanity'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
-  title: 'Web Design, SEO & Digital Services | Raleway Studio',
-  description: 'From custom websites and SEO to graphic design, social media, and virtual assistance — explore Raleway Studio\'s services and find the right fit for your business.',
+  title: 'Services',
+  description:
+    'Website design, brand identity, SEO, AI automation, and more — each service built to close the gap between what your business is and how the world sees it.',
   alternates: { canonical: 'https://www.ralewaystudio.com/services' },
   openGraph: { url: 'https://www.ralewaystudio.com/services' },
 }
 
-// Fallback images keyed by slug (used whether content comes from Sanity or hardcode)
-const serviceImages: Record<string, string> = {
-  'website-design': 'https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp',
-  'graphic-design': 'https://static.wixstatic.com/media/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.webp',
-  'seo': 'https://static.wixstatic.com/media/11062b_3040ce30c4fd456089061867709bc60f~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_3040ce30c4fd456089061867709bc60f~mv2.webp',
-  'project-management': 'https://static.wixstatic.com/media/3d7bc412c43340e08591ef32a3aab71e.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/3d7bc412c43340e08591ef32a3aab71e.webp',
-  'ai-automation': 'https://static.wixstatic.com/media/11062b_23a136fa16544a95856bb9758f77a155~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_23a136fa16544a95856bb9758f77a155~mv2.webp',
-  'social-media-management': 'https://static.wixstatic.com/media/da934b39b32b473f8e2a39b2fa185f48.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/da934b39b32b473f8e2a39b2fa185f48.webp',
-  'virtual-assistance': 'https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_e0e2d79140ef4c559035a696fc808052~mv2.webp',
-}
-
-const fallbackServices: Array<{slug: string, title: string, desc: string, priority: boolean}> = [
-  { slug: 'website-design', title: 'Website Design', desc: 'Modern, responsive websites built to represent your brand clearly and convert visitors into clients.', priority: true },
-  { slug: 'graphic-design', title: 'Graphic Design', desc: 'Logos, social media graphics, and brand visuals that make your business look polished and professional.', priority: false },
-  { slug: 'seo', title: 'SEO', desc: 'Keyword research, on-page optimization, and content strategy to help the right people find you online.', priority: false },
-  { slug: 'project-management', title: 'Project Management', desc: 'Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.', priority: false },
-  { slug: 'ai-automation', title: 'AI Automation', desc: 'Save time with smart workflow automation — so your business runs more efficiently with less manual effort.', priority: false },
-  { slug: 'social-media-management', title: 'Social Media Management', desc: 'Consistent, on-brand content managed for you — so you stay visible without the daily stress.', priority: false },
-  { slug: 'virtual-assistance', title: 'Virtual Assistance', desc: 'Remote admin and business support to free up your time for what actually moves the needle.', priority: false },
-]
-
 const servicesSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'Our Services | Raleway Studio — Web Design & Digital Solutions',
+  name: 'Services | Raleway Studio',
   url: 'https://www.ralewaystudio.com/services',
-  description: 'Website design, graphic design, SEO, project management, AI automation, social media management, and virtual assistance — all from one remote studio.',
+  description:
+    'Website design, brand identity, SEO, AI automation — each service built to close the gap between what your business is and how the world sees it.',
   inLanguage: 'en',
   isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
-  breadcrumb: {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.ralewaystudio.com/services' },
-    ],
-  },
+}
+
+// Fallback services — used when Sanity is unavailable
+const fallbackServices = [
+  { slug: 'website-design',           title: 'Website Design',           desc: 'Modern, responsive websites built to represent your brand clearly and convert visitors into clients.' },
+  { slug: 'brand-identity',           title: 'Brand Identity',           desc: 'A complete visual identity — logo, colour, typography, and usage guidelines — built to communicate what makes your business worth choosing.' },
+  { slug: 'seo',                      title: 'SEO',                      desc: 'Keyword research, on-page optimisation, and content strategy to help the right people find you online.' },
+  { slug: 'ai-automation',            title: 'AI Automation',            desc: 'Intelligent workflow automation that reduces manual effort and lets your business operate more efficiently.' },
+  { slug: 'website-maintenance',      title: 'Website Maintenance',      desc: 'Ongoing updates, performance monitoring, and technical support so your site stays reliable and current.' },
+  { slug: 'digital-strategy',         title: 'Digital Strategy',         desc: 'A clear plan for your digital presence — what to build, what order to build it in, and how to measure whether it is working.' },
+  { slug: 'graphic-design',           title: 'Graphic Design',           desc: 'Social graphics, presentations, and visual assets that extend your brand into every context where your business shows up.' },
+]
+
+type Service = {
+  slug: string | { current: string }
+  title: string
+  desc: string
+}
+
+function serviceSlug(s: Service): string {
+  if (typeof s.slug === 'string') return s.slug
+  return s.slug?.current ?? ''
 }
 
 export default async function ServicesPage() {
-  const sanityServices = await client.fetch(servicesQuery).catch(() => [])
-  const services = sanityServices.length > 0
+  let sanityServices: any[] = []
+  try {
+    sanityServices = await client.fetch(servicesQuery)
+  } catch {
+    sanityServices = []
+  }
+
+  const services: Service[] = sanityServices.length > 0
     ? sanityServices.map((s: any) => ({
         slug: s.slug?.current ?? s.slug,
         title: s.title,
         desc: s.tagline || s.description || '',
-        img: serviceImages[s.slug?.current ?? s.slug] || '',
-        priority: (s.slug?.current ?? s.slug) === 'website-design',
       }))
-    : fallbackServices.map(s => ({ ...s, img: serviceImages[s.slug] || '' }))
+    : fallbackServices
 
   return (
     <>
       <JsonLd data={servicesSchema} />
-      <section className="page-hero">
-        <div className="container">
-          <nav className="breadcrumb"><Link href="/">Home</Link> › Services</nav>
-          <h1>Services &amp; Pricing</h1>
-          <p>Everything your business needs to grow online — design, SEO, content, automation, and support. All remote, all professional.</p>
-        </div>
-      </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="services-grid">
-            {services.map((s: any) => (
-              <div className="service-card" key={s.slug}>
-                {s.img && (
-                  <Image
-                    src={s.img}
-                    alt={`${s.title} service`}
-                    width={480} height={300}
-                    className="service-card__img"
-                    priority={s.priority}
-                  />
-                )}
-                <div className="service-card__body">
-                  <h2>{s.title}</h2>
-                  <p>{s.desc}</p>
-                  <Link href={`/services/${s.slug}`} className="btn btn-outline btn-sm">Learn More</Link>
-                </div>
-              </div>
-            ))}
+      {/* ── Section 01 — Hero (Component 08) ──
+          Component: hero / hero-inner / hero-content / hero-headline / hero-body
+          Layout: 100svh, lower-anchored content
+          Entrance: Pattern 07 (mount animation)
+          Rule 04: No hero-actions — CTA at Threshold.
+          Headline: 8 words (spec: 8–12) ✓
+          Body: 21 words (spec: 18–25) ✓ */}
+      <section
+        id="main-content"
+        className="hero"
+        aria-label="Services"
+      >
+        <div className="hero-inner">
+          <div className="hero-content">
+            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+              Every service we offer closes the same gap.
+            </h1>
+            <p className="hero-body hero-entrance hero-entrance--body">
+              Website design, brand identity, SEO, and automation — each built to
+              make what you do visible to the people who need it.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="cta-banner">
+      {/* ── Section 02 — Services List (light field) ──
+          Component 04 — Service Item (navigational mode — links to /services/[slug])
+          Counter: index formatted as "01", "02", etc.
+          Data: Sanity (live) with fallback (static) */}
+      <section className="section section--divided" aria-label="Our services">
         <div className="container">
-          <h2>Ready to Get Started?</h2>
-          <p>Reach out and let&apos;s figure out what your business needs most right now.</p>
-          <Link href="/contact" className="btn btn-white">Start a Project</Link>
+          <ul className="services-list animate-entrance" role="list">
+            {services.map((s, i) => (
+              <li key={serviceSlug(s)} className="services-list__item">
+                <Link
+                  href={`/services/${serviceSlug(s)}`}
+                  className="service-item service-item--linked"
+                >
+                  <span className="service-counter" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="service-name">{s.title}</span>
+                  <p className="service-description">{s.desc}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── Section 03 — Qualifier + CTA (Component 09 — Threshold) ──
+          Rule 11: One per page. Final section before Footer.
+          Rule 07: Orange CTA — the only orange at this scroll depth. */}
+      <section className="threshold" aria-label="Start a project">
+        <div className="threshold-inner">
+          <div className="threshold-content">
+            <h2 className="threshold-headline animate-entrance">
+              Not sure which service fits your situation?
+            </h2>
+            <p className="threshold-body animate-entrance">
+              Start with a conversation. We will tell you what we think needs to happen
+              first — even if that means recommending a different sequence than what
+              you originally had in mind.
+            </p>
+            <Link href="/start" className="btn-primary animate-entrance">
+              Start a conversation
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -1,0 +1,34 @@
+/* ============================================================
+   Primitive 04 — Cover
+   Source: Pillar IV — Layout Primitives
+
+   Structural presence for psychological arrival and decision moments.
+   Not a visual effect — a proportional commitment.
+
+   Two named variants:
+     --cover-arrival   (100svh)  Complete, undivided first attention
+     --cover-threshold (70svh)   Dominant with suggestion of what follows
+
+   Always min-height, not height — content is never clipped.
+   svh (small viewport height) accounts for mobile browser chrome.
+
+   Note: Component-level layout (e.g., Hero's lower anchor)
+   is specified in the component file, not here. Cover provides
+   the height constraint; the component provides the flex direction.
+   ============================================================ */
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Complete viewport arrival — Hero and first-arrival sections */
+.cover--arrival {
+  min-height: var(--cover-arrival);
+}
+
+/* Dominant with scroll suggestion — case study openers, decision moments */
+.cover--threshold {
+  min-height: var(--cover-threshold);
+}

@@ -1,0 +1,125 @@
+/* ============================================================
+   Component 09 — Threshold
+   Source: Pillar IV — Component Library, Component 09
+   Source: Document Architecture Rule 11
+   Status: FROZEN
+
+   DOM structure:
+   <section class="threshold" aria-label="Start a project">
+     <div class="threshold-inner">
+       <div class="threshold-content">
+         <h2 class="threshold-headline">Ready to build something that lasts?</h2>
+         <p class="threshold-body">The first conversation costs nothing.</p>
+         <a href="/contact" class="btn-primary">Start a project</a>
+       </div>
+     </div>
+   </section>
+
+   Rule 11: One per page. Positioned after the final content section,
+   immediately before the Footer. Never mid-page. Never decorative.
+   Background: always --colour-surface-dark (inverted field).
+   CTA: --colour-accent (orange) — the only orange in this viewport.
+   Scroll entrance: Pattern 06 stagger (headline → body → CTA).
+   ============================================================ */
+
+
+/* ── Outer shell — Cover threshold height, vertically centered ── */
+
+.threshold {
+  min-height: var(--cover-threshold);   /* 70svh */
+  width: 100%;
+  background-color: var(--colour-surface-dark);
+
+  /* Vertically centered — the Threshold is a complete, contained moment */
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-section-y);    /* breathing room if content exceeds 70svh */
+}
+
+
+/* ── Inner container — max-width constrained ── */
+
+.threshold-inner {
+  width: 100%;
+  max-width: var(--space-container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-container-x);
+}
+
+@media (max-width: 1023px) {
+  .threshold-inner {
+    padding-inline: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .threshold-inner {
+    padding-inline: 24px;
+  }
+}
+
+
+/* ── Content block — vertical Stack ── */
+
+.threshold-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-md);      /* 32px between headline, body, and CTA */
+  max-width: 760px;          /* Constrains to comfortable reading line */
+}
+
+
+/* ── Headline — H2 scale on inverted field ── */
+
+.threshold-headline {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h2);            /* 40px */
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  letter-spacing: -0.012em;
+  line-height: 1.12;
+  color: var(--colour-ink-inverted);    /* #F6F4EF on dark field */
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .threshold-headline {
+    font-size: var(--text-h3);          /* 28px at mobile */
+    line-height: 1.2;
+  }
+}
+
+
+/* ── Body copy — reassuring, low-friction ── */
+
+.threshold-body {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body-lg);       /* 18px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.75;
+  color: var(--colour-ink-secondary-inverted);   /* muted off-white */
+  max-width: 480px;
+  margin: 0;
+  /* Copy is brief: 1–2 sentences (Copy System §05). Removes the last objection.
+     Does not restate the headline. Does not list services. */
+}
+
+
+/* ── CTA — btn-primary styles defined in 02-button.css ──
+   Orange CTA (#E05C1A) is Rule 07's single threshold allocation.
+   One per page. Applied via .btn-primary class on the <a> element.
+   No additional override needed — 02-button.css handles orange on dark correctly.
+   --colour-accent-on (#1A1A18 near-black) is the text colour on orange;
+   it maintains WCAG AA contrast on both the light and dark field backgrounds. ── */
+
+
+/* ── Scroll entrance — Pattern 06 stagger ──
+   Headline: 0ms delay,   500ms ease-out translateY(16px)
+   Body:     120ms delay
+   CTA:      240ms delay
+   .animate-entrance class applied by the section template.
+   Stagger delays applied via JS data-delay attributes.
+   FOIC mitigation via .js-motion-ready (see motion/motion.css). ── */

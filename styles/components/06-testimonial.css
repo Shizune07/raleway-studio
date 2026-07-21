@@ -1,0 +1,101 @@
+/* ============================================================
+   Component 06 — Testimonial
+   Source: Pillar IV — Component Library, Component 06
+   Status: FROZEN
+
+   DOM structure:
+   <figure class="testimonial">
+     <blockquote class="testimonial-quote">
+       <p>"The exact words from the client, 15–40 words."</p>
+     </blockquote>
+     <figcaption class="testimonial-attribution">
+       <!-- Optional link — omitted from DOM when no URL -->
+       <a href="..." class="testimonial-author">First Name L., Company / Role</a>
+       <!-- Or plain text when no link: -->
+       <!-- <span class="testimonial-author">First Name L., Company / Role</span> -->
+     </figcaption>
+   </figure>
+   ============================================================ */
+
+
+/* ── Testimonial wrapper ── */
+
+.testimonial {
+  margin: 0;
+  max-width: var(--text-measure);     /* 640px — 70 char line measure */
+}
+
+
+/* ── Quote — Source Serif 4 pull style ── */
+
+.testimonial-quote {
+  margin: 0 0 var(--stack-sm);       /* 16px → attribution */
+}
+
+.testimonial-quote p {
+  font-family: var(--font-editorial);
+  font-size: var(--text-pull);        /* 24px */
+  font-weight: 400;
+  font-style: italic;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-editorial);
+  line-height: 1.4;
+  color: var(--colour-ink);
+  margin: 0;
+  /* Typographic quotation marks (") from the content itself.
+     No decorative SVG quote marks. */
+}
+
+/* Quote on dark field sections */
+.section--dark .testimonial-quote p {
+  color: var(--colour-ink-inverted);
+}
+
+
+/* ── Attribution — DM Sans interface layer ── */
+
+.testimonial-attribution {
+  display: block;
+}
+
+.testimonial-author {
+  display: inline;
+  font-family: var(--font-interface);
+  font-size: var(--text-meta);        /* 11px */
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--colour-ink-secondary);
+  text-decoration: none;
+}
+
+/* Attribution on dark field sections */
+.section--dark .testimonial-author {
+  color: var(--colour-ink-secondary-inverted);
+}
+
+/* Linked attribution — hover states (Patterns 01 + 02) */
+a.testimonial-author:hover {
+  color: var(--colour-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--motion-quick) var(--motion-ease);
+}
+
+.section--dark a.testimonial-author:hover {
+  color: var(--colour-ink-inverted);
+}
+
+a.testimonial-author:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+/* Conditional DOM: <a> is only used when an attribution URL exists.
+   When NDA prevents attribution, <span> is used without link.
+   Never use display:none to hide a link with no URL. */
+
+
+/* ── Scroll entrance — Pattern 06 (500ms, stagger: quote → attribution +150ms) ── */
+/* .animate-entrance class applied at section template level */

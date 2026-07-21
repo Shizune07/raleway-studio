@@ -1,201 +1,256 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
-import { client, teamMembersQuery, urlFor } from '@/lib/sanity'
 
 export const metadata: Metadata = {
-  title: 'About Raleway Studio | Remote Web Design & Digital Services',
-  description: 'Meet the team behind Raleway Studio — certified web designers and digital specialists helping small businesses grow online, remotely, from anywhere in the world.',
+  title: 'About',
+  description:
+    'Raleway Studio grew from a pattern its co-founder couldn’t stop noticing — capable businesses struggling to be seen for what they actually are.',
   alternates: { canonical: 'https://www.ralewaystudio.com/about' },
   openGraph: { url: 'https://www.ralewaystudio.com/about' },
 }
 
-const fallbackTeam = [
-  {
-    name: 'Seira Jho',
-    role: 'Founder · Lead Designer · SEO Specialist',
-    img: '/assets/seira-jho.jpg',
-    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center 15%' },
-    bio: 'Certified Wix Studio Designer, Wix SEO Wizard, AI Automation Specialist, and Wix Accessibility Specialist. Seira leads the creative direction of every project.',
-    badges: ['Wix Studio Certified','SEO Wizard','AI Automation','Accessibility'],
-  },
-  {
-    name: 'Gabriel De Leon',
-    role: 'Web Designer · Developer · Velo PRO',
-    img: '/assets/gabriel-de-leon.jpg',
-    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center' },
-    bio: 'Wix Studio Designer, Developer, and Velo PRO with deep expertise in Adobe Photoshop. Gabriel handles complex builds and custom development.',
-    badges: ['Wix Studio','Velo PRO','Adobe Photoshop'],
-  },
-  {
-    name: 'Jet Danila',
-    role: 'Website Design & Graphic Specialist',
-    img: '/assets/jet-danila.jpg',
-    imgStyle: { objectFit: 'cover' as const, objectPosition: 'center' },
-    bio: 'Jet is our all-around creative specialist — handling everything from pixel-perfect frontend builds to striking visual assets. He bridges the gap between great design and clean code, ensuring every project looks sharp and runs seamlessly across all devices.',
-    badges: ['Frontend Dev','Graphic Design','UI/UX','Branding'],
-  },
-]
-
-const whyUs = [
-  { icon: '🎯', title: 'We focus on you', desc: 'No cookie-cutter designs. We take the time to understand your goals and create something that truly fits your business.' },
-  { icon: '🏆', title: 'Certified expertise', desc: 'Our team holds certifications in web design, SEO, accessibility, and development — not just general skills.' },
-  { icon: '🌍', title: 'Fully remote', desc: 'We work with businesses worldwide. No location barriers, no timezone excuses.' },
-  { icon: '📈', title: 'Design that performs', desc: 'Our sites aren\'t just beautiful — they\'re built with SEO structure and clear calls to action from day one.' },
-  { icon: '🤝', title: 'One partner, many services', desc: 'From websites to automation, we cover more so you don\'t have to manage multiple freelancers.' },
-  { icon: '🐾', title: 'We give back', desc: '5% of every sale goes to non-government animal shelters — because we care about more than business.' },
-]
-
-const certImages = [
-  { src: 'https://static.wixstatic.com/media/3837bb_c9ccc56b8930482291a59a44733b20a4~mv2.png', alt: 'Wix Studio Accessibility Specialist certificate' },
-  { src: 'https://static.wixstatic.com/media/3837bb_0e2b69006fe742df847efad8bf1d397e~mv2.jpeg', alt: 'LinkedIn Learning Brand Design Foundation certificate' },
-  { src: 'https://static.wixstatic.com/media/3837bb_4d0915d0dc04445494f24ed0f1ea9280~mv2.png', alt: 'LinkedIn Learning UX for Web Design certificate' },
-  { src: 'https://static.wixstatic.com/media/3837bb_a44ae255c48f43178d4ebd41043e9328~mv2.png', alt: 'LinkedIn Learning SEO Content Writing certificate' },
-  { src: 'https://static.wixstatic.com/media/3837bb_8554aa3ab75847439630475ce220f161~mv2.jpeg', alt: 'LinkedIn Learning SEO Foundation certificate' },
-  { src: 'https://static.wixstatic.com/media/3837bb_a7d5041ddb7d40f980b9cdb7c6304c26~mv2.png', alt: 'Web Accessibility badge' },
-]
-
 const aboutSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
-  name: 'About Raleway Studio | Remote Web Design & Digital Services',
+  name: 'About Raleway Studio',
+  description:
+    'Raleway Studio grew from a pattern its co-founder couldn’t stop noticing — capable businesses struggling to be seen for what they actually are.',
   url: 'https://www.ralewaystudio.com/about',
-  description: 'Meet the team behind Raleway Studio — certified web designers and digital specialists helping small businesses grow online, remotely, from anywhere in the world.',
   inLanguage: 'en',
   isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
-  breadcrumb: {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.ralewaystudio.com/' },
-      { '@type': 'ListItem', position: 2, name: 'About', item: 'https://www.ralewaystudio.com/about' },
-    ],
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Raleway Studio',
+    url: 'https://www.ralewaystudio.com',
+    founder: {
+      '@type': 'Person',
+      name: 'Seira',
+      jobTitle: 'Co-founder',
+    },
   },
 }
 
-export default async function AboutPage() {
-  // Fetch from Sanity; fall back to hardcoded if studio is empty
-  const sanityTeam = await client.fetch(teamMembersQuery).catch(() => [])
-  const team = sanityTeam.length > 0
-    ? sanityTeam.map((m: any) => ({
-        name: m.name,
-        role: m.role,
-        img: m.photo?.asset?.url ? urlFor(m.photo).width(220).height(220).fit('crop').url() : null,
-        imgStyle: { objectFit: 'cover' as const, objectPosition: 'center 15%' },
-        bio: m.bio,
-        badges: m.badges || [],
-      }))
-    : fallbackTeam
-
+export default function AboutPage() {
   return (
     <>
       <JsonLd data={aboutSchema} />
-      <section className="page-hero">
-        <div className="container">
-          <nav className="breadcrumb"><Link href="/">Home</Link> › About</nav>
-          <h1>About Raleway Studio</h1>
-          <p>We&apos;re a remote team of certified designers and digital specialists on a mission to help small businesses grow online.</p>
+
+      {/* ── Section 01 — Hero ──
+          Copy frozen: Knowledge Architecture v1.0 + Founder Editorial Foundation, July 2026.
+          "grew from" reflects cumulative origin — no single founding moment.
+          Rule 04: No hero-actions — CTA lives at the Threshold. */}
+      <section
+        id="main-content"
+        className="hero"
+        aria-label="About Raleway Studio"
+      >
+        <div className="hero-inner">
+          <div className="hero-content">
+            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+              Raleway Studio grew from a pattern I couldn&rsquo;t stop noticing.
+            </h1>
+            <p className="hero-body hero-entrance hero-entrance--body">
+              For years, I watched capable businesses struggle to be seen for
+              what they actually were. I couldn&rsquo;t stop noticing the gap between
+              the quality they had built and what people were actually able to
+              recognise. Eventually, that changed how I work.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="section">
+      {/* ── Section 02 — The Pattern ──
+          What kept recurring across different businesses and contexts.
+          Ends with preserved key phrase on market legibility. */}
+      <section className="section section--divided" aria-label="The pattern">
         <div className="container">
-          <div className="two-col">
-            <div>
-              <span className="section-label">Our Mission</span>
-              <h2 className="section-title">Why We Do What We Do</h2>
-              <p>Raleway Studio exists to help businesses show up online with confidence. We design custom, responsive websites that are visually strong, easy to navigate, and built to convert — backed by SEO, branding, and operational support that keeps your business moving forward.</p>
-              <p>We believe the work behind your online presence matters just as much as the design itself. That&apos;s why we offer services that go beyond the website — from content and SEO to automation and day-to-day support.</p>
-              <Link href="/contact" className="btn btn-primary" style={{marginTop:'1rem',display:'inline-block'}}>Start a Project</Link>
+          <div className="about-narrative animate-entrance">
+            <p className="section-body">
+              I didn&rsquo;t recognise the pattern through one defining project. I kept
+              seeing versions of it across different businesses, in different contexts.
+            </p>
+            <p className="section-body">
+              The businesses I encountered that were most trusted in their fields —
+              referred constantly, relied upon by long-term clients — often had no
+              presence online that reflected that trust. Find them through a search
+              instead of through someone who already knew them, and they looked
+              indistinguishable from competitors half as capable. The quality was
+              real. It simply wasn&rsquo;t visible to anyone who hadn&rsquo;t already
+              heard about them.
+            </p>
+            <p className="section-body">
+              The market wasn&rsquo;t necessarily rewarding the best business. It was
+              rewarding the business people could understand fastest.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 03 — What Changed ──
+          Honest revision of the prior belief: a good website isn't enough.
+          Ends with preserved key phrase on clarity. */}
+      <section className="section section--divided" aria-label="What changed">
+        <div className="container">
+          <div className="about-narrative animate-entrance">
+            <p className="section-body">
+              For a long time, I believed the answer was a better website. If the
+              design was clean and professionally built, the business would become
+              more credible.
+            </p>
+            <p className="section-body">
+              What I learned, gradually, was that it wasn&rsquo;t enough. I could build
+              something I was proud of and hand it over, and the business would still
+              struggle to explain what made it worth choosing. The website reflected
+              what the client had asked for, but not always what made the business
+              worth choosing.
+            </p>
+            <p className="section-body">
+              A website can communicate clarity, but it can&rsquo;t create clarity. When
+              the underlying positioning is unclear, a better website can only present
+              that uncertainty more professionally.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 04 — How the Work Changed ──
+          Behavioural consequence — different questions, different pace.
+          Most credible section: conviction becomes observable practice.
+          Preserved phrase: "solving the brief, not the business problem." */}
+      <section className="section section--divided" aria-label="How the work changed">
+        <div className="container">
+          <div className="about-narrative animate-entrance">
+            <p className="section-body">
+              The change didn&rsquo;t happen at once. It showed up first in the
+              questions I started asking.
+            </p>
+            <p className="section-body">
+              Before, my questions were mostly about execution. What pages do
+              you need? What aesthetic do you prefer? Those questions helped me
+              build what the client had imagined. They didn&rsquo;t help me understand
+              whether what the client had imagined was the right answer to the
+              problem they actually had.
+            </p>
+            <p className="section-body">
+              I started asking different questions. What do customers choose you
+              for — specifically, not generally? What do people consistently
+              misunderstand about your business? Those conversations changed what
+              I understood about the work in front of me.
+            </p>
+            <p className="section-body">
+              I realised I had been solving the brief, not the business problem.
+              Sometimes those are the same thing. Often they aren&rsquo;t. If a brief
+              is built on unclear positioning, executing it well still leaves the
+              original problem untouched.
+            </p>
+            <p className="section-body">
+              I became more willing to slow a project down when the thinking
+              underneath it was still unclear. Sometimes that changed the scope
+              significantly. Sometimes it meant saying that a new website wasn&rsquo;t
+              the right starting point.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 05 — The Standard ──
+          Working measure of success: accurate understanding, not impressive presentation.
+          Ethical boundary: won't build what the business can't sustain. */}
+      <section className="section section--divided" aria-label="The standard">
+        <div className="container">
+          <div className="about-narrative animate-entrance">
+            <p className="section-body">
+              That shift changed what I consider success.
+            </p>
+            <p className="section-body">
+              Success was no longer just impressive presentation or polished
+              execution. It was whether the business became more accurately
+              understood by the specific people it exists to serve.
+            </p>
+            <p className="section-body">
+              I&rsquo;m not trying to make businesses look more impressive than they
+              are. I&rsquo;m trying to make them look as good as they actually are.
+              A website can communicate what&rsquo;s true. It can&rsquo;t make something true.
+            </p>
+            <p className="section-body">
+              I don&rsquo;t believe in building a presence that promises more than the
+              business can consistently deliver. When the reality and the intended
+              perception are too far apart, the honest work is to address that gap
+              before amplifying it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 06 — Founder ──
+          Portrait placeholder until photography is available.
+          No blockquote — synthesized quote removed in final copy approval.
+          Multiple about-founder__statement paragraphs; margins collapse correctly at 32px.
+          Ends on conviction ("same standard"), not studio structure. */}
+      <section className="section section--divided" aria-label="The founder">
+        <div className="container">
+          <div className="about-founder animate-entrance">
+            <div className="about-founder__portrait" aria-hidden="true">
+              <div className="about-founder__placeholder" />
             </div>
-            <div style={{background:'var(--primary)',borderRadius:'var(--radius-lg)',padding:'2.5rem',color:'white'}}>
-              <span className="section-label" style={{color:'rgba(255,255,255,0.7)'}}>Our Vision</span>
-              <h3 style={{color:'white',marginBottom:'1rem',fontSize:'1.5rem'}}>A professional digital presence for every business</h3>
-              <p style={{color:'rgba(255,255,255,0.85)'}}>We believe every business deserves a professional digital presence, regardless of size or budget. Our goal is to be the creative partner small and growing businesses turn to — not just for a website, but for the ongoing support that helps them compete, grow, and stand out online.</p>
-              <div style={{marginTop:'2rem',paddingTop:'1.5rem',borderTop:'1px solid rgba(255,255,255,0.2)'}}>
-                <div style={{fontFamily:'var(--font-raleway)',fontWeight:700,color:'white',marginBottom:'0.25rem'}}>Available worldwide</div>
-                <div style={{fontSize:'0.9rem',color:'rgba(255,255,255,0.75)'}}>Fully remote — we work with businesses from any country, any time zone.</div>
-              </div>
+            <div className="about-founder__content">
+              <p className="about-founder__name">Seira</p>
+              <p className="about-founder__role">Co-founder, Raleway Studio</p>
+              <p className="about-founder__statement">
+                I measure the work by a simple question: did this help the
+                business become more accurately understood?
+              </p>
+              <p className="about-founder__statement">
+                That question became one of Raleway Studio&rsquo;s defining
+                standards: strong businesses should not have to become louder
+                or less truthful to become easier to recognise.
+              </p>
+              <p className="about-founder__statement">
+                Raleway Studio is an independent studio. We keep the core
+                thinking close and bring in specialist support when the work
+                genuinely requires it.
+              </p>
+              <p className="about-founder__statement">
+                Everything on this page comes back to the same standard:
+                helping businesses become more accurately understood.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="section section--light">
-        <div className="container">
-          <div className="text-center">
-            <span className="section-label">The Team</span>
-            <h2 className="section-title">Meet Your Experts</h2>
-            <p className="section-subtitle">Certified, experienced, and genuinely invested in your success.</p>
-          </div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'2rem',marginTop:'3rem'}}>
-            {team.map((m: any) => (
-              <div key={m.name} style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:'2rem',textAlign:'center'}}>
-                <div style={{width:110,height:110,borderRadius:'50%',overflow:'hidden',margin:'0 auto 1rem',background:'var(--primary-light)',position:'relative'}}>
-                  {m.img ? (
-                    <Image src={m.img} alt={m.name} fill style={{objectFit:'cover', objectPosition: m.imgStyle?.objectPosition || 'center'}} unoptimized={m.img.startsWith('https://cdn.sanity.io')} />
-                  ) : (
-                    <span style={{fontSize:'2rem',fontWeight:800,color:'var(--primary)',position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center'}}>{m.name.split(' ').map((n:string)=>n[0]).join('')}</span>
-                  )}
-                </div>
-                <h3 style={{marginBottom:'0.25rem'}}>{m.name}</h3>
-                <div style={{color:'var(--primary)',fontWeight:600,fontSize:'0.85rem',marginBottom:'0.75rem'}}>{m.role}</div>
-                <p style={{fontSize:'0.88rem',lineHeight:1.6,marginBottom:'1rem'}}>{m.bio}</p>
-                <div style={{display:'flex',flexWrap:'wrap',gap:'0.4rem',justifyContent:'center'}}>
-                  {m.badges.map((b: any) => (
-                    <span key={b} style={{background:'var(--primary-light)',color:'var(--primary-dark)',fontSize:'0.75rem',fontWeight:700,padding:'0.25rem 0.65rem',borderRadius:50}}>{b}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="section">
-        <div className="container">
-          <div className="text-center">
-            <span className="section-label">Why Choose Us</span>
-            <h2 className="section-title">What Sets Raleway Studio Apart</h2>
-          </div>
-          <div className="features-grid" style={{marginTop:'3rem'}}>
-            {whyUs.map(item => (
-              <div className="feature" key={item.title}>
-                <div className="feature__icon">{item.icon}</div>
-                <div><h3>{item.title}</h3><p>{item.desc}</p></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="section section--light">
-        <div className="container">
-          <div className="text-center">
-            <span className="section-label">Certifications</span>
-            <h2 className="section-title">Qualified &amp; Accredited</h2>
-            <p className="section-subtitle">Our team holds recognised certifications in design, SEO, accessibility, and development.</p>
-          </div>
-          <div style={{display:'flex',flexWrap:'wrap',gap:'1.5rem',justifyContent:'center',marginTop:'2.5rem',alignItems:'center'}}>
-            {certImages.map(cert => (
-              <Image key={cert.src} src={cert.src} alt={cert.alt} width={160} height={80} style={{objectFit:'contain',height:80,width:'auto'}} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-banner">
-        <div className="container">
-          <h2>Let&apos;s Work Together</h2>
-          <p>Reach out and let&apos;s talk about what your business needs.</p>
-          <div className="btn-group" style={{justifyContent:'center'}}>
-            <Link href="/contact" className="btn btn-white">Get in Touch</Link>
-            <Link href="/pricing" className="btn btn-outline" style={{borderColor:'rgba(255,255,255,0.5)',color:'white'}}>View Pricing</Link>
+      {/* ── Section 07 — Threshold ──
+          Approved destination: /method (not /start).
+          About = Stage 2 (Trust) → Method = Stage 3 (Clarity).
+          btn-navigate signals progression, not conversion.
+          .threshold .btn-navigate override in globals.css inverts colour for dark field. */}
+      <section className="threshold" aria-label="The Method">
+        <div className="threshold-inner">
+          <div className="threshold-content">
+            <h2 className="threshold-headline animate-entrance">
+              How the thinking becomes the work.
+            </h2>
+            <p className="threshold-body animate-entrance">
+              The next step is understanding how this conviction shapes an
+              actual engagement — from the questions we ask to the decisions
+              we make before design begins.
+            </p>
+            <Link href="/method" className="btn-navigate animate-entrance">
+              See the Method
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+                className="btn-navigate__arrow"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>

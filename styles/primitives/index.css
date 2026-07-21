@@ -1,0 +1,19 @@
+/* ============================================================
+   Layout Primitives — Barrel Import
+   Source: Pillar IV — Layout Primitives
+
+   Import order follows the nesting hierarchy:
+   Section → Container → Grid → Cover → Stack → Cluster → Flow → Frame
+
+   Tokens must be imported before primitives.
+   See styles/main.css for the full cascade entry point.
+   ============================================================ */
+
+@import './01-section.css';
+@import './02-container.css';
+@import './03-grid.css';
+@import './04-cover.css';
+@import './05-stack.css';
+@import './06-cluster.css';
+@import './07-flow.css';
+@import './08-frame.css';

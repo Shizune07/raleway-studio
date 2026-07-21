@@ -1,0 +1,290 @@
+/* ============================================================
+   Component 01 — Navbar
+   Source: Pillar IV — Component Library, Component 01
+   Status: FROZEN
+
+   DOM structure:
+   <header class="site-nav">
+     <div class="nav-inner">
+       <a href="/" class="nav-wordmark" aria-label="Raleway Studio — home">Raleway Studio</a>
+       <nav aria-label="Primary navigation">
+         <ul>
+           <li><a href="/work">Work</a></li>
+           <li><a href="/services">Services</a></li>
+           <li><a href="/about">About</a></li>
+           <li><a href="/contact">Contact</a></li>
+           <li><a href="/studio">Studio</a></li>
+         </ul>
+       </nav>
+       <a href="/contact" class="btn-primary nav-cta">Start a project</a>
+       <button class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile-menu">
+         <span aria-hidden="true"></span>
+       </button>
+     </div>
+     <div id="nav-mobile-menu" class="nav-mobile" hidden>
+       <!-- mobile menu contents -->
+     </div>
+   </header>
+   ============================================================ */
+
+
+/* ── Outer shell — fixed, full viewport width ── */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-navbar);
+  background-color: var(--colour-surface);
+  border-bottom: 0.5px solid var(--colour-border);
+  /* No scroll animation. No background change on scroll.
+     The component does not perform. It is already there. */
+}
+
+
+/* ── Inner container — max-width constrained, horizontally centred ── */
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  max-width: var(--space-container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-container-x);
+  padding-block: var(--space-nav-y);  /* 24px top and bottom */
+}
+
+
+/* ── Wordmark — the first sentence of the website ── */
+
+.nav-wordmark {
+  font-family: var(--font-editorial);
+  font-size: var(--text-wordmark);         /* 11.5px */
+  font-weight: 400;
+  font-variation-settings: 'opsz' var(--opsz-editorial);  /* opsz 36 */
+  font-optical-sizing: auto;
+  letter-spacing: var(--text-wordmark-ls); /* 0.22em */
+  text-transform: uppercase;
+  color: var(--colour-ink);
+  text-decoration: none;
+  flex-shrink: 0;
+  /* Hover: no visual change.
+     Confidence does not ask for acknowledgement. */
+}
+
+
+/* ── Navigation — pushed to the right via margin-left: auto ── */
+
+.site-nav nav {
+  margin-left: auto;   /* pushes nav + CTA rightward */
+}
+
+.site-nav nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-nav-gap);  /* 32px */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav nav a {
+  font-family: var(--font-interface);
+  font-size: var(--text-nav);       /* 12px */
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--colour-ink-secondary);
+  text-decoration: none;
+  /* Reserve space for active underline without layout shift */
+  padding-block-end: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color var(--motion-quick) var(--motion-ease);
+}
+
+.site-nav nav a:hover {
+  color: var(--colour-ink);
+  font-weight: 400;  /* gains weight, not colour */
+  border-bottom-color: transparent;
+}
+
+/* Active state — typographic only, no orange */
+.site-nav nav a[aria-current="page"] {
+  color: var(--colour-ink);
+  font-weight: 500;
+  border-bottom-color: var(--colour-ink);  /* 1px underline at baseline */
+}
+
+
+/* ── Primary CTA — the one threshold element in the Navbar ── */
+
+.nav-cta {
+  margin-left: var(--space-7);  /* 48px gap — CTA is categorically different from nav links */
+  flex-shrink: 0;
+}
+
+
+/* ── Hamburger — visible only at mobile/tablet ── */
+
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);           /* extend touch target */
+  margin-left: var(--space-5);
+  color: var(--colour-ink);
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* WCAG 2.5.5 touch target */
+  min-height: 44px;
+}
+
+/* Three-line icon using generated content on the span */
+.nav-hamburger > span {
+  display: block;
+  position: relative;
+  width: 18px;
+  height: 1.5px;
+  background-color: var(--colour-ink);
+}
+
+.nav-hamburger > span::before,
+.nav-hamburger > span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 1.5px;
+  background-color: var(--colour-ink);
+  transition: transform var(--motion-quick) var(--motion-ease);
+}
+
+.nav-hamburger > span::before { top: -5px; }
+.nav-hamburger > span::after  { top:  5px; }
+
+/* Close (×) state when menu is open */
+.nav-hamburger[aria-expanded="true"] > span {
+  background-color: transparent;  /* hide middle bar */
+}
+.nav-hamburger[aria-expanded="true"] > span::before {
+  transform: translateY(5px) rotate(45deg);
+}
+.nav-hamburger[aria-expanded="true"] > span::after {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+
+/* ── Mobile menu panel — expands below nav ── */
+
+.nav-mobile {
+  background-color: var(--colour-surface);
+  border-top: 0.5px solid var(--colour-border);
+}
+
+/* hidden attribute removes from layout entirely (Rule 04 — conditional DOM) */
+.nav-mobile[hidden] {
+  display: none;
+}
+
+.nav-mobile-inner {
+  max-width: var(--space-container-max);
+  margin-inline: auto;
+  padding-inline: 24px;
+  padding-block: var(--space-7);   /* 48px */
+}
+
+.nav-mobile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-mobile li {
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+.nav-mobile li:first-child {
+  border-top: 0.5px solid var(--colour-border);
+}
+
+.nav-mobile a {
+  display: block;
+  font-family: var(--font-interface);
+  font-size: 18px;   /* larger than desktop for touch target */
+  font-weight: 300;
+  color: var(--colour-ink-secondary);
+  text-decoration: none;
+  padding-block: var(--space-6);  /* 32px */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-mobile a[aria-current="page"] {
+  color: var(--colour-ink);
+  font-weight: 500;
+  border-left: 1px solid var(--colour-ink);
+  padding-left: var(--space-4);
+  margin-left: calc(-1 * var(--space-4));
+}
+
+/* CTA inside the mobile menu — full width */
+.nav-mobile-cta {
+  display: flex;
+  margin-top: var(--space-6);  /* 32px */
+  width: 100%;
+}
+
+.nav-mobile-cta .btn-primary {
+  flex: 1;
+  text-align: center;
+  min-height: 44px;  /* WCAG 2.5.5 touch target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ── Tablet (768px–1023px) ── */
+
+@media (max-width: 1023px) {
+  .nav-inner {
+    padding-inline: 48px;
+  }
+
+  /* Navigation links hidden — hamburger takes over */
+  .site-nav nav {
+    display: none;
+  }
+
+  /* Desktop CTA hidden — CTA lives in mobile menu */
+  .nav-cta {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+}
+
+
+/* ── Mobile (<768px) ── */
+
+@media (max-width: 767px) {
+  .nav-inner {
+    padding-inline: 24px;
+  }
+}
+
+
+/* ── Very small viewports (<320px) ── */
+
+@media (max-width: 320px) {
+  .nav-wordmark {
+    letter-spacing: 0.12em;  /* reduce from 0.22em to prevent overflow */
+  }
+}
+
+
+/* ── Scroll-aware hide/show (mobile only — applied via JS) ── */
+/* Pattern 08 — see motion/motion.css for transition declarations */

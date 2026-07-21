@@ -1,228 +1,238 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
-import { client, featuredTestimonialsQuery } from '@/lib/sanity'
 
 export const metadata: Metadata = {
-  title: 'Raleway Studio | Custom Websites & Digital Services to Grow Your Business',
-  description: 'Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online. Remote-friendly, available worldwide.',
+  title: 'Raleway Studio — We help good businesses be seen for what they are',
+  description: 'Raleway Studio closes the gap between what your business genuinely is and what the world can currently see it to be. Premium website design, brand identity, and digital strategy.',
   alternates: { canonical: 'https://www.ralewaystudio.com/' },
   openGraph: { url: 'https://www.ralewaystudio.com/' },
 }
 
-const services = [
-  { title: 'Website Design', img: 'https://static.wixstatic.com/media/11062b_31fcefa60a2e4659a556237badf702e1~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_31fcefa60a2e4659a556237badf702e1~mv2.webp', href: '/services/website-design', desc: 'Modern, responsive websites built to represent your brand clearly and convert visitors into clients.' },
-  { title: 'Graphic Design', img: 'https://static.wixstatic.com/media/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_f2adb52bb1804f759798a6d9fcf4adb3~mv2.webp', href: '/services/graphic-design', desc: 'Logos, social media graphics, and brand visuals that make your business look polished and professional.' },
-  { title: 'SEO', img: 'https://static.wixstatic.com/media/11062b_3040ce30c4fd456089061867709bc60f~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_3040ce30c4fd456089061867709bc60f~mv2.webp', href: '/services/seo', desc: 'Keyword research, on-page optimization, and content strategy to help the right people find you online.' },
-  { title: 'Project Management', img: 'https://static.wixstatic.com/media/3d7bc412c43340e08591ef32a3aab71e.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/3d7bc412c43340e08591ef32a3aab71e.webp', href: '/services/project-management', desc: 'Stay organized and on track. We help manage projects, deadlines, and deliverables so you can focus on growth.' },
-  { title: 'AI Automation', img: 'https://static.wixstatic.com/media/11062b_23a136fa16544a95856bb9758f77a155~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_23a136fa16544a95856bb9758f77a155~mv2.webp', href: '/services/ai-automation', desc: 'Save time with smart workflow automation — so your business runs more efficiently with less manual effort.' },
-  { title: 'Social Media Management', img: 'https://static.wixstatic.com/media/da934b39b32b473f8e2a39b2fa185f48.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/da934b39b32b473f8e2a39b2fa185f48.webp', href: '/services/social-media-management', desc: 'Consistent, on-brand content managed for you — so you stay visible without the daily stress.' },
-  { title: 'Virtual Assistance', img: 'https://static.wixstatic.com/media/11062b_e0e2d79140ef4c559035a696fc808052~mv2.jpg/v1/fill/w_480,h_300,al_c,q_85,enc_auto/11062b_e0e2d79140ef4c559035a696fc808052~mv2.webp', href: '/services/virtual-assistance', desc: 'Remote admin and business support to free up your time for what actually moves the needle.' },
-]
-
-const industries = ['Media & Entertainment','Fashion & Beauty','Construction & Architecture','Healthcare','Hospitality & Travel','Restaurants & Food','Technology & Startups','Coaching & Professional Services','Non-Profit & Education','E-Commerce','Real Estate','Home & Commercial Services']
-
-const fallbackTestimonials = [
-  { stars: '★★★★★', text: '"Raleway Studio completely transformed our online presence. The website is beautiful, fast, and we\'re already getting more inquiries."', name: 'Alex M.', role: 'Small Business Owner', initial: 'A' },
-  { stars: '★★★★★', text: '"Professional, communicative, and the results exceeded expectations. The SEO improvements alone made it worth every penny."', name: 'Jamie L.', role: 'E-Commerce Founder', initial: 'J' },
-  { stars: '★★★★★', text: '"Working with Raleway Studio remotely was seamless. They understood our brand immediately and delivered exactly what we needed."', name: 'Maria S.', role: 'Creative Agency', initial: 'M' },
-]
-
-const faqs = [
-  { q: 'What services does Raleway Studio offer?', a: 'Raleway Studio offers website design, graphic design, SEO, project management, AI automation, social media management, and virtual assistance.' },
-  { q: 'Do you work with clients worldwide?', a: 'Yes. Raleway Studio operates fully remotely and works with businesses anywhere in the world. Location is never a barrier.' },
-  { q: 'Can I hire you for just one service?', a: 'Yes. You can hire Raleway Studio for a single service — whatever your business needs most right now.' },
-  { q: 'Do you redesign existing websites?', a: 'Yes. If your current website feels outdated or no longer reflects your business, we can redesign it.' },
-  { q: 'How long does a website project usually take?', a: 'Timelines vary based on scope. We always discuss and agree on a timeline before work begins so there are no surprises.' },
-  { q: 'How do I get started?', a: 'Simply reach out through our Contact page and share what you need. We\'ll guide you through the next steps.' },
-]
-
 const homeSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'Raleway Studio | Custom Websites & Digital Services',
+  name: 'Raleway Studio',
   url: 'https://www.ralewaystudio.com/',
-  description: 'Custom websites, SEO, graphic design, and more — Raleway Studio helps small businesses grow online. Remote-friendly, available worldwide.',
+  description: 'We help good businesses be seen for what they are.',
   inLanguage: 'en',
   isPartOf: { '@type': 'WebSite', url: 'https://www.ralewaystudio.com' },
   about: { '@type': 'Organization', name: 'Raleway Studio' },
 }
 
-export default async function HomePage() {
-  const sanityTestimonials = await client.fetch(featuredTestimonialsQuery).catch(() => [])
-  const testimonials = sanityTestimonials.length > 0
-    ? sanityTestimonials.map((t: any) => ({
-        stars: '★★★★★',
-        text: t.quote.startsWith('"') ? t.quote : `"${t.quote}"`,
-        name: t.clientName,
-        role: t.businessName || t.service || '',
-        initial: t.initials || t.clientName?.[0] || '?',
-      }))
-    : fallbackTestimonials
+// Principles — Section 04 (Service Item pattern)
+const principles = [
+  {
+    num: '01',
+    title: 'We diagnose before we design.',
+    desc: 'Every project begins with a structured discovery process. We need to understand what the problem actually is — not assume it is what it first appears to be.',
+  },
+  {
+    num: '02',
+    title: 'We challenge before we agree.',
+    desc: "When we believe a direction is wrong, we say so. Agreement that doesn't serve the business isn't professionalism — it's self-protection.",
+  },
+  {
+    num: '03',
+    title: 'Strategy before surface.',
+    desc: 'A website is not the solution. It is the expression of a solution. The positioning, the narrative, the content architecture — these come before anything visual.',
+  },
+  {
+    num: '04',
+    title: 'We measure by legibility, not aesthetics.',
+    desc: 'The work is successful when the right people encounter our clients and understand — quickly, clearly — whether this business is right for them. Beautiful is secondary to clear.',
+  },
+]
 
+export default function HomePage() {
   return (
     <>
       <JsonLd data={homeSchema} />
-      {/* Hero */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero__inner">
-            <div>
-              <span className="hero__eyebrow">Remote · Worldwide · Available Now</span>
-              <h1>Remote web design and digital services for <span style={{color:'var(--primary)'}}>small businesses</span></h1>
-              <p>We design websites that look professional, load fast, and help your business grow — backed by SEO, graphic design, and creative support. Work with us from anywhere.</p>
-              <div className="btn-group">
-                <Link href="/contact" className="btn btn-primary">Let&apos;s Build Your Website</Link>
-                <Link href="/book" className="btn btn-outline">Book a Free Call</Link>
-              </div>
-              <p style={{marginTop:'1.5rem',fontSize:'0.85rem',color:'var(--gray)'}}>✓ No location barriers &nbsp;·&nbsp; ✓ Flexible services &nbsp;·&nbsp; ✓ Real results</p>
-            </div>
-            <div className="hero__image" style={{position:'relative',height:420}}>
-              <div style={{position:'absolute',top:0,right:0,width:190,height:190,borderRadius:'50%',overflow:'hidden',border:'4px solid var(--primary)',boxShadow:'0 8px 28px rgba(228,88,0,0.2)'}}>
-                <Image src="https://static.wixstatic.com/media/11062b_cb911216de184296b79f70f64177f00a~mv2.jpg/v1/fill/w_380,h_380,al_c,q_85,enc_auto/11062b_cb911216de184296b79f70f64177f00a~mv2.webp" alt="Small business owner" fill style={{objectFit:'cover'}} priority />
-              </div>
-              <div style={{position:'absolute',top:110,left:'50%',transform:'translateX(-50%)',width:205,height:205,borderRadius:'50%',overflow:'hidden',border:'4px solid var(--primary)',boxShadow:'0 8px 28px rgba(228,88,0,0.2)'}}>
-                <Image src="https://static.wixstatic.com/media/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.jpg/v1/fill/w_410,h_410,al_c,q_85,enc_auto/11062b_0489cf0b1f1a4824a5de5e27ec0b1f0b~mv2.webp" alt="Creative business owner" fill style={{objectFit:'cover'}} />
-              </div>
-              <div style={{position:'absolute',bottom:20,left:0,width:172,height:172,borderRadius:'50%',overflow:'hidden',border:'4px solid var(--primary)',boxShadow:'0 8px 28px rgba(228,88,0,0.2)'}}>
-                <Image src="https://static.wixstatic.com/media/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.jpg/v1/fill/w_344,h_344,al_c,q_85,enc_auto/11062b_ab2cd87fb9114f6c897ce66d79641f8b~mv2.webp" alt="Product business owner" fill style={{objectFit:'cover'}} />
-              </div>
-              <div style={{position:'absolute',bottom:0,right:15,width:168,height:168,borderRadius:'50%',overflow:'hidden',border:'4px solid var(--primary)',boxShadow:'0 8px 28px rgba(228,88,0,0.2)'}}>
-                <Image src="https://static.wixstatic.com/media/b69a347cdbfd4c1eb90e1336b57c5bc0.jpg/v1/fill/w_336,h_336,al_c,q_85,enc_auto/b69a347cdbfd4c1eb90e1336b57c5bc0.webp" alt="Restaurant business owner" fill style={{objectFit:'cover'}} />
-              </div>
-              <div style={{position:'absolute',top:200,right:-5,background:'white',borderRadius:50,padding:'0.45rem 0.9rem',boxShadow:'var(--shadow)',display:'flex',alignItems:'center',gap:'0.4rem',fontFamily:'var(--font-raleway)',fontWeight:700,fontSize:'0.82rem',color:'var(--dark)',whiteSpace:'nowrap'}}>
-                <span style={{color:'var(--primary)'}}>✓</span> Successfully helped
-              </div>
+
+      {/* ── Section 01 — The Problem (Component 08 — Hero) ──
+          Component: hero / hero-inner / hero-content / hero-headline / hero-body / hero-actions
+          Layout: 100svh, lower-anchored (content at bottom of viewport)
+          Entrance: Pattern 07 (mount animation, not scroll) */}
+      <section
+        id="main-content"
+        className="hero"
+        aria-label="Introduction"
+      >
+        <div className="hero-inner">
+          <div className="hero-content">
+            {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
+            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+              There is a kind of struggle that looks like a branding problem.
+            </h1>
+            {/* Body: 22 words — names the mechanism (DEV-HP-02 resolved) */}
+            <p className="hero-body hero-entrance hero-entrance--body">
+              The problem is often the distance between what your business genuinely is
+              and what the world can clearly see it to be.
+            </p>
+            <div className="hero-actions hero-entrance hero-entrance--cta">
+              <Link href="/start" className="btn-primary">
+                Start a conversation
+              </Link>
+              <Link href="/thinking" className="btn-navigate">
+                Read our thinking
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section className="section">
+      {/* ── Section 02 — The Diagnosis ──
+          Component: section / container / stack of body paragraphs
+          Primitive: Section (divided variant) + Container
+          Opens with the editorial sequence removed from the Hero (Option B resolution).
+          The sequence completes the Hero's sentence before deepening into symptoms. */}
+      <section className="section section--divided" aria-label="The diagnosis">
         <div className="container">
-          <div className="text-center">
-            <span className="section-label">What We Do</span>
-            <h2 className="section-title">More Than Just Website Design</h2>
-            <p className="section-subtitle">Your website is often the first impression people have of your business. We make sure it counts — and we support everything around it.</p>
-          </div>
-          <div className="services-grid">
-            {services.map(s => (
-              <div className="service-card" key={s.href}>
-                <Image src={s.img} alt={s.title} width={480} height={300} className="service-card__img" />
-                <div className="service-card__body">
-                  <h3>{s.title}</h3>
-                  <p>{s.desc}</p>
-                  <Link href={s.href} className="btn btn-outline btn-sm" style={{marginTop:'auto',alignSelf:'flex-start'}}>Learn More</Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose */}
-      <section className="section section--light">
-        <div className="container">
-          <div className="two-col two-col--wide">
-            <div>
-              <span className="section-label">Why Raleway Studio</span>
-              <h2 className="section-title">A Creative Partner, Not Just a Vendor</h2>
-              <p>We take the time to understand your goals, your style, and the way you want your business seen online. The result is a website — and a working relationship — that actually fits.</p>
-              <div className="btn-group" style={{marginTop:'2rem'}}>
-                <Link href="/about" className="btn btn-primary">Meet the Team</Link>
-                <Link href="/pricing" className="btn btn-outline">See Pricing</Link>
-              </div>
+          <div className="home-diagnosis">
+            {/* Poem continuation — three short lines that complete the Hero's hook.
+                Preserved exactly. Rhythm via separate elements, not <br>. */}
+            <div className="home-diagnosis__intro animate-entrance">
+              <p className="home-diagnosis__intro-line">Or a marketing problem.</p>
+              <p className="home-diagnosis__intro-line">Or a website problem.</p>
+              <p className="home-diagnosis__intro-close">It is none of these things.</p>
             </div>
-            <div className="features-grid" style={{marginTop:0}}>
-              {[
-                { icon: '✨', title: 'Custom, responsive design', desc: 'No cookie-cutter templates. Every site is built to fit your brand.' },
-                { icon: '🔍', title: 'SEO-aware from the start', desc: 'Structure, content, and meta setup built for search engines.' },
-                { icon: '🌍', title: 'Fully remote — work with us anywhere', desc: 'We serve businesses worldwide with no location restrictions.' },
-                { icon: '🤝', title: 'Support beyond the website', desc: 'From branding to automation, we\'re one partner for multiple needs.' },
-              ].map(f => (
-                <div className="feature" key={f.title}>
-                  <div className="feature__icon">{f.icon}</div>
-                  <div><h3>{f.title}</h3><p>{f.desc}</p></div>
-                </div>
-              ))}
-            </div>
+            <p className="home-diagnosis__item animate-entrance">
+              Visitors land on your website and leave without contacting you. Not because you&rsquo;re
+              unimpressive. Because they couldn&rsquo;t tell, quickly enough, whether you were the right fit.
+            </p>
+            <p className="home-diagnosis__item animate-entrance">
+              You&rsquo;ve explained what you do to potential clients many times. The explanation keeps
+              changing — not because you don&rsquo;t know your business, but because you haven&rsquo;t
+              found the version of it that lands.
+            </p>
+            <p className="home-diagnosis__item animate-entrance">
+              The clients who find you are inconsistent. Some are a perfect fit. Many aren&rsquo;t.
+              The mismatch isn&rsquo;t random — it&rsquo;s a signal that the business isn&rsquo;t yet
+              communicating clearly enough to attract the right people and repel the wrong ones.
+            </p>
+            <p className="home-diagnosis__item animate-entrance">
+              Your public presence — website, how you describe yourself, how you show up — doesn&rsquo;t
+              yet reflect the quality of what happens behind closed doors.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Industries */}
-      <section className="section">
+      {/* ── Section 03 — Why We Built Raleway ──
+          Component: section / container / Section Introduction (Component 05)
+          Eyebrow: "Why We Built Raleway"
+          Headline: the belief
+          Body: the implication */}
+      <section className="section section--divided" aria-label="Why we built Raleway">
         <div className="container">
-          <div className="text-center">
-            <span className="section-label">Who We Serve</span>
-            <h2 className="section-title">Built for Every Industry</h2>
-            <p className="section-subtitle">Whether you&apos;re a startup, a creative, or an established business, we design for the way your industry works.</p>
-          </div>
-          <div className="industries-grid">
-            {industries.map(i => <div className="industry-tag" key={i}>{i}</div>)}
+          <div className="section-intro animate-entrance">
+            <span className="section-eyebrow">Why We Built Raleway</span>
+            <h2 className="section-headline">
+              We believe most businesses are closer to where they want to be
+              than their market can currently see them.
+            </h2>
+            <p className="section-body">
+              The problem is rarely the quality of the work. It is the distance between that quality
+              and what the world can actually perceive.
+            </p>
+            <p className="section-body home-why__close">
+              Raleway Studio was built for that distance.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section section--light">
+      {/* ── Section 04 — How We Think ──
+          Component: section / container / Service Item list (Component 04)
+          Each principle maps to a service-item (static mode, no link)
+          Counter used for numbering (optional, per spec)
+          Navigate link at bottom → /method */}
+      <section className="section section--divided" aria-label="How we work">
         <div className="container">
-          <div className="text-center">
-            <span className="section-label">Client Reviews</span>
-            <h2 className="section-title">What Our Clients Say</h2>
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.map((t: any, i: number) => (
-              <div className="testimonial-card" key={`${t.name}-${i}`}>
-                <div className="testimonial-card__stars">{t.stars}</div>
-                <p className="testimonial-card__text">{t.text}</p>
-                <div className="testimonial-card__author">
-                  <div className="testimonial-card__avatar">{t.initial}</div>
-                  <div>
-                    <div className="testimonial-card__name">{t.name}</div>
-                    <div className="testimonial-card__role">{t.role}</div>
+          <div className="home-method">
+            <p className="home-method__label animate-entrance">This is how we work.</p>
+            <ul className="home-method__list" role="list">
+              {principles.map((p) => (
+                <li key={p.num} className="home-method__item animate-entrance">
+                  <div className="service-item">
+                    {/* Counter — sibling before name (DEV-HP-05 fix, Rule 04) */}
+                    <span className="service-counter" aria-hidden="true">{p.num}</span>
+                    <span className="service-name">{p.title}</span>
+                    <p className="service-description">{p.desc}</p>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="text-center" style={{marginTop:'2.5rem'}}>
-            <Link href="/testimonials" className="btn btn-outline">Read All Reviews</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="section">
-        <div className="container">
-          <div className="text-center">
-            <span className="section-label">FAQ</span>
-            <h2 className="section-title">Frequently Asked Questions</h2>
-          </div>
-          <div className="faq-list">
-            {faqs.map(f => (
-              <details className="faq-item" key={f.q}>
-                <summary className="faq-question" style={{listStyle:'none',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',padding:'1.25rem 0',fontFamily:'var(--font-raleway)',fontWeight:600,fontSize:'1rem',color:'var(--dark)',gap:'1rem'}}>
-                  {f.q}
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
-                </summary>
-                <div style={{paddingBottom:'1.25rem',fontSize:'0.95rem',color:'var(--gray)'}}>{f.a}</div>
-              </details>
-            ))}
+                </li>
+              ))}
+            </ul>
+            <Link href="/method" className="btn-navigate home-method__link animate-entrance">
+              Explore the Raleway Method
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="btn-navigate__arrow">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="cta-banner">
+      {/* ── Section 05 — Proof of Thinking ──
+          Component: section (light, divided) / container
+          Light field — DEV-HP-03 fix: cannot be dark; Threshold below is already dark.
+          No eyebrow — the content speaks without framing.
+          Spacing via CSS classes (not inline styles — DEV-HP-09 fix). */}
+      <section className="section section--divided" aria-label="Proof of thinking">
         <div className="container">
-          <h2>Ready to Build Something Great?</h2>
-          <p>Tell us about your project and let&apos;s figure out the best way to move forward.</p>
-          <div className="btn-group" style={{justifyContent:'center'}}>
-            <Link href="/contact" className="btn btn-white">Start a Project</Link>
-            <Link href="/book" className="btn btn-outline" style={{color:'white',borderColor:'rgba(255,255,255,0.55)'}}>Book a Free Call</Link>
+          <div className="home-proof animate-entrance">
+            <h2 className="section-headline">
+              Before we wrote a single brief for a client, we applied our method to ourselves.
+            </h2>
+            <div className="home-proof__body">
+              <p className="section-body">
+                We ran a full discovery process on our own business. We challenged our positioning,
+                questioned assumptions we had held since the beginning, documented our standards, and
+                rebuilt our brand identity from the foundation up — applying the same rigour we would
+                apply to any client.
+              </p>
+              <p className="section-body home-proof__body-continuation">
+                We did this because we believe a studio cannot honestly ask clients to do something
+                it hasn&rsquo;t done first.
+              </p>
+              <p className="section-body home-proof__body-close">
+                The care in this page is the same care we bring to yours.
+              </p>
+            </div>
+            <Link href="/about" className="btn-navigate home-proof__link">
+              See how we think
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="btn-navigate__arrow">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 06 — Qualifier + CTA (Component 09 — Threshold) ──
+          Component: threshold / threshold-inner / threshold-content
+          Rule 11: One per page. Final section before Footer.
+          Rule 07: Orange CTA — the only orange at this scroll depth.
+          Headline: qualifier (not a service list, not a generic CTA)
+          Body: the selection criteria
+          CTA: "Start a conversation" */}
+      <section
+        className="threshold"
+        aria-label="Start a conversation"
+      >
+        <div className="threshold-inner">
+          <div className="threshold-content">
+            <h2 className="threshold-headline animate-entrance">
+              We don&rsquo;t work with every business.
+            </h2>
+            <p className="threshold-body animate-entrance">
+              We work best with founders who are seriously invested in understanding the gap
+              between what their business is and what the market currently sees —
+              and are prepared to do something about it.
+            </p>
+            <Link href="/start" className="btn-primary animate-entrance">
+              Start a conversation
+            </Link>
           </div>
         </div>
       </section>
