@@ -220,38 +220,37 @@ export default function AboutPage() {
             </p>
           </div>
           {/* Signature Mark System: the before/after questions, plotted
-              instead of only read. Two rings reuse the mark's own
-              centre-and-radius geometry — surface (outer, dashed, muted)
-              and core (inner, warm) — with the four real questions
-              placed at the depth they actually operated at. Conceptual,
-              not data, same rule as the axis diagram above: one
-              illustrative position per question, nothing measured. */}
+              instead of only read. One axis (surface → core), one
+              before-position, one after-position, one arrow between them —
+              the same "one relationship, one illustrative marker"
+              discipline as the axis diagram above, not a data chart. The
+              two positions sit directly above the matching Before/After
+              column in the legend beneath, so the shift reads as a single
+              composition instead of a diagram floating above unrelated
+              text. */}
           <figure className="diagram animate-entrance">
             <svg
-              className="diagram-shift"
-              viewBox="0 0 400 260"
+              className="diagram-depth"
+              viewBox="0 0 1000 100"
               role="img"
-              aria-labelledby="shift-diagram-title shift-diagram-desc"
+              aria-labelledby="depth-diagram-title depth-diagram-desc"
             >
-              <title id="shift-diagram-title">From surface questions to core questions</title>
-              <desc id="shift-diagram-desc">
-                A conceptual diagram, not data: two rings representing surface and core.
-                The two &ldquo;before&rdquo; questions sit on the outer, surface ring; the two
-                &ldquo;after&rdquo; questions sit near the centre, the core.
+              <title id="depth-diagram-title">From surface questions to core questions</title>
+              <desc id="depth-diagram-desc">
+                A conceptual diagram, not data: a single axis from surface to core. The
+                questions I used to ask sat near the surface end; the questions I ask
+                now sit near the core.
               </desc>
-              <circle className="diagram-shift__ring--outer" cx="200" cy="130" r="110" />
-              <circle className="diagram-shift__ring--inner" cx="200" cy="130" r="40" />
-              <circle className="diagram-shift__centre" cx="200" cy="130" r="2.5" />
-              <text className="diagram-shift__zone-label" x="200" y="14">Surface</text>
-              <text className="diagram-shift__zone-label" x="200" y="168">Core</text>
-              <path className="diagram-shift__arrow" d="M95 70C150 88 190 104 216 118" />
-              <path className="diagram-shift__arrow" d="M88 190C145 172 188 158 214 145" />
-              <circle className="diagram-shift__point--before" cx="95" cy="70" r="4" />
-              <circle className="diagram-shift__point--before" cx="88" cy="190" r="4" />
-              <circle className="diagram-shift__point--after" cx="216" cy="118" r="4" />
-              <circle className="diagram-shift__point--after" cx="214" cy="145" r="4" />
+              <line className="diagram-depth__axis" x1="0" y1="60" x2="1000" y2="60" />
+              <text className="diagram-depth__zone-label" x="0" y="22" textAnchor="start">Surface</text>
+              <text className="diagram-depth__zone-label" x="1000" y="22" textAnchor="end">Core</text>
+              <path className="diagram-depth__arrow" d="M250 60C400 30 600 30 750 60" />
+              <line className="diagram-depth__tick" x1="250" y1="60" x2="250" y2="82" />
+              <line className="diagram-depth__tick" x1="750" y1="60" x2="750" y2="82" />
+              <circle className="diagram-depth__point--before" cx="250" cy="60" r="6" />
+              <circle className="diagram-depth__point--after" cx="750" cy="60" r="6" />
             </svg>
-            <div className="annotation annotation--compare diagram-shift__legend">
+            <div className="annotation annotation--compare diagram-depth__legend">
               <div className="annotation__group">
                 <span className="annotation__label">Before</span>
                 <p className="annotation__question">What pages do you need?</p>
