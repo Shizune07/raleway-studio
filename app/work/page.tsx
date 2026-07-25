@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
-import BreathImage from '@/components/media/BreathImage'
 import MockupFrame from '@/components/media/MockupFrame'
 
 export const metadata: Metadata = {
@@ -148,58 +147,6 @@ export default function WorkPage() {
               The previous version explained our capabilities. The current one explains our judgment.
             </p>
           </div>
-          {/* Version 1.1 Editorial Layer (Component 14): the paragraph above
-              describes the site's actual information architecture — a real
-              five-step structure, not a metaphor. A flow diagram visualises
-              exactly that claim, using the site's real page names and the
-              same one-line roles already in the copy above (no new text).
-              Each node is a working link — this doubles as functional
-              wayfinding, not pure illustration. */}
-          <figure className="diagram animate-entrance">
-            <nav className="diagram-flow" aria-label="Site structure">
-              <Link href="/" className="diagram-flow__node">
-                <span className="diagram-flow__dot" aria-hidden="true" />
-                <span className="diagram-flow__name">Home</span>
-                <span className="diagram-flow__role">Identifies the problem</span>
-              </Link>
-              <span className="diagram-flow__connector" aria-hidden="true" />
-              <Link href="/about" className="diagram-flow__node">
-                <span className="diagram-flow__dot" aria-hidden="true" />
-                <span className="diagram-flow__name">About</span>
-                <span className="diagram-flow__role">Explains where the conviction came from</span>
-              </Link>
-              <span className="diagram-flow__connector" aria-hidden="true" />
-              <Link href="/method" className="diagram-flow__node">
-                <span className="diagram-flow__dot" aria-hidden="true" />
-                <span className="diagram-flow__name">Method</span>
-                <span className="diagram-flow__role">Shows how it becomes a repeatable process</span>
-              </Link>
-              <span className="diagram-flow__connector" aria-hidden="true" />
-              <Link href="/work" className="diagram-flow__node" aria-current="page">
-                <span className="diagram-flow__dot" aria-hidden="true" />
-                <span className="diagram-flow__name">Work</span>
-                <span className="diagram-flow__role">Provides evidence</span>
-              </Link>
-              <span className="diagram-flow__connector" aria-hidden="true" />
-              <Link href="/start" className="diagram-flow__node">
-                <span className="diagram-flow__dot" aria-hidden="true" />
-                <span className="diagram-flow__name">Start</span>
-                <span className="diagram-flow__role">Begins the conversation</span>
-              </Link>
-            </nav>
-            <figcaption className="diagram__caption">
-              The current architecture — five pages, each answering the question the one
-              before it raised.
-            </figcaption>
-          </figure>
-          {/* Version 1.1 — breath image (Rule 2): the self-redesign as evidence,
-              not decoration. Real screenshot of the live homepage, captured
-              directly — not stock photography, since this image's entire
-              purpose is to show the actual site (asset checklist item 11). */}
-          <BreathImage
-            src="/assets/work-breath.jpg"
-            alt="The Raleway Studio homepage: the headline 'There is a kind of struggle that looks like a branding problem,' with the opening body copy and primary call to action below it."
-          />
         </div>
       </section>
 
