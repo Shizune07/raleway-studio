@@ -66,6 +66,15 @@
   --colour-accent-hover:            #C85015;  /* CTA hover — orange darkens toward commitment */
   --colour-accent-on:               #1A1A18;  /* Text ON an orange surface (≈5.1:1 contrast) */
 
+  /* — Warm accent (Signature Mark System, V2) —
+     A second, quieter orange tier, distinct from --colour-accent. The
+     Raleway Mark (icons, bullets, dividers, annotations, diagrams) uses
+     this tier so it can appear far more often than the one-per-viewport
+     CTA rule allows, without competing with the button/result/focus-ring
+     tier above. Never used for anything clickable or decision-bearing —
+     that stays --colour-accent's job alone. See RALEWAY-SIGNATURE-MARK-v2.md. */
+  --colour-accent-warm:             #C9714A;
+
 
   /* — Error —
      Functional infrastructure only. Never decorative.

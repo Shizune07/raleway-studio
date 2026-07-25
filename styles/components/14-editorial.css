@@ -164,8 +164,12 @@
   fill: none;
 }
 
+/* Signature Mark System V2: the one point of emphasis in this diagram
+   moves from ink to the warm accent — same "single marked point" logic
+   as before, now carrying the studio's own colour instead of plain ink. */
 .diagram-axis__point {
-  fill: var(--colour-ink);
+  fill: var(--colour-accent-warm);
+  r: 4.5;
 }
 
 .diagram-axis__label {

@@ -229,17 +229,22 @@
 
 
 /* ── 4. Icon Mark — Method's illustration system only ──
-   Colour matches the visual weight of .service-counter (ink-tertiary),
-   inverted on dark fields. Never the accent colour — these are structural,
-   not calls to action. */
+   Signature Mark System V2: colour moved from ink-tertiary (structural,
+   invisible) to --colour-accent-warm — these are now the icon family's
+   flagship appearance, meant to register at a glance, same warm tier as
+   bullets/dividers/annotations. Still never --colour-accent itself; that
+   tier stays reserved for the CTA/result/focus-ring. Same warm tone on
+   both light and dark fields — unlike ink, orange doesn't need an
+   inverted variant to stay legible on #1A1A18. */
 
 .icon-mark {
   display: block;
-  color: var(--colour-ink-tertiary);
+  color: var(--colour-accent-warm);
+  margin-block-end: var(--space-1);  /* 4px — was reading as a bit high before */
 }
 
 .section--dark .icon-mark {
-  color: var(--colour-ink-secondary-inverted);
+  color: var(--colour-accent-warm);
 }
 
 /* Participates in .service-item's existing `gap: var(--stack-sm)` flex

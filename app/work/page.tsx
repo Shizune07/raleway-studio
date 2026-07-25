@@ -117,7 +117,7 @@ export default function WorkPage() {
           No link to /about — this section stands independently as a self-applied study.
           Describes strategic transformation (information architecture, page responsibilities)
           rather than visual transformation. */}
-      <section className="section section--divided" aria-label="Featured study: Raleway Studio">
+      <section className="section section--divided section--divided-signature" aria-label="Featured study: Raleway Studio">
         <div className="container">
           <div className="section-intro work-featured animate-entrance">
             <span className="section-eyebrow">Featured Study</span>

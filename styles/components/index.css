@@ -47,5 +47,11 @@
    annotations and conceptual diagrams — see 14-editorial.css. */
 @import './14-editorial.css';
 
-/* Component 15 — Form (pending specification) */
-/* @import './15-form.css'; */
+/* Component 15 — Signature Mark System (Version 2). The studio's own
+   mark, abstracted to ring/spokes/broken-arc, applied as bullets, section
+   dividers, a navigation cue, and annotation corner marks — see
+   15-signature-mark.css and RalewayMark.tsx. */
+@import './15-signature-mark.css';
+
+/* Component 16 — Form (pending specification) */
+/* @import './16-form.css'; */

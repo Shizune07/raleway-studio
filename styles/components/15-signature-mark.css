@@ -1,0 +1,191 @@
+/* ============================================================
+   Component 15 — Signature Mark System (Version 2)
+   Source: styles/RALEWAY-SIGNATURE-MARK-v2.md
+   Status: NEW
+
+   The studio's own mark (public/assets/logo-icon.png), abstracted to its
+   structural geometry — ring, six radiating spokes, one broken arc — and
+   applied as a recurring motif across navigation, section transitions,
+   annotations, interactive states, and one large background placement.
+   Never the literal fruit: no colour gradient, no rind, no leaf shape.
+   Colour: --colour-accent-warm only. --colour-accent stays reserved for
+   the CTA / result / focus-ring tier — this system never touches it.
+
+   Built with CSS mask-image so a single inline SVG shape can be recoloured
+   per context via background-color, same pattern as a monochrome icon
+   font — no raster assets, infinitely restylable from one definition.
+   ============================================================ */
+
+
+/* ── Shared mask shapes ──
+   fragment: one open ring-arc + two spokes + centre point — small marks.
+   full: the whole ring + six spokes + broken-arc tick — dividers, bleed. */
+
+:root {
+  --mark-fragment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 27a14 14 0 0 1 9.8-19.6' stroke-width='1.75'/%3E%3Cpath d='M20 20L20 8.1M20 20L30.5 14' stroke-width='1.4'/%3E%3Ccircle cx='20' cy='20' r='1.6' fill='%23000' stroke='none'/%3E%3C/svg%3E");
+  --mark-full: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='20' cy='20' r='14' stroke-width='1.75'/%3E%3Cpath d='M20 20L20 6M20 20L32.1 13M20 20L32.1 27M20 20L20 34M20 20L7.9 27M20 20L7.9 13' stroke-width='1.4'/%3E%3Ccircle cx='20' cy='20' r='1.6' fill='%23000' stroke='none'/%3E%3Cpath d='M31 7c2.4.4 4.2 1.8 5 3.8' stroke-width='1.75' stroke-dasharray='0.4 3.6'/%3E%3C/svg%3E");
+}
+
+
+/* ── 1. Navigation cue ──
+   Active page gets a small fragment mark instead of (not competing with)
+   the existing underline — placed after the link label. Desktop nav only;
+   mobile menu keeps the plain state, this is a hover-distance flourish. */
+
+.site-nav nav[aria-label="Primary navigation"] a[aria-current="page"] {
+  position: relative;
+}
+
+.site-nav nav[aria-label="Primary navigation"] a[aria-current="page"]::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-inline-start: var(--space-1);   /* 4px */
+  vertical-align: -2px;
+  background-color: var(--colour-accent-warm);
+  mask-image: var(--mark-fragment);
+  -webkit-mask-image: var(--mark-fragment);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+
+/* ── 2. Interactive state ──
+   Nav links keep their existing, deliberate "weight gains, colour
+   doesn't" hover rule (01-navbar.css) untouched — that restraint is
+   correct and this system doesn't override it. The disclosure indicator
+   (Component 13's plus/minus toggle) is the better home for an
+   interactive-state accent: it's the one control on the site whose whole
+   job is "something happens when you touch this," and its base state
+   already reads as ink-tertiary/structural, so a hover-only warm accent
+   reads as a state change, not a persistent colour decision. */
+
+.disclosure__summary:hover .disclosure__indicator::before,
+.disclosure__summary:hover .disclosure__indicator::after,
+.disclosure__summary:focus-visible .disclosure__indicator::before,
+.disclosure__summary:focus-visible .disclosure__indicator::after {
+  background: var(--colour-accent-warm);
+}
+
+
+/* ── 3. Section divider — signature variant ──
+   Opt-in modifier on top of the existing .section--divided hairline
+   (primitives/01-section.css). Applied to exactly two transitions
+   site-wide (Home's Proof of Thinking, Work's Featured Study) — a
+   frequent mark stops reading as a signature and starts reading as
+   wallpaper, so this is deliberately not the default for every
+   .section--divided instance. */
+
+.section--divided-signature {
+  position: relative;
+}
+
+.section--divided-signature::before {
+  content: '';
+  position: absolute;
+  top: -11px;                            /* centres on the 0.5px border above */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  background-color: var(--colour-surface);
+  padding: 3px;
+  box-sizing: content-box;
+}
+
+.section--divided-signature::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: var(--colour-accent-warm);
+  mask-image: var(--mark-full);
+  -webkit-mask-image: var(--mark-full);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.section--dark + .section--divided-signature::before,
+.section--divided-signature.section--dark::before {
+  background-color: var(--colour-surface-dark);
+}
+
+
+/* ── 4. Annotation label mark ──
+   A small fragment beside each Before/After label in .annotation--compare
+   (Component 14) — the closest real equivalent to a "bullet" in a system
+   that uses numbered counters everywhere else instead of bulleted lists. */
+
+.annotation__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);                   /* 4px */
+}
+
+.annotation__label::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  background-color: var(--colour-accent-warm);
+  mask-image: var(--mark-fragment);
+  -webkit-mask-image: var(--mark-fragment);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+
+/* ── 5. Background composition ──
+   One large, faint instance — reserved for a single placement per the
+   same "one breath image, never more" discipline the rest of the system
+   already follows. Applied via .mark-bleed on the Home hero only. */
+
+.mark-bleed {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;   /* the mark bleeds off the section edge, not the page */
+}
+
+.mark-bleed::before {
+  content: '';
+  position: absolute;
+  top: -12%;
+  right: -10%;
+  width: min(60vw, 720px);
+  height: min(60vw, 720px);
+  background-color: var(--colour-ink);
+  opacity: 0.045;
+  mask-image: var(--mark-full);
+  -webkit-mask-image: var(--mark-full);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mark-bleed > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .mark-bleed::before {
+    width: 85vw;
+    height: 85vw;
+    top: -8%;
+    right: -20%;
+    opacity: 0.035;
+  }
+}
