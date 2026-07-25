@@ -22,14 +22,30 @@
    in their final position — degraded but not broken on slow connections.
    Elements are never invisible in the no-JS path. */
 
+/* GPU layer stabilisation — reported twice (Seira, 2026-07-25): Chrome
+   occasionally paints stale or corrupted glyphs on these elements after
+   a client-side route change — wrong page's text, distorted letterforms.
+   Not reproducible on demand, but consistent with a known Chrome bug
+   class where a variable font's text gets promoted to its own GPU
+   compositor layer for the opacity/transform transition below, and that
+   layer is sometimes reused instead of repainted on the next navigation.
+   translateZ(0) + backface-visibility forces the layer to be created
+   consistently up front rather than dynamically, which is the standard
+   mitigation. No visual change when rendering correctly — purely a
+   stability hint to the browser. */
+.animate-entrance,
+.hero-entrance {
+  backface-visibility: hidden;
+}
+
 .js-motion-ready .animate-entrance {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(16px) translateZ(0);
 }
 
 .js-motion-ready .animate-entrance.motion-entered {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
   transition:
     opacity   var(--motion-measured) var(--motion-ease),
     transform var(--motion-measured) var(--motion-ease);
@@ -56,12 +72,12 @@
 
 .js-motion-ready .hero-entrance {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(20px) translateZ(0);
 }
 
 .js-motion-ready .hero-entrance.motion-entered {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
   transition:
     opacity   var(--motion-grand) var(--motion-ease),
     transform var(--motion-grand) var(--motion-ease);
