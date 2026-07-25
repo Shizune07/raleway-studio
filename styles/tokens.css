@@ -231,10 +231,15 @@
   /* — Frame aspect ratios — Primitive 08 —
      Use as: aspect-ratio: var(--frame-card);
      overflow: hidden on container; object-fit: cover on img.
-     Two ratios only. A third requires formal specification before use. */
+     v1.0: two ratios (landscape, card). v1.1 adds three device-frame ratios
+     for the Device Frame System — see Component 10 (Media) and
+     RALEWAY-MOCKUP-SYSTEM-v1.1.md. Still formally specified, not ad hoc. */
 
-  --frame-landscape:  16 / 9;  /* Case study hero images, full-width photography */
-  --frame-card:       3 / 2;   /* Case study card thumbnails, project previews */
+  --frame-landscape:  16 / 9;    /* Case study hero images, full-width photography */
+  --frame-card:       3 / 2;     /* Case study card thumbnails, project previews */
+  --frame-laptop:     16 / 10;   /* Device Frame System — laptop screen */
+  --frame-tablet:     4 / 3;     /* Device Frame System — tablet screen */
+  --frame-phone:      9 / 19.5;  /* Device Frame System — phone screen */
 
 
   /* — Stack gaps — Primitive 05 —
@@ -288,9 +293,15 @@
        box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
      Not tokenised in v1.0 — values are consistent enough to reference directly.
 
-     Border-radius: not specified in v1.0.
-     Will be defined when Form Component (Component 10) is specified,
-     as that component is the primary context for border-radius decisions. */
+     Border-radius: defined in v1.1 for the Device Frame System (Component 10
+     — Media). Deliberately minimal — one flat option and two small radii
+     tied to the existing 4px spacing scale, not a full radius ramp. No
+     other component in the system uses radius; Form (Component 11), if
+     specified, may draw on the same values rather than introducing new ones. */
+
+  --radius-flat:  0;
+  --radius-sm:    var(--space-2);   /* 8px  — Device Frame System: Tablet */
+  --radius-md:    var(--space-4);   /* 16px — Device Frame System: Phone */
 
 
 /* ============================================================

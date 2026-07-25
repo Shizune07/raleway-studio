@@ -1,0 +1,256 @@
+/* ============================================================
+   Component 10 — Media
+   Source: styles/RALEWAY-VISUAL-DIRECTION-v1.1.md
+           styles/RALEWAY-MOCKUP-SYSTEM-v1.1.md (Device Frame System)
+   Status: NEW — Version 1.1 visual layer
+
+   Four component patterns on top of the frozen v1.0 system, all built
+   from existing or newly-added-and-documented tokens (no raw values):
+     1. .responsive-image  — base aspect-ratio + fill image wrapper
+     2. .device-frame       — browser / laptop / tablet / phone, one
+                               shared visual language, no fake chrome
+     3. .breath-image       — full-bleed slow-zoom "pause" image
+     4. .icon-mark          — Method's illustration system (line marks)
+
+   Revision note: .device-frame replaces an earlier .mockup-frame pass
+   that used skeuomorphic chrome (traffic-light dots, a top toolbar).
+   MockupFrame.tsx now delegates to DeviceFrame's "browser" variant —
+   no page file needed to change.
+
+   Rule 06 compliance: every value below references a token already
+   defined in tokens.css. No component in v1.0 (01–09) is modified.
+   ============================================================ */
+
+
+/* ── 1. Responsive Image — base primitive ──
+   Reserves aspect-ratio before the image loads (CLS = 0). The blur
+   placeholder is a visual nicety layered on top of this, not what
+   prevents layout shift. */
+
+.responsive-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--colour-surface-secondary);
+}
+
+.responsive-image img {
+  display: block;
+}
+
+
+/* ── 1b. Founder Portrait Frame — About page, Section 06 ──
+   Same aspect-ratio (4:5) and width (100%, capped 220px mobile) as the
+   v1.0 .about-founder__placeholder it replaces (app/globals.css) — added
+   here rather than editing globals.css so the v1.0 rule stays intact and
+   this is purely additive. position/overflow are new: required for the
+   next/image `fill` mode this box now contains. */
+
+.about-founder__portrait-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  overflow: hidden;
+  background: var(--colour-surface-secondary);
+}
+
+@media (max-width: 767px) {
+  .about-founder__portrait-frame {
+    max-width: 220px;
+  }
+}
+
+
+/* ── 2. Device Frame System — browser / laptop / tablet / phone ──
+   Source: RALEWAY-MOCKUP-SYSTEM-v1.1.md
+   One visual language, four variants. Deliberately NOT skeuomorphic:
+     - No fake browser chrome (no traffic-light dots, no URL bar).
+     - No device bezels, notches, buttons, keyboards, or hinge shading.
+     - No glossy effects, no gradients, no drop shadows at rest.
+   What's shared across all four variants: a 1px hairline border in
+   --colour-border, zero shadow, the same hover treatment (border-colour
+   shift + 1px lift, nothing heavier), and an optional editorial caption
+   set in the interface type layer — typography does the job a skeuomorphic
+   toolbar would otherwise do (identifying what the visitor is looking at).
+   What differs: aspect ratio (--frame-landscape/-laptop/-tablet/-phone),
+   corner radius (--radius-flat/-sm/-md), and the laptop-only base line. */
+
+.device-frame {
+  width: 100%;
+}
+
+.device-frame__screen {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--colour-border);
+  background: var(--colour-surface-secondary);
+  transition:
+    border-color var(--motion-quick) var(--motion-ease),
+    transform var(--motion-quick) var(--motion-ease);
+}
+
+.section--dark .device-frame__screen {
+  border-color: var(--colour-border-dark);
+  background: var(--colour-surface-dark-secondary);
+}
+
+/* Variant radius — the only per-variant shape difference besides ratio.
+   Browser and Laptop stay flush (a print-page metaphor); Tablet and Phone
+   take a small, token-based radius, just enough to abstractly read as a
+   handheld device without illustrating one. */
+.device-frame--browser .device-frame__screen,
+.device-frame--laptop .device-frame__screen {
+  border-radius: var(--radius-flat);
+}
+
+.device-frame--tablet .device-frame__screen {
+  border-radius: var(--radius-sm);   /* 8px */
+}
+
+.device-frame--phone .device-frame__screen {
+  border-radius: var(--radius-md);   /* 16px */
+}
+
+/* Phone and Tablet are handheld — they shouldn't stretch to the full width
+   of a wide layout column the way Browser and Laptop do. */
+.device-frame--phone {
+  max-width: 280px;
+  margin-inline: auto;
+}
+
+.device-frame--tablet {
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+/* Laptop base — a single abstracted hairline standing in for the lower
+   half of a laptop, with no hinge, keyboard, or trackpad detail. This is
+   the one allowance for "reads as a laptop" beyond the 16:10 screen ratio. */
+.device-frame--laptop .device-frame__base {
+  display: block;
+  width: 60%;
+  height: 3px;
+  margin: var(--stack-xs) auto 0;   /* 8px above the base line */
+  background: var(--colour-border-strong);
+}
+
+.section--dark .device-frame--laptop .device-frame__base {
+  background: var(--colour-border-dark);
+}
+
+/* Editorial caption — replaces skeuomorphic chrome as the way a frame
+   identifies its content. Interface layer, same weight as .service-counter
+   and .mockup-frame's predecessor chrome, set below (not overlaid on) the
+   frame so it never competes with the screenshot itself. */
+.device-frame__caption {
+  display: block;
+  margin-block-start: var(--stack-xs);   /* 8px */
+  font-family: var(--font-interface);
+  font-size: var(--text-caption);        /* 11px */
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--colour-ink-secondary);
+}
+
+.section--dark .device-frame__caption {
+  color: var(--colour-ink-secondary-inverted);
+}
+
+/* Hover — a border-colour shift and a 1px lift. No shadow, at any weight;
+   "no heavy shadows" is honoured by having none, not a lighter one. */
+.device-frame__screen:hover {
+  border-color: var(--colour-border-strong);
+  transform: translateY(-1px);
+}
+
+.section--dark .device-frame__screen:hover {
+  border-color: var(--colour-ink-secondary-inverted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-frame__screen:hover {
+    transform: none;
+  }
+}
+
+
+/* ── 3. Breath Image — one full-bleed pause image per page, maximum ──
+   Breaks out of the container to full viewport width. Fades in via the
+   existing .animate-entrance / motion-entered system (see motion.css);
+   the slow zoom below is the only new animation pattern introduced. */
+
+.breath-image {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  max-height: 60vh;
+  overflow: hidden;
+  margin-block: var(--stack-xl);   /* 96px — breathing room above/below, matches --stack-xl elsewhere */
+}
+
+.breath-image .responsive-image {
+  height: 60vh;
+}
+
+@media (max-width: 767px) {
+  .breath-image {
+    max-height: 40vh;
+  }
+  .breath-image .responsive-image {
+    height: 40vh;
+  }
+}
+
+/* Slow zoom — reserved exclusively for breath images. Triggered once,
+   gated on the same .motion-entered class MotionInit already applies via
+   its existing IntersectionObserver (Pattern 06) — no new JS. */
+.breath-image .responsive-image img {
+  transform: scale(1);
+}
+
+.breath-image.motion-entered .responsive-image img {
+  animation: breath-zoom 16s linear forwards;
+}
+
+@keyframes breath-zoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breath-image.motion-entered .responsive-image img {
+    animation: none;
+  }
+}
+
+
+/* ── 4. Icon Mark — Method's illustration system only ──
+   Colour matches the visual weight of .service-counter (ink-tertiary),
+   inverted on dark fields. Never the accent colour — these are structural,
+   not calls to action. */
+
+.icon-mark {
+  display: block;
+  color: var(--colour-ink-tertiary);
+}
+
+.section--dark .icon-mark {
+  color: var(--colour-ink-secondary-inverted);
+}
+
+/* Participates in .service-item's existing `gap: var(--stack-sm)` flex
+   rhythm (04-service-item.css, frozen) as a plain flex child — no new
+   spacing value introduced here. */
+.service-icon {
+  display: block;
+}
+
+.service-visual {
+  /* Full item width, matching how Case Study Card treats --frame-card
+     images elsewhere in the system — no new raw width value introduced. */
+  width: 100%;
+}

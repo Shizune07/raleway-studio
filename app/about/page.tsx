@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
+import { seiraPortraitBlurDataURL } from '@/lib/media'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -184,15 +186,30 @@ export default function AboutPage() {
       </section>
 
       {/* ── Section 06 — Founder ──
-          Portrait placeholder until photography is available.
+          Portrait: Version 1.1 visual layer — real photograph, replacing the
+          v1.0 empty placeholder div. Same aspect-ratio box (4:5), same grid
+          column (300px / 1fr), no spacing or structure change — see
+          .about-founder__portrait-frame in 10-media.css and
+          RALEWAY-VISUAL-DIRECTION-v1.1.md, About/Section 06.
           No blockquote — synthesized quote removed in final copy approval.
           Multiple about-founder__statement paragraphs; margins collapse correctly at 32px.
           Ends on conviction ("same standard"), not studio structure. */}
       <section className="section section--divided" aria-label="The founder">
         <div className="container">
           <div className="about-founder animate-entrance">
-            <div className="about-founder__portrait" aria-hidden="true">
-              <div className="about-founder__placeholder" />
+            <div className="about-founder__portrait">
+              <div className="about-founder__portrait-frame">
+                <Image
+                  src="/assets/seira-jho.jpg"
+                  alt="Seira, co-founder of Raleway Studio"
+                  fill
+                  sizes="(max-width: 767px) 220px, (max-width: 1023px) 240px, 300px"
+                  style={{ objectFit: 'cover', objectPosition: '50% 22%' }}
+                  placeholder="blur"
+                  blurDataURL={seiraPortraitBlurDataURL}
+                  loading="lazy"
+                />
+              </div>
             </div>
             <div className="about-founder__content">
               <p className="about-founder__name">Seira</p>

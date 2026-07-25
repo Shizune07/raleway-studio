@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import BreathImage from '@/components/media/BreathImage'
+import MockupFrame from '@/components/media/MockupFrame'
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -31,6 +33,8 @@ const selectedWork = [
       'A multi-modality health clinic offering IV therapy, bioidentical hormones, psychiatry, coaching, and membership programmes. The communication challenge: presenting integrated care as a coherent philosophy without reducing it to a service menu where individual treatments compete for attention.',
     decision:
       'The site leads with a single patient goal rather than individual offerings. Each service is positioned as part of a larger approach to health — not a standalone product. The membership architecture communicates ongoing care rather than one-time visits.',
+    image: '/assets/placeholders/work-case-oneness.jpg',
+    imageAlt: 'The Oneness Clinic homepage, leading with a single patient goal rather than a list of individual services.',
   },
   {
     num: '02',
@@ -39,6 +43,8 @@ const selectedWork = [
       'A personal real estate practice serving rural, lake, and small-town communities across the Kansas City Metro. The communication challenge: establishing genuine local expertise in a market dominated by larger teams with broader reach and higher volume.',
     decision:
       'The site is built around MLS access as the primary conversion path. A visitor’s first meaningful action is seeing live listings — not submitting a contact form. Featured communities are organised by lifestyle type, not price point.',
+    image: '/assets/placeholders/work-case-amos.jpg',
+    imageAlt: 'The Amos Home Team live MLS listings view, the primary conversion path on the site.',
   },
   {
     num: '03',
@@ -47,6 +53,8 @@ const selectedWork = [
       'A women-owned boutique firm offering four distinct service lines — notary and remote online notarisation, home watch, administrative support, and business compliance — to three different client types. The communication challenge: presenting that range without creating confusion about scope or diluting the firm’s identity.',
     decision:
       'The site leads with positioning before scope. It establishes discretion, personal attention, and an explicit departure from high-volume franchise models before the service catalogue appears. Trust is the prerequisite for relevance.',
+    image: '/assets/placeholders/work-case-manwaring.jpg',
+    imageAlt: 'The Manwaring Consulting homepage, establishing positioning before the service catalogue appears.',
   },
   {
     num: '04',
@@ -55,6 +63,8 @@ const selectedWork = [
       'A founder-led online school built around a specific pattern-recognition methodology for women in personal development. The communication challenge: explaining a methodology to an audience who may not yet have language for what they need.',
     decision:
       'The site’s primary entry point is a quiz — not a lead-capture mechanism, but a micro-experience of the methodology itself. The founder’s narrative and the methodology appear before the course catalogue.',
+    image: '/assets/placeholders/work-case-innerlife.jpg',
+    imageAlt: 'The Inner Life School quiz entry screen, the site’s primary entry point ahead of the course catalogue.',
   },
 ]
 
@@ -125,6 +135,13 @@ export default function WorkPage() {
               The previous version explained our capabilities. The current one explains our judgment.
             </p>
           </div>
+          {/* Version 1.1 — breath image (Rule 2): the self-redesign as evidence,
+              not decoration. Placeholder asset until a real screenshot of the
+              live homepage is captured — see summary note. */}
+          <BreathImage
+            src="/assets/placeholders/work-breath.jpg"
+            alt="A browser-frame view of the current Raleway Studio homepage, showing the Hero and the opening of The Diagnosis."
+          />
         </div>
       </section>
 
@@ -147,6 +164,12 @@ export default function WorkPage() {
             {selectedWork.map((project) => (
               <li key={project.num} className="method-list__item">
                 <div className="service-item">
+                  <MockupFrame
+                    src={project.image}
+                    alt={project.imageAlt}
+                    aspect="card"
+                    className="service-visual"
+                  />
                   <span className="service-counter" aria-hidden="true">{project.num}</span>
                   <span className="service-name">{project.name}</span>
                   <p className="service-description">{project.challenge}</p>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import BreathImage from '@/components/media/BreathImage'
 
 export const metadata: Metadata = {
   title: 'Raleway Studio — We help good businesses be seen for what they are',
@@ -177,13 +178,21 @@ export default function HomePage() {
           Component: section (light, divided) / container
           Light field — DEV-HP-03 fix: cannot be dark; Threshold below is already dark.
           No eyebrow — the content speaks without framing.
-          Spacing via CSS classes (not inline styles — DEV-HP-09 fix). */}
+          Spacing via CSS classes (not inline styles — DEV-HP-09 fix).
+          Version 1.1: one "breath" image (Rule 2) between the headline and
+          the body — see RALEWAY-VISUAL-DIRECTION-v1.1.md, Home/Section 05.
+          Placeholder asset until the real still-life photograph is shot —
+          see summary note; swap `src` only, component API is unchanged. */}
       <section className="section section--divided" aria-label="Proof of thinking">
         <div className="container">
           <div className="home-proof animate-entrance">
             <h2 className="section-headline">
               Before we wrote a single brief for a client, we applied our method to ourselves.
             </h2>
+            <BreathImage
+              src="/assets/placeholders/home-breath.jpg"
+              alt="A single annotated page from the Raleway self-audit on a desk, lit by warm window light."
+            />
             <div className="home-proof__body">
               <p className="section-body">
                 We ran a full discovery process on our own business. We challenged our positioning,

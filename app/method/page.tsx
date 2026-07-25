@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import IconMark from '@/components/media/IconMark'
 
 export const metadata: Metadata = {
   title: 'The Method',
@@ -26,21 +27,25 @@ const methodSchema = {
 const principles = [
   {
     num: '01',
+    icon: 'diagnose' as const,
     title: 'We diagnose before we design.',
     desc: 'Every project begins with a structured discovery process. We need to understand what the problem actually is — not assume it is what it first appears to be.',
   },
   {
     num: '02',
+    icon: 'challenge' as const,
     title: 'We challenge before we agree.',
     desc: "When we believe a direction is wrong, we say so. Agreement that doesn't serve the business isn't professionalism — it's self-protection.",
   },
   {
     num: '03',
+    icon: 'strategy' as const,
     title: 'Strategy before surface.',
     desc: 'A website is not the solution. It is the expression of a solution. The positioning, the narrative, the content architecture — these come before anything visual.',
   },
   {
     num: '04',
+    icon: 'legibility' as const,
     title: 'We measure by legibility, not aesthetics.',
     desc: 'The work is successful when the right people encounter our clients and understand — quickly, clearly — whether this business is right for them. Beautiful is secondary to clear.',
   },
@@ -133,6 +138,7 @@ export default function MethodPage() {
             {principles.map((p) => (
               <li key={p.num} className="method-list__item">
                 <div className="service-item">
+                  <IconMark name={p.icon} className="service-icon" />
                   <span className="service-counter" aria-hidden="true">{p.num}</span>
                   <span className="service-name">{p.title}</span>
                   <p className="service-description">{p.desc}</p>
@@ -171,6 +177,7 @@ export default function MethodPage() {
             {/* Phase 01 — Discover */}
             <li className="method-list__item">
               <div className="service-item">
+                <IconMark name="discover" className="service-icon" />
                 <span className="service-counter" aria-hidden="true">01</span>
                 <span className="service-name">Discover</span>
                 <p className="service-description">
@@ -195,6 +202,7 @@ export default function MethodPage() {
             {/* Phase 02 — Define */}
             <li className="method-list__item">
               <div className="service-item">
+                <IconMark name="define" className="service-icon" />
                 <span className="service-counter" aria-hidden="true">02</span>
                 <span className="service-name">Define</span>
                 <p className="service-description">
@@ -220,6 +228,7 @@ export default function MethodPage() {
             {/* Phase 03 — Design */}
             <li className="method-list__item">
               <div className="service-item">
+                <IconMark name="design" className="service-icon" />
                 <span className="service-counter" aria-hidden="true">03</span>
                 <span className="service-name">Design</span>
                 <p className="service-description">
@@ -243,6 +252,7 @@ export default function MethodPage() {
             {/* Phase 04 — Deliver */}
             <li className="method-list__item">
               <div className="service-item">
+                <IconMark name="deliver" className="service-icon" />
                 <span className="service-counter" aria-hidden="true">04</span>
                 <span className="service-name">Deliver</span>
                 <p className="service-description">

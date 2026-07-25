@@ -24,5 +24,9 @@
 @import './08-hero.css';
 @import './09-threshold.css';
 
-/* Component 10 — Form (pending specification) */
-/* @import './10-form.css'; */
+/* Component 10 — Media (Version 1.1 visual layer — responsive image,
+   mockup frame, breath image, icon mark). See RALEWAY-VISUAL-DIRECTION-v1.1.md. */
+@import './10-media.css';
+
+/* Component 11 — Form (pending specification) */
+/* @import './11-form.css'; */
