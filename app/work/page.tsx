@@ -136,11 +136,12 @@ export default function WorkPage() {
             </p>
           </div>
           {/* Version 1.1 — breath image (Rule 2): the self-redesign as evidence,
-              not decoration. Placeholder asset until a real screenshot of the
-              live homepage is captured — see summary note. */}
+              not decoration. Real screenshot of the live homepage, captured
+              directly — not stock photography, since this image's entire
+              purpose is to show the actual site (asset checklist item 11). */}
           <BreathImage
-            src="/assets/placeholders/work-breath.jpg"
-            alt="A browser-frame view of the current Raleway Studio homepage, showing the Hero and the opening of The Diagnosis."
+            src="/assets/work-breath.jpg"
+            alt="The Raleway Studio homepage: the headline 'There is a kind of struggle that looks like a branding problem,' with the opening body copy and primary call to action below it."
           />
         </div>
       </section>

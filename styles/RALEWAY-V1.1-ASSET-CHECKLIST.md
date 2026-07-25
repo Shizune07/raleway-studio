@@ -84,30 +84,30 @@ Check items off in order — the sections are sequenced by what actually blocks 
 
 ## Section B — Blocking: placeholder currently live
 
-These six are the real gate on Version 1.1. Every one of them already occupies a real, functioning slot on the live site — the component, aspect ratio, lazy-loading, and alt text are all correct — but the pixels showing today are on-brand neutral gradients, not final photography. Nothing here requires a code change, only an asset swap (`src` attribute only).
+These six were the real gate on Version 1.1. Two are now closed (10, 11). The remaining four are still blocking — and are **not** candidates for stock photography, since each one claims to depict a specific real client website. Seira's stock-photography authorization (see note below) explicitly applies to atmospheric/editorial imagery, not to anything presented as a factual screenshot of real work.
 
-- [ ] **10 — `home-breath.jpg`** (Home Breath Image)
-  - Dimensions: 2400 × 1350px minimum (retina-safe at full-bleed 16:9)
+- [x] **10 — `home-breath.jpg`** (Home Breath Image)
+  - Dimensions: 2400 × 1350px
   - Aspect ratio: 16:9
   - Location: Home page, Section 05 ("Proof of Thinking") — between the headline and body copy
   - Priority: High
-  - Owner: Seira (photo shoot — see `RALEWAY-AI-IMAGE-PROMPTS-v1.1.md`, prompts H-01/H-02, or a real photograph of an actual self-audit page)
-  - Status: **Placeholder live** — replace `/public/assets/placeholders/home-breath.jpg`, no code change needed
+  - Owner: Claude (licensed stock, per Seira's authorization to use temporary premium stock photography)
+  - Status: **Done (temporary)** — `/public/assets/home-breath.jpg`. Licensed Unsplash photograph ("A piece of paper sitting on top of a wooden table," photographer Joonas Sild) — warm directional light, editorial desk composition, no people. Standing in for a real photograph of the actual self-audit page until that shoot happens.
 
-- [ ] **11 — `work-breath.jpg`** (Work Breath Image — Featured Study)
-  - Dimensions: 2400 × 1350px minimum
+- [x] **11 — `work-breath.jpg`** (Work Breath Image — Featured Study)
+  - Dimensions: 2400 × 1350px
   - Aspect ratio: 16:9
   - Location: Work page, Section 02 ("Featured Study: Raleway Studio") — after the closing paragraph
   - Priority: High
-  - Owner: **Claude can produce this directly** — it's meant to be a real screenshot of `www.ralewaystudio.com`, not a shoot or a generation. Say the word and I'll capture and crop it.
-  - Status: **Placeholder live** — replace `/public/assets/placeholders/work-breath.jpg`
+  - Owner: Claude
+  - Status: **Done** — `/public/assets/work-breath.jpg`. Real screenshot of the live `www.ralewaystudio.com` homepage, captured directly — not stock, since this image's whole purpose is to show the actual site.
 
 - [ ] **12 — `work-case-oneness.jpg`** (Selected Work — Oneness Clinic)
   - Dimensions: 1200 × 800px minimum
   - Aspect ratio: 3:2
   - Location: Work page, Section 03 ("Selected Work"), case study 01
   - Priority: High
-  - Owner: **Claude, pending the live Oneness Clinic URL from Seira** — a real screenshot, not a shoot
+  - Owner: **Claude, pending the live Oneness Clinic URL from Seira** — a real screenshot, not stock. Using a generic stock photo here would misrepresent this as the actual client site.
   - Status: **Placeholder live** — replace `/public/assets/placeholders/work-case-oneness.jpg`
 
 - [ ] **13 — `work-case-amos.jpg`** (Selected Work — Amos Home Team)
@@ -133,6 +133,8 @@ These six are the real gate on Version 1.1. Every one of them already occupies a
   - Priority: High
   - Owner: **Claude, pending the live Inner Life School URL from Seira**
   - Status: **Placeholder live** — replace `/public/assets/placeholders/work-case-innerlife.jpg`
+
+**Stock photography policy (added this pass):** Seira authorized carefully selected premium stock photography and icons as temporary production assets, explicitly excluding generic agency imagery, stock people, and clichés. This applies to atmospheric/mood imagery (breath images, still life) where the picture isn't claiming to be a specific verifiable thing. It does not apply to the four Work case-study images above — those are presented as screenshots of real client websites, and a stock substitute there would be a factual misrepresentation, not a placeholder.
 
 ---
 
@@ -186,10 +188,10 @@ These six are the real gate on Version 1.1. Every one of them already occupies a
 | Section | Count | Status |
 |---|---|---|
 | A — Complete | 9 | ✅ Done |
-| B — Blocking (placeholder live) | 6 | ⬜ Needs real asset |
+| B — Blocking (2 done, 4 remaining) | 6 | 🟡 In progress |
 | C — Library completeness | 1 | ⬜ Not started |
 | D — Review | 1 | ⬜ Not started |
 | E — Reserve, non-blocking | 2 | ⬜ Not started |
-| **Total** | **19** | **9 done / 10 remaining** |
+| **Total** | **19** | **11 done / 8 remaining** |
 
-**Fastest path to closing Section B (the actual blocker):** send the four Selected Work URLs (Oneness Clinic, Amos Home Team, Manwaring Consulting, Inner Life School) and say go on the Work breath image — that closes five of the six blocking items with no photography required, since all five are real screenshots I can capture directly. The sixth, the Home breath image, is the one item in this entire checklist that requires an actual photo shoot with no shortcut.
+**Fastest path to closing Section B (the only remaining blocker):** send the four Selected Work URLs (Oneness Clinic, Amos Home Team, Manwaring Consulting, Inner Life School) — real screenshots, not stock, since these are presented as the actual client sites. That closes the section entirely.

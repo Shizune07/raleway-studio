@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import BreathImage from '@/components/media/BreathImage'
+import IconMark from '@/components/media/IconMark'
 
 export const metadata: Metadata = {
   title: 'Raleway Studio — We help good businesses be seen for what they are',
@@ -25,21 +26,25 @@ const homeSchema = {
 const principles = [
   {
     num: '01',
+    icon: 'diagnose' as const,
     title: 'We diagnose before we design.',
     desc: 'Every project begins with a structured discovery process. We need to understand what the problem actually is — not assume it is what it first appears to be.',
   },
   {
     num: '02',
+    icon: 'challenge' as const,
     title: 'We challenge before we agree.',
     desc: "When we believe a direction is wrong, we say so. Agreement that doesn't serve the business isn't professionalism — it's self-protection.",
   },
   {
     num: '03',
+    icon: 'strategy' as const,
     title: 'Strategy before surface.',
     desc: 'A website is not the solution. It is the expression of a solution. The positioning, the narrative, the content architecture — these come before anything visual.',
   },
   {
     num: '04',
+    icon: 'legibility' as const,
     title: 'We measure by legibility, not aesthetics.',
     desc: 'The work is successful when the right people encounter our clients and understand — quickly, clearly — whether this business is right for them. Beautiful is secondary to clear.',
   },
@@ -182,6 +187,10 @@ export default function HomePage() {
               {principles.map((p) => (
                 <li key={p.num} className="home-method__item animate-entrance">
                   <div className="service-item">
+                    {/* Icon — reuses the same IconMark set already established on the
+                        Method page for these exact four principles (Rhythm/asset pass,
+                        V1.1 Phase 2). Not a new visual language, pure consistency. */}
+                    <IconMark name={p.icon} className="service-icon" />
                     {/* Counter — sibling before name (DEV-HP-05 fix, Rule 04) */}
                     <span className="service-counter" aria-hidden="true">{p.num}</span>
                     <span className="service-name">{p.title}</span>
@@ -207,8 +216,14 @@ export default function HomePage() {
           Spacing via CSS classes (not inline styles — DEV-HP-09 fix).
           Version 1.1: one "breath" image (Rule 2) between the headline and
           the body — see RALEWAY-VISUAL-DIRECTION-v1.1.md, Home/Section 05.
-          Placeholder asset until the real still-life photograph is shot —
-          see summary note; swap `src` only, component API is unchanged.
+          Temporary production asset (per Seira's stock-photography brief):
+          licensed Unsplash photograph ("A piece of paper sitting on top of
+          a wooden table," Joonas Sild), standing in for custom photography
+          until the real self-audit page is shot — see asset checklist item
+          10. Chosen for the same warm directional light and editorial,
+          uncluttered composition specified in the original brief; swap
+          `src` only when the real photograph exists, component API is
+          unchanged.
           Rhythm System pass (V1.1 Phase 2): --generous vertical meter —
           a longer breath before the Threshold, distinguishing this
           reflective closing section from the standard-weight sections
@@ -220,8 +235,8 @@ export default function HomePage() {
               Before we wrote a single brief for a client, we applied our method to ourselves.
             </h2>
             <BreathImage
-              src="/assets/placeholders/home-breath.jpg"
-              alt="A single annotated page from the Raleway self-audit on a desk, lit by warm window light."
+              src="/assets/home-breath.jpg"
+              alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
             />
             <div className="home-proof__body">
               <p className="section-body">
