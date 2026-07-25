@@ -228,7 +228,7 @@ export default function HomePage() {
           a longer breath before the Threshold, distinguishing this
           reflective closing section from the standard-weight sections
           above it. No eyebrow decision (DEV-HP-03/04) untouched. */}
-      <section className="section section--divided section--divided-signature section--generous" aria-label="Proof of thinking">
+      <section className="section section--divided section--generous" aria-label="Proof of thinking">
         <div className="container">
           <div className="home-proof animate-entrance">
             <h2 className="section-headline">

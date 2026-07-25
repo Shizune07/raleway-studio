@@ -113,7 +113,12 @@
   -webkit-mask-repeat: no-repeat;
 }
 
-.section--dark + .section--divided-signature::before,
+/* The cutout must match this section's OWN background, never the
+   section above it — a dark section immediately preceding a light
+   .section--divided-signature (e.g. Home's How-We-Work → Proof of
+   Thinking) previously left a dark square floating on the light field
+   below. Only compound (this element is itself dark) should ever
+   switch the cutout colour. */
 .section--divided-signature.section--dark::before {
   background-color: var(--colour-surface-dark);
 }
