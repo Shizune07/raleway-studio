@@ -28,5 +28,10 @@
    mockup frame, breath image, icon mark). See RALEWAY-VISUAL-DIRECTION-v1.1.md. */
 @import './10-media.css';
 
-/* Component 11 — Form (pending specification) */
-/* @import './11-form.css'; */
+/* Component 11 — Leadership (About page, "Specialist Support" section —
+   Version 1.1). Reuses Component 05 (Section Intro) and Component 10
+   (Responsive Image) rather than introducing new primitives. */
+@import './11-leadership.css';
+
+/* Component 12 — Form (pending specification) */
+/* @import './12-form.css'; */

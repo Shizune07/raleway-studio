@@ -2,7 +2,26 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import JsonLd from '@/components/JsonLd'
+import ResponsiveImage from '@/components/media/ResponsiveImage'
 import { seiraPortraitBlurDataURL } from '@/lib/media'
+
+/* Specialist Support — real names, roles, and portraits, confirmed by Seira. */
+const leadership = [
+  {
+    name: 'Gabriel De Leon',
+    role: 'Lead Developer',
+    bio: 'Gabriel transforms strategy into reliable digital experiences. He focuses on building websites that are fast, scalable, and thoughtfully engineered, ensuring every technical decision supports the business objective rather than getting in the way of it.',
+    image: '/assets/gabriel-de-leon.jpg',
+    imageAlt: 'Gabriel De Leon, Lead Developer at Raleway Studio',
+  },
+  {
+    name: 'Jet Danila',
+    role: 'Visual Designer',
+    bio: 'Jet brings clarity through visual design. He shapes the details that influence how a brand is perceived, ensuring every interface feels cohesive, refined, and aligned with the strategic direction behind the work.',
+    image: '/assets/jet-danila.jpg',
+    imageAlt: 'Jet Danila, Visual Designer at Raleway Studio',
+  },
+]
 
 export const metadata: Metadata = {
   title: 'About',
@@ -28,7 +47,7 @@ const aboutSchema = {
     founder: {
       '@type': 'Person',
       name: 'Seira',
-      jobTitle: 'Co-founder',
+      jobTitle: 'Founder & Strategy Director',
     },
   },
 }
@@ -201,7 +220,7 @@ export default function AboutPage() {
               <div className="about-founder__portrait-frame">
                 <Image
                   src="/assets/seira-jho.jpg"
-                  alt="Seira, co-founder of Raleway Studio"
+                  alt="Seira, Founder & Strategy Director at Raleway Studio"
                   fill
                   sizes="(max-width: 767px) 220px, (max-width: 1023px) 240px, 300px"
                   style={{ objectFit: 'cover', objectPosition: '50% 22%' }}
@@ -213,7 +232,7 @@ export default function AboutPage() {
             </div>
             <div className="about-founder__content">
               <p className="about-founder__name">Seira</p>
-              <p className="about-founder__role">Co-founder, Raleway Studio</p>
+              <p className="about-founder__role">Founder &amp; Strategy Director</p>
               <p className="about-founder__statement">
                 I measure the work by a simple question: did this help the
                 business become more accurately understood?
@@ -237,7 +256,54 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Section 07 — Threshold ──
+      {/* ── Section 07 — Specialist Support ──
+          Version 1.1 addition. Placed after Founder, before Threshold —
+          answers the visitor's next question ("who else helps deliver
+          this?") without touching the frozen Founder copy above or the
+          Threshold CTA below. Reuses Component 05 (Section Intro) for
+          the heading block and Component 11 (Leadership) for the list.
+          Names, roles, bios, and portraits confirmed by Seira. */}
+      <section className="section section--divided" aria-label="Specialist support">
+        <div className="container">
+          <div className="section-intro animate-entrance">
+            <span className="section-eyebrow">Specialist Support</span>
+            <h2 className="section-headline">
+              The people who join this work are chosen, not hired to fill a seat.
+            </h2>
+            <p className="section-body">
+              Raleway Studio stays founder-led on every engagement — one person
+              accountable for the thinking, start to finish. When a project needs
+              expertise beyond that, specific specialists are brought in for
+              exactly what the work requires. The studio stays small because
+              that&rsquo;s what keeps the thinking sharp, not because it hasn&rsquo;t
+              grown yet.
+            </p>
+          </div>
+          <ul className="leadership-list animate-entrance" role="list" data-delay="150">
+            {leadership.map((person) => (
+              <li key={person.role} className="leadership-list__item">
+                <div className="leadership-item">
+                  <div className="leadership-item__portrait">
+                    <ResponsiveImage
+                      src={person.image}
+                      alt={person.imageAlt}
+                      aspect="portrait"
+                      sizes="140px"
+                    />
+                  </div>
+                  <div className="leadership-item__content">
+                    <span className="leadership-item__name">{person.name}</span>
+                    <span className="leadership-item__role">{person.role}</span>
+                    <p className="leadership-item__bio">{person.bio}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── Section 08 — Threshold ──
           Approved destination: /method (not /start).
           About = Stage 2 (Trust) → Method = Stage 3 (Clarity).
           btn-navigate signals progression, not conversion.

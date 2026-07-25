@@ -1,0 +1,105 @@
+/* ============================================================
+   Component 11 — Leadership (Specialist Support)
+   Source: About page, Version 1.1 Leadership Section brief
+   Status: NEW — additive only, no v1.0/v1.1 component modified
+
+   Deliberately not a "team grid." Reuses the frozen Method-list divider
+   rhythm (Component 04's list pattern: hairline border-bottom, 48px
+   padding-block) rather than introducing a card/box treatment — the
+   brief explicitly rules out "colourful cards" and "a grid of tiny
+   headshots." Each row pairs a small, secondary-scale portrait with a
+   name / role / one-paragraph contribution, laid out beside each other
+   at desktop and stacked at mobile.
+
+   Visual hierarchy vs. the Founder section (both intentional):
+     Founder portrait   — 300px column, --text-h3 name (28px)
+     Leadership portrait — 140px column, --text-h4 name (20px)
+   The founder stays visually dominant; specialists read as secondary
+   without reading as an afterthought.
+   ============================================================ */
+
+/* ── List wrapper — same rhythm as globals.css .method-list:
+   64px below the section-intro, hairline divider between rows,
+   48px padding above/below each row. Defined locally rather than
+   reusing .method-list directly, so this component stays self-contained
+   in its own file per Rule 06/numbering convention. ── */
+
+.leadership-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-8) 0 0;   /* 64px below section-intro */
+  display: flex;
+  flex-direction: column;
+}
+
+.leadership-list__item {
+  padding-block: var(--space-7);   /* 48px above and below each item */
+  border-bottom: 0.5px solid var(--colour-border);
+}
+
+.leadership-list__item:first-child {
+  border-top: 0.5px solid var(--colour-border);
+}
+
+.leadership-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-7);   /* 48px — same element-to-element token used elsewhere */
+}
+
+.leadership-item__portrait {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+/* Uses .responsive-image (Component 10) for the frame itself —
+   aspect-ratio, overflow, and background come from that base rule.
+   Only the fixed column width is added here. */
+
+.leadership-item__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);  /* 16px — matches .service-item's internal rhythm */
+  padding-block-start: var(--space-1);  /* 4px — optical alignment with the portrait's top edge */
+}
+
+.leadership-item__name {
+  font-family: var(--font-editorial);
+  font-size: var(--text-h4);      /* 20px — one step down from Founder's h3 (28px) */
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-body);
+  line-height: 1.3;
+  color: var(--colour-ink);
+}
+
+.leadership-item__role {
+  display: block;
+  font-family: var(--font-interface);
+  font-size: var(--text-label);   /* 10px, same treatment as .about-founder__role */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-ink-tertiary);
+}
+
+.leadership-item__bio {
+  font-family: var(--font-editorial);
+  font-size: var(--text-body);    /* 16px, matches .service-description */
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--colour-ink-secondary);
+  max-width: var(--text-measure); /* 640px reading measure, same as everywhere else */
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .leadership-item {
+    flex-direction: column;
+    gap: var(--stack-md);         /* 32px */
+  }
+
+  .leadership-item__portrait {
+    width: 120px;
+  }
+}
