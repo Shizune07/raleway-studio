@@ -24,6 +24,57 @@ const methodSchema = {
 
 // Section 03 — Four governing principles
 // Authoritative home for principles; Home page references these briefly.
+// Section 04 — The four phases as an interactive disclosure sequence.
+// Version 1.1 Interaction Layer: the copy is unchanged from the prior
+// static rendering (see git history) — only restructured so the outcome
+// of each phase is legible without reading all sixteen paragraphs first.
+// Collapsed: icon, counter, name, outcome. Expanded: the phase's own
+// paragraphs. First phase open by default (an affordance, not a default
+// the visitor has to guess exists).
+const processPhases = [
+  {
+    num: '01',
+    icon: 'discover' as const,
+    name: 'Discover',
+    outcome: 'Outcome: a shared understanding of the problem.',
+    body: [
+      'We begin by listening — not to your brief, but to the business underneath it. Structured conversations, competitor analysis, audience mapping. We’re building a picture of the gap: what you currently communicate versus what your intended clients need to understand to choose you.',
+      'What we need from you at this stage is honest access. Time for the conversations that need to happen, and willingness to engage with questions that go beyond what a brief typically covers. The most useful input here is rarely in the written document — it’s in what you say when asked why certain clients don’t work out, or why your best clients stay.',
+    ],
+  },
+  {
+    num: '02',
+    icon: 'define' as const,
+    name: 'Define',
+    outcome: 'Outcome: an agreed strategic direction.',
+    body: [
+      'Before design begins, we define what design needs to accomplish. Positioning, message architecture, content hierarchy. This is the strategic document every subsequent decision will be tested against.',
+      'Your engagement here matters. If the positioning isn’t right, the time to say so is during Define — not during Design, when changing direction is more expensive. We present the strategy document and work through it with you before anything moves forward.',
+      'Design does not begin until this phase is signed off.',
+    ],
+  },
+  {
+    num: '03',
+    icon: 'design' as const,
+    name: 'Design',
+    outcome: 'Outcome: a visual system that expresses the strategy.',
+    body: [
+      'Every visual decision is made against the strategy. Typography, colour, layout, content structure — each choice is justified by what the business needs to communicate, and to whom. Nothing here is aesthetic preference without a strategic reason behind it.',
+      'Your feedback is most useful when it connects to that standard. “This doesn’t help someone understand X” is more actionable than “I’m not sure about this.” We make the same kind of feedback in return when something doesn’t meet the standard.',
+    ],
+  },
+  {
+    num: '04',
+    icon: 'deliver' as const,
+    name: 'Deliver',
+    outcome: 'Outcome: a complete, usable system your team can confidently operate.',
+    body: [
+      'We hand over a system, not just files. Documentation, usage guidance, and a handoff designed to give you confidence — to use what we built and to build on it.',
+      'The goal of this phase is to leave you confident using what we’ve built long after the project is complete.',
+    ],
+  },
+]
+
 const principles = [
   {
     num: '01',
@@ -149,15 +200,19 @@ export default function MethodPage() {
         </div>
       </section>
 
-      {/* ── Section 04 — The Process ──
-          Component 04 — Service Item (counter + name + description)
-          Phases written as static JSX — each has multi-paragraph content,
-          client obligations embedded in the process, and an outcome sentence.
-          Transition intro explains why phases are sequenced as they are.
-          Paragraph spacing:
-            - Transition paragraphs: .method-phase-intro scoping (globals.css)
-            - Phase body: .service-description + .service-description (globals.css)
-            - Outcome line: .service-description--outcome (globals.css) */}
+      {/* ── Section 04 — The Process (Component 13 — Disclosure) ──
+          Version 1.1 Interaction Layer: converted from a fully-expanded
+          16-paragraph wall of text to an interactive sequence. Every
+          phase's outcome is visible without opening anything — the
+          paragraphs (the "how") are what expand. This isn't decoration:
+          the copy above states the process is strictly gated ("No phase
+          begins until the previous one is complete") and a flat list
+          was hiding that shape rather than showing it. Built on native
+          <details>/<summary> — works with zero JavaScript. MotionInit
+          adds single-open exclusivity as an enhancement (see
+          data-accordion-group), mirroring the gated, one-thing-at-a-time
+          nature of the real process. All copy preserved exactly — see
+          the processPhases array above this component. */}
       <section className="section section--divided" aria-label="The process">
         <div className="container">
           <div className="section-intro method-phase-intro animate-entrance">
@@ -173,102 +228,36 @@ export default function MethodPage() {
             </p>
           </div>
           <ul className="method-list animate-entrance" role="list" data-delay="150">
-
-            {/* Phase 01 — Discover */}
-            <li className="method-list__item">
-              <div className="service-item">
-                <IconMark name="discover" className="service-icon" />
-                <span className="service-counter" aria-hidden="true">01</span>
-                <span className="service-name">Discover</span>
-                <p className="service-description">
-                  We begin by listening — not to your brief, but to the business underneath
-                  it. Structured conversations, competitor analysis, audience mapping. We&rsquo;re
-                  building a picture of the gap: what you currently communicate versus what your
-                  intended clients need to understand to choose you.
-                </p>
-                <p className="service-description">
-                  What we need from you at this stage is honest access. Time for the conversations
-                  that need to happen, and willingness to engage with questions that go beyond what
-                  a brief typically covers. The most useful input here is rarely in the written
-                  document — it&rsquo;s in what you say when asked why certain clients don&rsquo;t
-                  work out, or why your best clients stay.
-                </p>
-                <p className="service-description service-description--outcome">
-                  Outcome: a shared understanding of the problem.
-                </p>
-              </div>
-            </li>
-
-            {/* Phase 02 — Define */}
-            <li className="method-list__item">
-              <div className="service-item">
-                <IconMark name="define" className="service-icon" />
-                <span className="service-counter" aria-hidden="true">02</span>
-                <span className="service-name">Define</span>
-                <p className="service-description">
-                  Before design begins, we define what design needs to accomplish. Positioning,
-                  message architecture, content hierarchy. This is the strategic document every
-                  subsequent decision will be tested against.
-                </p>
-                <p className="service-description">
-                  Your engagement here matters. If the positioning isn&rsquo;t right, the time
-                  to say so is during Define — not during Design, when changing direction is more
-                  expensive. We present the strategy document and work through it with you before
-                  anything moves forward.
-                </p>
-                <p className="service-description">
-                  Design does not begin until this phase is signed off.
-                </p>
-                <p className="service-description service-description--outcome">
-                  Outcome: an agreed strategic direction.
-                </p>
-              </div>
-            </li>
-
-            {/* Phase 03 — Design */}
-            <li className="method-list__item">
-              <div className="service-item">
-                <IconMark name="design" className="service-icon" />
-                <span className="service-counter" aria-hidden="true">03</span>
-                <span className="service-name">Design</span>
-                <p className="service-description">
-                  Every visual decision is made against the strategy. Typography, colour, layout,
-                  content structure — each choice is justified by what the business needs to
-                  communicate, and to whom. Nothing here is aesthetic preference without a
-                  strategic reason behind it.
-                </p>
-                <p className="service-description">
-                  Your feedback is most useful when it connects to that standard.
-                  &ldquo;This doesn&rsquo;t help someone understand X&rdquo; is more actionable
-                  than &ldquo;I&rsquo;m not sure about this.&rdquo; We make the same kind of
-                  feedback in return when something doesn&rsquo;t meet the standard.
-                </p>
-                <p className="service-description service-description--outcome">
-                  Outcome: a visual system that expresses the strategy.
-                </p>
-              </div>
-            </li>
-
-            {/* Phase 04 — Deliver */}
-            <li className="method-list__item">
-              <div className="service-item">
-                <IconMark name="deliver" className="service-icon" />
-                <span className="service-counter" aria-hidden="true">04</span>
-                <span className="service-name">Deliver</span>
-                <p className="service-description">
-                  We hand over a system, not just files. Documentation, usage guidance, and a
-                  handoff designed to give you confidence — to use what we built and to build on it.
-                </p>
-                <p className="service-description">
-                  The goal of this phase is to leave you confident using what we&rsquo;ve built
-                  long after the project is complete.
-                </p>
-                <p className="service-description service-description--outcome">
-                  Outcome: a complete, usable system your team can confidently operate.
-                </p>
-              </div>
-            </li>
-
+            {processPhases.map((phase) => (
+              <li key={phase.num} className="method-list__item">
+                <details
+                  className="disclosure disclosure--process"
+                  data-accordion-group="method-process"
+                  open={phase.num === '01'}
+                >
+                  <summary className="disclosure__summary">
+                    <IconMark name={phase.icon} className="service-icon" />
+                    <div className="disclosure__summary-text">
+                      <div className="disclosure__heading-row">
+                        <div className="disclosure__heading-labels">
+                          <span className="service-counter" aria-hidden="true">{phase.num}</span>
+                          <span className="service-name">{phase.name}</span>
+                        </div>
+                        <span className="disclosure__indicator" aria-hidden="true" />
+                      </div>
+                      <p className="service-description service-description--outcome disclosure__teaser">
+                        {phase.outcome}
+                      </p>
+                    </div>
+                  </summary>
+                  <div className="disclosure__body">
+                    {phase.body.map((paragraph, i) => (
+                      <p key={i} className="service-description">{paragraph}</p>
+                    ))}
+                  </div>
+                </details>
+              </li>
+            ))}
           </ul>
         </div>
       </section>

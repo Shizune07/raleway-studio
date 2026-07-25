@@ -1,0 +1,200 @@
+/* ============================================================
+   Component 13 — Disclosure
+   Source: Version 1.1 Interaction Layer (Seira's directive: "make
+   complex ideas easier to understand through interaction" — never
+   decoration for its own sake).
+   Status: NEW
+
+   Built on native <details>/<summary> deliberately — not a custom
+   React accordion. Core function (open/close, keyboard, screen
+   reader "expanded" state) works with zero JavaScript. MotionInit
+   layers one enhancement on top (single-open exclusivity for
+   grouped sets, e.g. the Method process) — see
+   components/MotionInit.tsx, "Accordion exclusivity". If that
+   script fails to load, every disclosure still opens and closes
+   correctly; multiple can just stay open at once, which is a
+   harmless degrade, not a broken page.
+
+   Two contexts, one shell:
+     .disclosure            — base <details> reset + shared chrome
+     .disclosure--process    Method Section 04 — icon-led, no image
+     .disclosure--case       Work Section 03 — image-led
+
+   DOM (process):
+   <details class="disclosure disclosure--process" data-accordion-group="...">
+     <summary class="disclosure__summary">
+       <IconMark .../>
+       <div class="disclosure__summary-text">
+         <div class="disclosure__heading-row">
+           <div class="disclosure__heading-labels">
+             <span class="service-counter">01</span>
+             <span class="service-name">Discover</span>
+           </div>
+           <span class="disclosure__indicator" aria-hidden="true"></span>
+         </div>
+         <p class="service-description disclosure__teaser">Outcome: ...</p>
+       </div>
+     </summary>
+     <div class="disclosure__body"> ...paragraphs... </div>
+   </details>
+
+   DOM (case) — same shell, image replaces icon, summary stacks
+   vertically instead of as a row. See app/work/page.tsx.
+   ============================================================ */
+
+
+/* ── Reset — native marker removed, custom indicator takes over ── */
+
+.disclosure summary {
+  list-style: none;
+}
+
+.disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+
+/* ── Summary — the always-visible, always-clickable header ── */
+
+.disclosure__summary {
+  display: flex;
+  gap: var(--stack-sm);          /* 16px */
+  cursor: pointer;
+  outline-offset: 3px;
+}
+
+.disclosure--process .disclosure__summary {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.disclosure--case .disclosure__summary {
+  flex-direction: column;
+}
+
+.disclosure__summary:focus-visible {
+  outline: 2px solid var(--colour-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(224, 92, 26, 0.2);
+}
+
+/* Hover — same restrained language as .service-item--linked */
+.disclosure__summary:hover .service-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+
+/* ── Summary text column ── */
+
+.disclosure__summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-sm);          /* 16px */
+  flex: 1;
+  min-width: 0;
+}
+
+.disclosure__heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5);           /* 24px */
+}
+
+.disclosure__heading-labels {
+  display: flex;
+  flex-direction: column;
+}
+
+.disclosure__teaser {
+  margin: 0;
+}
+
+
+/* ── Indicator — a plus that becomes a minus. Same visual weight
+   as .icon-mark (ink-tertiary), never the accent colour — this is
+   structural wayfinding, not a call to action. ── */
+
+.disclosure__indicator {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-block-start: 6px;
+}
+
+.disclosure__indicator::before,
+.disclosure__indicator::after {
+  content: '';
+  position: absolute;
+  background: var(--colour-ink-tertiary);
+  transition: transform var(--motion-quick) var(--motion-ease),
+              opacity var(--motion-quick) var(--motion-ease);
+}
+
+.disclosure__indicator::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.disclosure__indicator::after {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+details[open] > summary .disclosure__indicator::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+.section--dark .disclosure__indicator::before,
+.section--dark .disclosure__indicator::after {
+  background: var(--colour-ink-secondary-inverted);
+}
+
+
+/* ── Body — revealed content, native details mechanics handle the
+   show/hide; this only adds a quiet fade where the browser supports
+   it. Unsupported browsers see the content appear instantly, which
+   is a perfectly calm fallback, not a degraded one. ── */
+
+.disclosure__body {
+  padding-block-start: var(--space-6);   /* 32px — teaser to expanded body */
+  max-width: var(--text-measure);
+  opacity: 1;
+  transition: opacity var(--motion-measured) var(--motion-ease);
+}
+
+.disclosure__body > .service-description + .service-description {
+  margin-block-start: var(--space-5);    /* 24px — matches existing paragraph rhythm */
+}
+
+@starting-style {
+  details[open] > .disclosure__body {
+    opacity: 0;
+  }
+}
+
+
+/* ── Case variant — image is the full-width summary opener ── */
+
+.disclosure--case .disclosure__summary > .service-visual {
+  margin-block-end: var(--space-1);      /* 4px — image to text, tight */
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure__body,
+  .disclosure__indicator::before,
+  .disclosure__indicator::after {
+    transition: none;
+  }
+}

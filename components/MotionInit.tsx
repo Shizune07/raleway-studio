@@ -91,6 +91,42 @@ export default function MotionInit() {
   }, [pathname])
 
   useEffect(() => {
+    // ── Component 13 — Disclosure: accordion exclusivity ──
+    // Pure enhancement, not a dependency. Every <details data-accordion-group>
+    // already opens and closes correctly with zero JS (native behaviour).
+    // This just makes grouped sets (currently: Method's four process phases)
+    // close their siblings when one opens, so the page mirrors the gated,
+    // one-thing-at-a-time nature of the actual process. If this effect never
+    // ran — slow connection, JS error upstream — multiple phases could stay
+    // open at once. Content and comprehension are unaffected either way.
+    const groups = new Map<string, HTMLDetailsElement[]>()
+    document.querySelectorAll<HTMLDetailsElement>('[data-accordion-group]').forEach((el) => {
+      const key = el.dataset.accordionGroup!
+      const list = groups.get(key) ?? []
+      list.push(el)
+      groups.set(key, list)
+    })
+
+    const cleanups: Array<() => void> = []
+
+    groups.forEach((members) => {
+      members.forEach((el) => {
+        const onToggle = () => {
+          if (el.open) {
+            members.forEach((other) => {
+              if (other !== el) other.open = false
+            })
+          }
+        }
+        el.addEventListener('toggle', onToggle)
+        cleanups.push(() => el.removeEventListener('toggle', onToggle))
+      })
+    })
+
+    return () => cleanups.forEach((fn) => fn())
+  }, [pathname])
+
+  useEffect(() => {
     // ── Pattern 08 — Navbar Scroll-Aware (mobile only) ──
     // Hide on scroll-down: .nav-hidden (transform: translateY(-100%), 250ms ease-in)
     // Show on scroll-up:  .nav-visible (transform: translateY(0), 200ms ease-out)

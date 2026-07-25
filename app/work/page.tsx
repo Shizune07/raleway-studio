@@ -25,12 +25,19 @@ const workSchema = {
 // Section 03 — Selected Work
 // Described using only verifiable facts: business, communication challenge, one strategic decision.
 // No invented outcomes, metrics, or results.
+// Version 1.1 Interaction Layer: each case is now an expandable disclosure.
+// `premise` (the business, in one sentence) stays always visible as the
+// collapsed teaser — it's the exact first sentence that used to open
+// `challenge` below, just split out, not rewritten. `challenge` and
+// `decision` are unchanged and now live in the expanded body.
 const selectedWork = [
   {
     num: '01',
     name: 'Oneness Clinic — Integrative Medicine',
+    premise:
+      'A multi-modality health clinic offering IV therapy, bioidentical hormones, psychiatry, coaching, and membership programmes.',
     challenge:
-      'A multi-modality health clinic offering IV therapy, bioidentical hormones, psychiatry, coaching, and membership programmes. The communication challenge: presenting integrated care as a coherent philosophy without reducing it to a service menu where individual treatments compete for attention.',
+      'The communication challenge: presenting integrated care as a coherent philosophy without reducing it to a service menu where individual treatments compete for attention.',
     decision:
       'The site leads with a single patient goal rather than individual offerings. Each service is positioned as part of a larger approach to health — not a standalone product. The membership architecture communicates ongoing care rather than one-time visits.',
     image: '/assets/placeholders/work-case-oneness.jpg',
@@ -39,8 +46,10 @@ const selectedWork = [
   {
     num: '02',
     name: 'Amos Home Team — Residential Real Estate',
+    premise:
+      'A personal real estate practice serving rural, lake, and small-town communities across the Kansas City Metro.',
     challenge:
-      'A personal real estate practice serving rural, lake, and small-town communities across the Kansas City Metro. The communication challenge: establishing genuine local expertise in a market dominated by larger teams with broader reach and higher volume.',
+      'The communication challenge: establishing genuine local expertise in a market dominated by larger teams with broader reach and higher volume.',
     decision:
       'The site is built around MLS access as the primary conversion path. A visitor’s first meaningful action is seeing live listings — not submitting a contact form. Featured communities are organised by lifestyle type, not price point.',
     image: '/assets/placeholders/work-case-amos.jpg',
@@ -49,8 +58,10 @@ const selectedWork = [
   {
     num: '03',
     name: 'Manwaring Consulting — Professional Services',
+    premise:
+      'A women-owned boutique firm offering four distinct service lines — notary and remote online notarisation, home watch, administrative support, and business compliance — to three different client types.',
     challenge:
-      'A women-owned boutique firm offering four distinct service lines — notary and remote online notarisation, home watch, administrative support, and business compliance — to three different client types. The communication challenge: presenting that range without creating confusion about scope or diluting the firm’s identity.',
+      'The communication challenge: presenting that range without creating confusion about scope or diluting the firm’s identity.',
     decision:
       'The site leads with positioning before scope. It establishes discretion, personal attention, and an explicit departure from high-volume franchise models before the service catalogue appears. Trust is the prerequisite for relevance.',
     image: '/assets/placeholders/work-case-manwaring.jpg',
@@ -59,8 +70,10 @@ const selectedWork = [
   {
     num: '04',
     name: 'Inner Life School — Online Education',
+    premise:
+      'A founder-led online school built around a specific pattern-recognition methodology for women in personal development.',
     challenge:
-      'A founder-led online school built around a specific pattern-recognition methodology for women in personal development. The communication challenge: explaining a methodology to an audience who may not yet have language for what they need.',
+      'The communication challenge: explaining a methodology to an audience who may not yet have language for what they need.',
     decision:
       'The site’s primary entry point is a quiz — not a lead-capture mechanism, but a micro-experience of the methodology itself. The founder’s narrative and the methodology appear before the course catalogue.',
     image: '/assets/placeholders/work-case-innerlife.jpg',
@@ -146,11 +159,17 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* ── Section 03 — Selected Work (dark field) ──
-          Component: section--dark / method-list / service-item
-          Four client projects described using only verifiable facts.
-          No invented outcomes, metrics, or results.
-          service-description + service-description spacing: 16px (existing globals.css rule). */}
+      {/* ── Section 03 — Selected Work (dark field, Component 13 — Disclosure) ──
+          Version 1.1 Interaction Layer: four case studies, expandable
+          rather than fully expanded by default. Image, name, and a
+          one-sentence premise are always visible so a visitor can scan
+          all four industries fast; the challenge and decision — the
+          real substance — open on click. All copy preserved exactly;
+          see the premise/challenge split in the selectedWork array
+          above (premise is the original challenge string's own first
+          sentence, not new text). Built on native details/summary —
+          each case is independent, no accordion grouping needed here
+          (unlike Method, these aren't a sequence). */}
       <section className="section section--dark" aria-label="Selected client work">
         <div className="container">
           <div className="section-intro animate-entrance">
@@ -164,18 +183,30 @@ export default function WorkPage() {
           <ul className="method-list animate-entrance" role="list" data-delay="150">
             {selectedWork.map((project) => (
               <li key={project.num} className="method-list__item">
-                <div className="service-item">
-                  <MockupFrame
-                    src={project.image}
-                    alt={project.imageAlt}
-                    aspect="card"
-                    className="service-visual"
-                  />
-                  <span className="service-counter" aria-hidden="true">{project.num}</span>
-                  <span className="service-name">{project.name}</span>
-                  <p className="service-description">{project.challenge}</p>
-                  <p className="service-description">{project.decision}</p>
-                </div>
+                <details className="disclosure disclosure--case">
+                  <summary className="disclosure__summary">
+                    <MockupFrame
+                      src={project.image}
+                      alt={project.imageAlt}
+                      aspect="card"
+                      className="service-visual"
+                    />
+                    <div className="disclosure__summary-text">
+                      <div className="disclosure__heading-row">
+                        <div className="disclosure__heading-labels">
+                          <span className="service-counter" aria-hidden="true">{project.num}</span>
+                          <span className="service-name">{project.name}</span>
+                        </div>
+                        <span className="disclosure__indicator" aria-hidden="true" />
+                      </div>
+                      <p className="service-description disclosure__teaser">{project.premise}</p>
+                    </div>
+                  </summary>
+                  <div className="disclosure__body">
+                    <p className="service-description">{project.challenge}</p>
+                    <p className="service-description">{project.decision}</p>
+                  </div>
+                </details>
               </li>
             ))}
           </ul>

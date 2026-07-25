@@ -38,5 +38,10 @@
    statements, asymmetric split, and wayfinding markers. */
 @import './12-rhythm.css';
 
-/* Component 13 — Form (pending specification) */
-/* @import './13-form.css'; */
+/* Component 13 — Disclosure (Version 1.1 Interaction Layer). Native
+   details/summary shell for the Method process phases and Work case
+   studies — see 13-disclosure.css. */
+@import './13-disclosure.css';
+
+/* Component 14 — Form (pending specification) */
+/* @import './14-form.css'; */
