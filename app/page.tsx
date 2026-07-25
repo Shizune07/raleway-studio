@@ -97,24 +97,40 @@ export default function HomePage() {
               <p className="home-diagnosis__intro-line">Or a website problem.</p>
               <p className="home-diagnosis__intro-close">It is none of these things.</p>
             </div>
-            <p className="home-diagnosis__item animate-entrance">
-              Visitors land on your website and leave without contacting you. Not because you&rsquo;re
-              unimpressive. Because they couldn&rsquo;t tell, quickly enough, whether you were the right fit.
-            </p>
-            <p className="home-diagnosis__item animate-entrance">
-              You&rsquo;ve explained what you do to potential clients many times. The explanation keeps
-              changing — not because you don&rsquo;t know your business, but because you haven&rsquo;t
-              found the version of it that lands.
-            </p>
-            <p className="home-diagnosis__item animate-entrance">
-              The clients who find you are inconsistent. Some are a perfect fit. Many aren&rsquo;t.
-              The mismatch isn&rsquo;t random — it&rsquo;s a signal that the business isn&rsquo;t yet
-              communicating clearly enough to attract the right people and repel the wrong ones.
-            </p>
-            <p className="home-diagnosis__item animate-entrance">
-              Your public presence — website, how you describe yourself, how you show up — doesn&rsquo;t
-              yet reflect the quality of what happens behind closed doors.
-            </p>
+            {/* Rhythm System pass (V1.1 Phase 2): each item now sits in an
+                .editorial-split row — a quiet numeral marker beside the
+                paragraph, rather than four identical unmarked blocks.
+                Same four sentences, same order. */}
+            <div className="editorial-split home-diagnosis__row animate-entrance">
+              <span className="section-marker" aria-hidden="true">I</span>
+              <p className="home-diagnosis__item">
+                Visitors land on your website and leave without contacting you. Not because you&rsquo;re
+                unimpressive. Because they couldn&rsquo;t tell, quickly enough, whether you were the right fit.
+              </p>
+            </div>
+            <div className="editorial-split home-diagnosis__row animate-entrance">
+              <span className="section-marker" aria-hidden="true">II</span>
+              <p className="home-diagnosis__item">
+                You&rsquo;ve explained what you do to potential clients many times. The explanation keeps
+                changing — not because you don&rsquo;t know your business, but because you haven&rsquo;t
+                found the version of it that lands.
+              </p>
+            </div>
+            <div className="editorial-split home-diagnosis__row animate-entrance">
+              <span className="section-marker" aria-hidden="true">III</span>
+              <p className="home-diagnosis__item">
+                The clients who find you are inconsistent. Some are a perfect fit. Many aren&rsquo;t.
+                The mismatch isn&rsquo;t random — it&rsquo;s a signal that the business isn&rsquo;t yet
+                communicating clearly enough to attract the right people and repel the wrong ones.
+              </p>
+            </div>
+            <div className="editorial-split home-diagnosis__row animate-entrance">
+              <span className="section-marker" aria-hidden="true">IV</span>
+              <p className="home-diagnosis__item">
+                Your public presence — website, how you describe yourself, how you show up — doesn&rsquo;t
+                yet reflect the quality of what happens behind closed doors.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -123,7 +139,11 @@ export default function HomePage() {
           Component: section / container / Section Introduction (Component 05)
           Eyebrow: "Why We Built Raleway"
           Headline: the belief
-          Body: the implication */}
+          Body: the implication
+          Rhythm System pass (V1.1 Phase 2): the closing line — previously
+          a fourth paragraph in the same block — is now isolated as a
+          .section-pause: the page's first monumental beat. Same sentence,
+          same section, same position in the document. Different weight. */}
       <section className="section section--divided" aria-label="Why we built Raleway">
         <div className="container">
           <div className="section-intro animate-entrance">
@@ -136,9 +156,9 @@ export default function HomePage() {
               The problem is rarely the quality of the work. It is the distance between that quality
               and what the world can actually perceive.
             </p>
-            <p className="section-body home-why__close">
-              Raleway Studio was built for that distance.
-            </p>
+          </div>
+          <div className="section-pause animate-entrance">
+            <p className="section-pause__text">Raleway Studio was built for that distance.</p>
           </div>
         </div>
       </section>
@@ -147,8 +167,14 @@ export default function HomePage() {
           Component: section / container / Service Item list (Component 04)
           Each principle maps to a service-item (static mode, no link)
           Counter used for numbering (optional, per spec)
-          Navigate link at bottom → /method */}
-      <section className="section section--divided" aria-label="How we work">
+          Navigate link at bottom → /method
+          Rhythm System pass (V1.1 Phase 2): field alternation — this is
+          Home's first dark section, the page's turn from belief into
+          practice. Mirrors the same device already proven on Work and
+          Method (their principle/client lists are dark fields). Dark-mode
+          colour inversions for .home-method__label/.home-method__item and
+          .btn-navigate live in globals.css / 12-rhythm.css. */}
+      <section className="section section--dark" aria-label="How we work">
         <div className="container">
           <div className="home-method">
             <p className="home-method__label animate-entrance">This is how we work.</p>
@@ -182,8 +208,12 @@ export default function HomePage() {
           Version 1.1: one "breath" image (Rule 2) between the headline and
           the body — see RALEWAY-VISUAL-DIRECTION-v1.1.md, Home/Section 05.
           Placeholder asset until the real still-life photograph is shot —
-          see summary note; swap `src` only, component API is unchanged. */}
-      <section className="section section--divided" aria-label="Proof of thinking">
+          see summary note; swap `src` only, component API is unchanged.
+          Rhythm System pass (V1.1 Phase 2): --generous vertical meter —
+          a longer breath before the Threshold, distinguishing this
+          reflective closing section from the standard-weight sections
+          above it. No eyebrow decision (DEV-HP-03/04) untouched. */}
+      <section className="section section--divided section--generous" aria-label="Proof of thinking">
         <div className="container">
           <div className="home-proof animate-entrance">
             <h2 className="section-headline">

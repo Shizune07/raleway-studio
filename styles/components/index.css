@@ -33,5 +33,10 @@
    (Responsive Image) rather than introducing new primitives. */
 @import './11-leadership.css';
 
-/* Component 12 — Form (pending specification) */
-/* @import './12-form.css'; */
+/* Component 12 — Rhythm (Editorial Art Direction System, Version 1.1
+   Phase 2). Cross-page layout primitives for vertical meter, pause
+   statements, asymmetric split, and wayfinding markers. */
+@import './12-rhythm.css';
+
+/* Component 13 — Form (pending specification) */
+/* @import './13-form.css'; */

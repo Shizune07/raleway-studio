@@ -1,0 +1,155 @@
+/* ============================================================
+   Component 12 — Rhythm (Editorial Art Direction System)
+   Source: Version 1.1, Phase 2 — "art direct the editorial
+   experience, not the website" brief.
+   Status: NEW — additive only. No word, section, nav item, or
+   page order changes anywhere this system is applied. This is
+   entirely about weight, sequence, and space.
+
+   Problem this solves: every content section on every page used
+   the identical wrapper (.section.section--divided, one column,
+   128px padding) regardless of what it was saying. The page had
+   no meter — nothing told the eye "small moment" vs. "the point."
+
+   Four primitives, all built from existing tokens:
+     1. .section--monumental — a true full-stop pause (--space-12,
+        defined in tokens.css for exactly this, previously used
+        nowhere but the Hero)
+     2. .section-pause        — isolates one already-existing short
+        line at display scale, alone in the field
+     3. .editorial-split      — asymmetric label-column / text-column
+        grid, for sections making discrete points rather than one
+        continuous argument (deliberately NOT primitives/03-grid.css's
+        .grid--2, which declares equivalence between two equal
+        columns — this is a label + content pairing, not that)
+     4. .section-marker       — a quiet wayfinding numeral, the same
+        register as the existing .service-counter device, extended
+        to mark a sequence within a section rather than a list item
+
+   Plus one systemic fix: .section--dark .btn-navigate did not
+   previously exist as a general rule (only .threshold .btn-navigate
+   did) — needed now that field alternation is used outside the
+   Threshold for the first time.
+   ============================================================ */
+
+
+/* ── 1. Monumental section — the one true pause per page ──
+   Not a replacement for --generous. This is reserved for a single
+   centrepiece moment, the same weight class as the Hero. */
+
+.section--monumental {
+  padding-block: var(--space-12);   /* 256px */
+}
+
+@media (max-width: 1023px) {
+  .section--monumental {
+    padding-block: var(--space-10); /* 128px */
+  }
+}
+
+@media (max-width: 767px) {
+  .section--monumental {
+    padding-block: var(--space-9);  /* 96px */
+  }
+}
+
+
+/* ── 2. Pause statement — an existing line, isolated and elevated ──
+   Never introduces new copy. Takes one sentence already present
+   in the approved content and gives it a different frame: centred,
+   display-scale, generous space above it, alone in the viewport. */
+
+.section-pause {
+  margin-block-start: var(--space-12);   /* 256px — the pause itself */
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.section-pause__text {
+  font-family: var(--font-editorial);
+  font-size: var(--text-display);         /* 72px */
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' var(--opsz-display);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--colour-ink);
+  max-width: 900px;
+  margin: 0;
+}
+
+.section--dark .section-pause__text {
+  color: var(--colour-ink-inverted, #F6F4EF);
+}
+
+@media (max-width: 1023px) {
+  .section-pause {
+    margin-block-start: var(--space-10);  /* 128px */
+  }
+  .section-pause__text {
+    font-size: var(--text-h1);            /* 56px */
+  }
+}
+
+@media (max-width: 767px) {
+  .section-pause {
+    margin-block-start: var(--space-8);   /* 64px */
+  }
+  .section-pause__text {
+    font-size: var(--text-h2);            /* 40px */
+    letter-spacing: -0.012em;
+  }
+}
+
+
+/* ── 3. Editorial split — asymmetric marker + content pairing ──
+   For sections making several discrete points (not one continuous
+   argument). Deliberately unequal columns — a label rail, not a
+   paired-equivalence layout. Collapses to a single column at
+   tablet, where the marker sits above its paragraph instead of
+   beside it. */
+
+.editorial-split {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--space-6);              /* 32px */
+  align-items: baseline;
+}
+
+@media (max-width: 767px) {
+  .editorial-split {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);            /* 8px — marker sits tight above its text */
+  }
+}
+
+
+/* ── 4. Section marker — quiet wayfinding numeral ──
+   Same register as .service-counter (Component 04): infrastructure,
+   not decoration. Tertiary ink — deliberately the most muted token
+   in the system, reserved in tokens.css for exactly this use. */
+
+.section-marker {
+  display: block;
+  font-family: var(--font-interface);
+  font-size: var(--text-ui-sm);     /* 10px */
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--colour-ink-tertiary);
+  line-height: 1.88;                /* matches the paragraph rhythm it sits beside */
+}
+
+.section--dark .section-marker {
+  color: var(--colour-ink-secondary-inverted, rgba(246,244,239,0.45));
+}
+
+
+/* ── Systemic fix — btn-navigate on any dark field ──
+   Previously only .threshold .btn-navigate existed. Field
+   alternation now appears outside the Threshold, so this needs
+   to be general rather than re-declared per page. */
+
+.section--dark .btn-navigate {
+  color: var(--colour-ink-inverted, #F6F4EF);
+}

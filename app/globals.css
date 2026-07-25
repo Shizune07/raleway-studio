@@ -461,16 +461,20 @@ ul  { list-style: none; }
   font-variation-settings: 'opsz' var(--opsz-body);
   line-height: 1.88;
   color: var(--colour-ink-secondary);
-  padding-block: var(--space-7);     /* 48px */
-  border-bottom: 0.5px solid var(--colour-border);
   margin: 0;
 }
 
-.home-diagnosis__item:first-child {
-  padding-block-start: 0;
+/* Rhythm System pass (V1.1 Phase 2): each diagnosis item now sits inside
+   an .editorial-split row (marker + paragraph) rather than as a bare
+   paragraph. Spacing/border ownership moves from .home-diagnosis__item
+   to the row wrapper, since the item is no longer a direct sibling of
+   the others. */
+.home-diagnosis__row {
+  padding-block: var(--space-7);     /* 48px */
+  border-bottom: 0.5px solid var(--colour-border);
 }
 
-.home-diagnosis__item:last-child {
+.home-diagnosis__row:last-child {
   border-bottom: none;
   padding-block-end: 0;
 }
@@ -525,12 +529,25 @@ ul  { list-style: none; }
   margin-block-start: var(--space-8); /* 64px */
 }
 
-/* Section 03 — Why closing line (primary ink weight) */
-/* Compound selector: overrides .section-body specificity (main.css loads after globals.css) */
-.section-body.home-why__close {
-  color: var(--colour-ink);
-  font-weight: 400;
-  margin-block-start: var(--stack-md); /* 32px — body paragraph rhythm */
+/* Section 03 — closing line moved to .section-pause (Rhythm System pass,
+   V1.1 Phase 2) — see app/page.tsx. Same words, isolated as its own
+   beat instead of a fourth paragraph in the intro block. */
+
+/* Section 04 — field alternation (Rhythm System pass, V1.1 Phase 2):
+   this section now sits on .section--dark. .service-counter/.service-name/
+   .service-description already invert generically (see Phase 7 Integration
+   — Design System Dark-Field Supplements, below); these two classes are
+   specific to Home's custom wrapper and need their own inversion. */
+.section--dark .home-method__label {
+  color: var(--colour-ink-secondary-inverted, rgba(246,244,239,0.55));
+}
+
+.section--dark .home-method__item {
+  border-bottom-color: var(--colour-border-inverted, rgba(246,244,239,0.12));
+}
+
+.section--dark .home-method__item:first-child {
+  border-top-color: var(--colour-border-inverted, rgba(246,244,239,0.12));
 }
 
 /* Section 05 — Proof of Thinking (light field — DEV-HP-03 fix) */
