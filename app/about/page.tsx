@@ -219,22 +219,58 @@ export default function AboutPage() {
               I understood about the work in front of me.
             </p>
           </div>
-          <div className="annotation annotation--compare animate-entrance">
-            <div className="annotation__group">
-              <span className="annotation__label">Before</span>
-              <p className="annotation__question">What pages do you need?</p>
-              <p className="annotation__question">What aesthetic do you prefer?</p>
+          {/* Signature Mark System: the before/after questions, plotted
+              instead of only read. Two rings reuse the mark's own
+              centre-and-radius geometry — surface (outer, dashed, muted)
+              and core (inner, warm) — with the four real questions
+              placed at the depth they actually operated at. Conceptual,
+              not data, same rule as the axis diagram above: one
+              illustrative position per question, nothing measured. */}
+          <figure className="diagram animate-entrance">
+            <svg
+              className="diagram-shift"
+              viewBox="0 0 400 260"
+              role="img"
+              aria-labelledby="shift-diagram-title shift-diagram-desc"
+            >
+              <title id="shift-diagram-title">From surface questions to core questions</title>
+              <desc id="shift-diagram-desc">
+                A conceptual diagram, not data: two rings representing surface and core.
+                The two &ldquo;before&rdquo; questions sit on the outer, surface ring; the two
+                &ldquo;after&rdquo; questions sit near the centre, the core.
+              </desc>
+              <circle className="diagram-shift__ring--outer" cx="200" cy="130" r="110" />
+              <circle className="diagram-shift__ring--inner" cx="200" cy="130" r="40" />
+              <circle className="diagram-shift__centre" cx="200" cy="130" r="2.5" />
+              <text className="diagram-shift__zone-label" x="200" y="14">Surface</text>
+              <text className="diagram-shift__zone-label" x="200" y="168">Core</text>
+              <path className="diagram-shift__arrow" d="M95 70C150 88 190 104 216 118" />
+              <path className="diagram-shift__arrow" d="M88 190C145 172 188 158 214 145" />
+              <circle className="diagram-shift__point--before" cx="95" cy="70" r="4" />
+              <circle className="diagram-shift__point--before" cx="88" cy="190" r="4" />
+              <circle className="diagram-shift__point--after" cx="216" cy="118" r="4" />
+              <circle className="diagram-shift__point--after" cx="214" cy="145" r="4" />
+            </svg>
+            <div className="annotation annotation--compare diagram-shift__legend">
+              <div className="annotation__group">
+                <span className="annotation__label">Before</span>
+                <p className="annotation__question">What pages do you need?</p>
+                <p className="annotation__question">What aesthetic do you prefer?</p>
+              </div>
+              <div className="annotation__group annotation__group--after">
+                <span className="annotation__label">After</span>
+                <p className="annotation__question">
+                  What do customers choose you for — specifically, not generally?
+                </p>
+                <p className="annotation__question">
+                  What do people consistently misunderstand about your business?
+                </p>
+              </div>
             </div>
-            <div className="annotation__group annotation__group--after">
-              <span className="annotation__label">After</span>
-              <p className="annotation__question">
-                What do customers choose you for — specifically, not generally?
-              </p>
-              <p className="annotation__question">
-                What do people consistently misunderstand about your business?
-              </p>
-            </div>
-          </div>
+            <figcaption className="diagram__caption">
+              Those conversations changed what I understood about the work in front of me.
+            </figcaption>
+          </figure>
           <div className="about-narrative animate-entrance">
             <p className="section-body">
               I realised I had been solving the brief, not the business problem.

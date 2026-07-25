@@ -304,3 +304,79 @@
     margin: var(--space-1) 0 var(--space-1) 3px;
   }
 }
+
+
+/* ── 2c. Shift diagram — About's before/after questions, as geometry ──
+   Source: Signature Mark System (Component 15) — reuses that system's
+   ring-and-centre-point vocabulary rather than inventing a third shape
+   language. Conceptual, not data, same rule as the axis diagram: two
+   rings (surface / core), the four real questions plotted as points at
+   the depth they actually operated at — before-questions stay on the
+   outer ring, after-questions sit near the centre. No new copy; the
+   legend below reuses the exact .annotation--compare markup already
+   built, just nested under the diagram instead of standing alone. */
+
+.diagram-shift {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin-inline: auto;
+}
+
+.diagram-shift__ring--outer {
+  fill: none;
+  stroke: var(--colour-border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.diagram-shift__ring--inner {
+  fill: none;
+  stroke: var(--colour-accent-warm);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.diagram-shift__centre {
+  fill: var(--colour-ink-tertiary);
+}
+
+.diagram-shift__zone-label {
+  font-family: var(--font-interface);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  fill: var(--colour-ink-tertiary);
+}
+
+.diagram-shift__point--before {
+  fill: var(--colour-surface);
+  stroke: var(--colour-ink-tertiary);
+  stroke-width: 1.5;
+}
+
+.diagram-shift__point--after {
+  fill: var(--colour-accent-warm);
+  stroke: none;
+}
+
+.diagram-shift__arrow {
+  fill: none;
+  stroke: var(--colour-accent-warm);
+  stroke-width: 1.25;
+  stroke-dasharray: 0.5 3.5;
+  stroke-linecap: round;
+}
+
+/* Legend — the real question text, reusing .annotation--compare exactly
+   (Component 14 + Component 15's label mark) but nested under the SVG
+   rather than standing alone, so spacing tightens against the diagram
+   above it instead of the paragraph above the whole figure. */
+
+.diagram-shift__legend.annotation--compare {
+  border-block-start: none;
+  margin-block-start: var(--space-6);   /* 32px — diagram to legend */
+  padding-block-start: 0;
+}
