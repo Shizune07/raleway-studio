@@ -81,9 +81,18 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Section 02 — The Pattern ──
+      {/* ── Section 02 — The Pattern (Component 14 — Editorial) ──
           What kept recurring across different businesses and contexts.
-          Ends with preserved key phrase on market legibility. */}
+          Ends with preserved key phrase on market legibility.
+          Version 1.1 Editorial Layer: the closing sentence — "The market
+          wasn't necessarily rewarding the best business. It was rewarding
+          the business people could understand fastest" — is the studio's
+          entire thesis in one line. It's a genuinely diagrammable
+          relationship (quality vs. legibility, and the gap between them),
+          not a mood to illustrate, so it gets the one signature diagram
+          on the site — built once, here, deliberately not repeated
+          elsewhere. Conceptual, not data: no fabricated measurements,
+          one illustrative marker. Ink tones only, no colour. */}
       <section className="section section--divided" aria-label="The pattern">
         <div className="container">
           <div className="about-narrative animate-entrance">
@@ -105,6 +114,49 @@ export default function AboutPage() {
               rewarding the business people could understand fastest.
             </p>
           </div>
+          <figure className="diagram animate-entrance">
+            <svg
+              className="diagram-axis"
+              viewBox="0 0 560 380"
+              role="img"
+              aria-labelledby="pattern-diagram-title pattern-diagram-desc"
+            >
+              <title id="pattern-diagram-title">Quality versus legibility</title>
+              <desc id="pattern-diagram-desc">
+                A conceptual diagram, not measured data. It shows that market reward
+                tracks how clearly a business communicates, not how good the underlying
+                work is. A single marked point sits well above the dotted line where
+                quality and legibility would move together, illustrating a capable
+                business whose quality far exceeds how clearly the market currently
+                understands it — and the gap between the two.
+              </desc>
+              <line className="diagram-axis__line" x1="60" y1="330" x2="520" y2="330" />
+              <line className="diagram-axis__line" x1="60" y1="330" x2="60" y2="30" />
+              <line className="diagram-axis__diagonal" x1="60" y1="330" x2="520" y2="30" />
+              <line className="diagram-axis__gap-line" x1="200" y1="90" x2="200" y2="239" />
+              <circle className="diagram-axis__point" cx="200" cy="90" r="3.5" />
+              <text className="diagram-axis__label" x="60" y="18">QUALITY ↑</text>
+              <text className="diagram-axis__label" x="520" y="352" textAnchor="end">LEGIBILITY →</text>
+              <text
+                className="diagram-axis__label--diagonal"
+                x="330"
+                y="138"
+                textAnchor="middle"
+                transform="rotate(-33 330 138)"
+              >
+                if the two moved together
+              </text>
+              <text className="diagram-axis__label--point" x="214" y="86">
+                many capable businesses sit here
+              </text>
+              <text className="diagram-axis__label--gap" x="210" y="168">THE GAP</text>
+            </svg>
+            <figcaption className="diagram__caption">
+              The market doesn&rsquo;t reward quality directly — it rewards how clearly
+              that quality can be understood. Most capable businesses sit above the
+              line, not on it.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -135,10 +187,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Section 04 — How the Work Changed ──
+      {/* ── Section 04 — How the Work Changed (Component 14 — Editorial) ──
           Behavioural consequence — different questions, different pace.
           Most credible section: conviction becomes observable practice.
-          Preserved phrase: "solving the brief, not the business problem." */}
+          Preserved phrase: "solving the brief, not the business problem."
+          Version 1.1 Editorial Layer: the second and third paragraphs
+          already contain a clean before/after — the old questions versus
+          the new ones. A pull-quote annotation reproduces those exact
+          sentences (no new copy) in a distinct two-column treatment, the
+          standard print convention of re-presenting a fragment of the
+          running text for emphasis. The paragraphs themselves are
+          untouched. */}
       <section className="section section--divided" aria-label="How the work changed">
         <div className="container">
           <div className="about-narrative animate-entrance">
@@ -159,6 +218,24 @@ export default function AboutPage() {
               misunderstand about your business? Those conversations changed what
               I understood about the work in front of me.
             </p>
+          </div>
+          <div className="annotation annotation--compare animate-entrance">
+            <div className="annotation__group">
+              <span className="annotation__label">Before</span>
+              <p className="annotation__question">What pages do you need?</p>
+              <p className="annotation__question">What aesthetic do you prefer?</p>
+            </div>
+            <div className="annotation__group annotation__group--after">
+              <span className="annotation__label">After</span>
+              <p className="annotation__question">
+                What do customers choose you for — specifically, not generally?
+              </p>
+              <p className="annotation__question">
+                What do people consistently misunderstand about your business?
+              </p>
+            </div>
+          </div>
+          <div className="about-narrative animate-entrance">
             <p className="section-body">
               I realised I had been solving the brief, not the business problem.
               Sometimes those are the same thing. Often they aren&rsquo;t. If a brief

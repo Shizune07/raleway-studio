@@ -43,5 +43,9 @@
    studies — see 13-disclosure.css. */
 @import './13-disclosure.css';
 
-/* Component 14 — Form (pending specification) */
-/* @import './14-form.css'; */
+/* Component 14 — Editorial (Version 1.1 Editorial Layer). Pull-quote
+   annotations and conceptual diagrams — see 14-editorial.css. */
+@import './14-editorial.css';
+
+/* Component 15 — Form (pending specification) */
+/* @import './15-form.css'; */

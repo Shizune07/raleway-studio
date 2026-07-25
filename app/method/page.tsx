@@ -132,12 +132,19 @@ export default function MethodPage() {
         </div>
       </section>
 
-      {/* ── Section 02 — The Diagnostic Standard ──
+      {/* ── Section 02 — The Diagnostic Standard (Component 14 — Editorial) ──
           Component 05 — Section Introduction
           Eyebrow: "Before Design Begins"
           Explains what commitment to diagnosis means in practice:
           not an abstract value but a specific refusal before design begins.
-          Multi-paragraph spacing via .method-diagnostic (globals.css). */}
+          Multi-paragraph spacing via .method-diagnostic (globals.css).
+          Version 1.1 Editorial Layer: the three questions that structure
+          this entire phase were stated mid-paragraph, easy to read past.
+          Pulled out below using the same numbered-marker device already
+          built for Home's Diagnosis section (.editorial-split +
+          .section-marker) — the same visual move for the same kind of
+          content: a diagnostic sequence. Exact existing wording, no new
+          copy; the source paragraph is unchanged. */}
       <section className="section section--divided" aria-label="Before design begins">
         <div className="container">
           <div className="section-intro method-diagnostic animate-entrance">
@@ -152,6 +159,28 @@ export default function MethodPage() {
               need to understand before they decide to reach out? And what is the business
               currently communicating that helps or works against that?
             </p>
+          </div>
+          <div className="method-diagnostic__questions">
+            <div className="editorial-split animate-entrance">
+              <span className="section-marker" aria-hidden="true">I</span>
+              <p className="service-description">
+                Who is the right client for this business — specifically, not generally?
+              </p>
+            </div>
+            <div className="editorial-split animate-entrance">
+              <span className="section-marker" aria-hidden="true">II</span>
+              <p className="service-description">
+                What does that person need to understand before they decide to reach out?
+              </p>
+            </div>
+            <div className="editorial-split animate-entrance">
+              <span className="section-marker" aria-hidden="true">III</span>
+              <p className="service-description">
+                What is the business currently communicating that helps or works against that?
+              </p>
+            </div>
+          </div>
+          <div className="section-intro method-diagnostic animate-entrance">
             <p className="section-body">
               Until those questions are answered, design decisions are premature. Colour,
               layout, typography, content structure — these choices should follow from a
