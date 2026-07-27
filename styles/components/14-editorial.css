@@ -373,3 +373,97 @@
   margin-block-start: var(--space-6);   /* 32px — diagram to legend */
   padding-block-start: 0;
 }
+
+
+/* ── 2d. Fragment diagram — Home's Diagnosis section ──
+   Source: Visual Language System v1.2, Ch.6 (hero-graphic mapping —
+   Problem → confusion). Not the studio's ring, completed: four
+   disconnected arc pieces at uneven radii, none closing into a whole —
+   a business's digital presence when it doesn't yet cohere into one
+   legible picture. Same "one relationship, one illustrative marker"
+   diagram discipline as 2a/2c: achromatic pieces, a single warm-accent
+   dot marks the one piece nearest resolving — not decoration, the
+   literal subject of the section it sits above. */
+
+.diagram-fragment {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.diagram-fragment__piece {
+  fill: none;
+  stroke: var(--colour-border-strong);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.diagram-fragment__piece--faint {
+  stroke: var(--colour-border);
+  stroke-width: 1;
+}
+
+.diagram-fragment__point {
+  fill: var(--colour-accent-warm);
+  stroke: none;
+}
+
+
+/* ── 2e. Network diagram — Home's "Why We Built Raleway" ──
+   Source: Visual Language System v1.2, Ch.6 (Strategy → systems
+   connecting). Scattered outer nodes — the separate signals a business
+   sends (site, story, proof, positioning) — resolving into one hub.
+   The hub is the only warm-accent element; everything feeding it stays
+   ink-tertiary until it arrives. */
+
+.diagram-network {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.diagram-network__line {
+  stroke: var(--colour-border-strong);
+  stroke-width: 1;
+}
+
+.diagram-network__node {
+  fill: var(--colour-surface);
+  stroke: var(--colour-ink-tertiary);
+  stroke-width: 1.5;
+}
+
+.diagram-network__hub {
+  fill: var(--colour-accent-warm);
+  stroke: none;
+}
+
+
+/* ── 2f. Reveal diagram — Method's "Before design begins" ──
+   Source: Visual Language System v1.2, Ch.6 (Discovery → uncovering
+   hidden opportunity). Same open-arc-and-point vocabulary as IconMark's
+   "discover" mark (Component 15 family), drawn larger and horizontally
+   framed to match this diagram tier rather than the 40px icon tier —
+   one continuous arc that hasn't closed, ending at the one thing it
+   found. */
+
+.diagram-reveal {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.diagram-reveal__arc {
+  fill: none;
+  stroke: var(--colour-border-strong);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.diagram-reveal__point {
+  fill: var(--colour-accent-warm);
+  stroke: none;
+}

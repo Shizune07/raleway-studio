@@ -1,0 +1,125 @@
+/* ============================================================
+   Component 17 — Window Graphic
+   Source: Visual Language System v1.2, Ch.6 ("Window Graphics") —
+   purpose-built interface compositions in Raleway's own visual
+   language, used where a section needs to show a system rather than
+   describe one. Explicitly NOT a screenshot: no browser chrome, no
+   traffic-light dots, no fake cursor. Component 10's Device Frame
+   system already owns real screenshots as evidence (Work's Selected
+   Work); this is the illustrated counterpart for sections that have no
+   screenshot to show because the "interface" is a concept, not a
+   built screen.
+   Status: NEW
+
+   First and, for now, only use: Work's "Featured Study" section — the
+   closing beat of the essay explaining that this website is the case
+   study. The graphic abstracts this very site's own structure (a
+   header rule, a hero block, a run of content rows) with one row
+   marked in the warm accent — the decision made visible, the same
+   "single marked point" restraint every diagram in Component 14 uses.
+
+   DOM:
+   <figure class="window-graphic animate-entrance">
+     <div class="window-graphic__frame">
+       <div class="window-graphic__bar">
+         <span class="window-graphic__bar-label">ralewaystudio.com</span>
+       </div>
+       <div class="window-graphic__body">
+         <div class="window-graphic__hero" />
+         <div class="window-graphic__row window-graphic__row--w60" />
+         <div class="window-graphic__row window-graphic__row--w80" />
+         <div class="window-graphic__row window-graphic__row--accent window-graphic__row--w40">
+           <RalewayMark variant="fragment" size={14} />
+         </div>
+       </div>
+     </div>
+     <figcaption class="window-graphic__caption">...</figcaption>
+   </figure>
+   ============================================================ */
+
+.window-graphic {
+  margin-block: var(--space-8);         /* 64px — same rhythm as .diagram */
+}
+
+.window-graphic__frame {
+  aspect-ratio: var(--frame-laptop);    /* 16:10 — an interface, not a page */
+  max-width: 480px;
+  margin-inline: auto;
+  border: 1px solid var(--colour-border-strong);
+  border-radius: var(--radius-flat);    /* flush corners — no fake window chrome */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--colour-surface);
+}
+
+/* Header rule — a plain hairline division with a small typographic
+   label. Deliberately not three dots: that reads as literal browser
+   chrome, which the Mockup System (Component 10) already reserves for
+   real screenshots. This is a label, not a control. */
+.window-graphic__bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-4);       /* 16px */
+  height: 28px;
+  border-block-end: 1px solid var(--colour-border);
+}
+
+.window-graphic__bar-label {
+  font-family: var(--font-interface);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--colour-ink-tertiary);
+}
+
+.window-graphic__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);                  /* 12px */
+  padding: var(--space-5);              /* 24px */
+}
+
+.window-graphic__hero {
+  height: 20%;
+  min-height: 32px;
+  background: var(--colour-border);
+}
+
+.window-graphic__row {
+  height: 8px;
+  background: var(--colour-border);
+}
+
+.window-graphic__row--w80 { width: 80%; }
+.window-graphic__row--w60 { width: 60%; }
+.window-graphic__row--w40 { width: 40%; }
+
+/* The one marked row — same restraint as every diagram's single
+   warm-accent point: this is the graphic's entire colour budget. */
+.window-graphic__row--accent {
+  height: 18px;
+  background: color-mix(in srgb, var(--colour-accent-warm) 14%, transparent);
+  border: 1px solid var(--colour-accent-warm);
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-2);       /* 8px */
+  color: var(--colour-accent-warm);
+}
+
+.window-graphic__row--accent .raleway-mark {
+  flex: none;
+}
+
+.window-graphic__caption {
+  display: block;
+  margin-block-start: var(--space-4);   /* 16px — matches .diagram__caption */
+  font-family: var(--font-interface);
+  font-size: var(--text-caption);       /* 11px */
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--colour-ink-secondary);
+  text-align: center;
+}

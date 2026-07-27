@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import MockupFrame from '@/components/media/MockupFrame'
+import RalewayMark from '@/components/media/RalewayMark'
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -147,6 +148,31 @@ export default function WorkPage() {
               The previous version explained our capabilities. The current one explains our judgment.
             </p>
           </div>
+          {/* Visual Language System v1.2, Ch.6 — Window Graphic. Not a
+              screenshot: an illustrated abstraction of this site's own
+              structure (header, hero, content), the same shape the essay
+              above just described rebuilding. One row is marked — the
+              single central idea the redesign was organised around,
+              standing in for the whole architecture decision. */}
+          <figure className="window-graphic animate-entrance">
+            <div className="window-graphic__frame" aria-hidden="true">
+              <div className="window-graphic__bar">
+                <span className="window-graphic__bar-label">ralewaystudio.com</span>
+              </div>
+              <div className="window-graphic__body">
+                <div className="window-graphic__hero" />
+                <div className="window-graphic__row window-graphic__row--w80" />
+                <div className="window-graphic__row window-graphic__row--w60" />
+                <div className="window-graphic__row window-graphic__row--accent window-graphic__row--w40">
+                  <RalewayMark variant="fragment" size={14} />
+                </div>
+              </div>
+            </div>
+            <figcaption className="window-graphic__caption">
+              One central idea, not four unrelated ones. The page you&rsquo;re reading is
+              the case study.
+            </figcaption>
+          </figure>
         </div>
       </section>
 

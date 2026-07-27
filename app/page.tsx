@@ -137,6 +137,35 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+          {/* Visual Language System v1.2, Ch.6: Problem → confusion. Not
+              the studio's ring, completed — four disconnected arc
+              fragments, unresolved, one for each numbered symptom above.
+              Conceptual, not data: one illustrative marker (the single
+              warm point), same restraint as every other diagram on the
+              site. */}
+          <figure className="diagram animate-entrance">
+            <svg
+              className="diagram-fragment"
+              viewBox="0 0 400 200"
+              role="img"
+              aria-labelledby="fragment-diagram-title fragment-diagram-desc"
+            >
+              <title id="fragment-diagram-title">Four disconnected signals</title>
+              <desc id="fragment-diagram-desc">
+                A conceptual diagram, not data: four separate arc fragments, unresolved,
+                standing in for the four symptoms described above — a business&rsquo;s
+                presence that hasn&rsquo;t yet come together into one clear picture.
+              </desc>
+              <path className="diagram-fragment__piece" d="M118 52A40 40 0 0 1 168 62" />
+              <path className="diagram-fragment__piece--faint" d="M248 42A50 50 0 0 1 298 76" />
+              <path className="diagram-fragment__piece" d="M108 168A60 60 0 0 0 174 140" />
+              <path className="diagram-fragment__piece--faint" d="M288 158A35 35 0 0 1 320 128" />
+              <circle className="diagram-fragment__point" cx="203" cy="106" r="4" />
+            </svg>
+            <figcaption className="diagram__caption">
+              Four separate signals. Not yet one picture.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -162,6 +191,38 @@ export default function HomePage() {
               and what the world can actually perceive.
             </p>
           </div>
+          {/* Visual Language System v1.2, Ch.6: Strategy → systems
+              connecting. The same four scattered signals from the
+              diagram above, now resolving into the one hub the belief
+              statement describes — the studio's whole reason for
+              existing, in one relationship. */}
+          <figure className="diagram animate-entrance">
+            <svg
+              className="diagram-network"
+              viewBox="0 0 400 200"
+              role="img"
+              aria-labelledby="network-diagram-title network-diagram-desc"
+            >
+              <title id="network-diagram-title">Four signals, one system</title>
+              <desc id="network-diagram-desc">
+                A conceptual diagram, not data: four outer points, the separate signals a
+                business sends, connected by lines into one central hub — what Raleway
+                Studio was built to do.
+              </desc>
+              <line className="diagram-network__line" x1="80" y1="50" x2="200" y2="100" />
+              <line className="diagram-network__line" x1="320" y1="55" x2="200" y2="100" />
+              <line className="diagram-network__line" x1="70" y1="150" x2="200" y2="100" />
+              <line className="diagram-network__line" x1="330" y1="145" x2="200" y2="100" />
+              <circle className="diagram-network__node" cx="80" cy="50" r="5" />
+              <circle className="diagram-network__node" cx="320" cy="55" r="5" />
+              <circle className="diagram-network__node" cx="70" cy="150" r="5" />
+              <circle className="diagram-network__node" cx="330" cy="145" r="5" />
+              <circle className="diagram-network__hub" cx="200" cy="100" r="6" />
+            </svg>
+            <figcaption className="diagram__caption">
+              Separate signals. One system.
+            </figcaption>
+          </figure>
           <div className="section-pause animate-entrance">
             <p className="section-pause__text">Raleway Studio was built for that distance.</p>
           </div>
@@ -190,7 +251,7 @@ export default function HomePage() {
                     {/* Icon — reuses the same IconMark set already established on the
                         Method page for these exact four principles (Rhythm/asset pass,
                         V1.1 Phase 2). Not a new visual language, pure consistency. */}
-                    <IconMark name={p.icon} className="service-icon" />
+                    <IconMark name={p.icon} className="service-icon service-icon--hero" />
                     {/* Counter — sibling before name (DEV-HP-05 fix, Rule 04) */}
                     <span className="service-counter" aria-hidden="true">{p.num}</span>
                     <span className="service-name">{p.title}</span>

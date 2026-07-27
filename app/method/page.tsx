@@ -180,6 +180,35 @@ export default function MethodPage() {
               </p>
             </div>
           </div>
+          {/* Visual Language System v1.2, Ch.6: Discovery → uncovering
+              hidden opportunity. Same open-arc-and-point vocabulary as
+              IconMark's "discover" mark, drawn at diagram scale: one arc
+              that hasn't closed yet, ending at the one thing it found —
+              this phase's actual outcome, described in the paragraph
+              below. */}
+          <figure className="diagram animate-entrance">
+            <svg
+              className="diagram-reveal"
+              viewBox="0 0 400 200"
+              role="img"
+              aria-labelledby="reveal-diagram-title reveal-diagram-desc"
+            >
+              <title id="reveal-diagram-title">An arc that hasn&rsquo;t closed yet</title>
+              <desc id="reveal-diagram-desc">
+                A conceptual diagram, not data: one continuous arc, open rather than
+                closed, ending at a single found point — the gap this phase exists to
+                uncover before design begins.
+              </desc>
+              <path
+                className="diagram-reveal__arc"
+                d="M120 40A90 90 0 1 0 275 165"
+              />
+              <circle className="diagram-reveal__point" cx="275" cy="165" r="5" />
+            </svg>
+            <figcaption className="diagram__caption">
+              What the diagnostic phase is built to find.
+            </figcaption>
+          </figure>
           <div className="section-intro method-diagnostic animate-entrance">
             <p className="section-body">
               Until those questions are answered, design decisions are premature. Colour,
@@ -218,7 +247,7 @@ export default function MethodPage() {
             {principles.map((p) => (
               <li key={p.num} className="method-list__item">
                 <div className="service-item">
-                  <IconMark name={p.icon} className="service-icon" />
+                  <IconMark name={p.icon} className="service-icon service-icon--hero" />
                   <span className="service-counter" aria-hidden="true">{p.num}</span>
                   <span className="service-name">{p.title}</span>
                   <p className="service-description">{p.desc}</p>
@@ -265,7 +294,7 @@ export default function MethodPage() {
                   open={phase.num === '01'}
                 >
                   <summary className="disclosure__summary">
-                    <IconMark name={phase.icon} className="service-icon" />
+                    <IconMark name={phase.icon} className="service-icon service-icon--hero" />
                     <div className="disclosure__summary-text">
                       <div className="disclosure__heading-row">
                         <div className="disclosure__heading-labels">

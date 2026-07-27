@@ -247,6 +247,30 @@
   color: var(--colour-accent-warm);
 }
 
+/* Hero-scale tier — Visual Language System v1.2: "section icons should
+   become hero elements, 48–72px" — a second tier above the 40px working
+   size, not a replacement for it. IconMark renders className directly on
+   the <svg>, alongside .icon-mark itself, so this is a compound selector
+   on one element rather than a descendant rule. Applied via
+   className="service-icon service-icon--hero" on the same IconMark
+   markup (Method's four principles, four process phases; Home's "How We
+   Think" — the one list this component appears in outside Method).
+   Geometry, colour, and stroke weight are untouched — only the rendered
+   size changes, so the marks stay legible at both scales built from one
+   source. */
+.icon-mark.service-icon--hero {
+  width: 56px;
+  height: 56px;
+  margin-block-end: var(--space-2);   /* 8px — more breathing room at this scale */
+}
+
+@media (max-width: 767px) {
+  .icon-mark.service-icon--hero {
+    width: 48px;
+    height: 48px;
+  }
+}
+
 /* Participates in .service-item's existing `gap: var(--stack-sm)` flex
    rhythm (04-service-item.css, frozen) as a plain flex child — no new
    spacing value introduced here. */

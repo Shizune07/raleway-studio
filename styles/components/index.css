@@ -55,3 +55,10 @@
 
 /* Component 16 — Form (pending specification) */
 /* @import './16-form.css'; */
+
+/* Component 17 — Window Graphic (Visual Language System v1.2). Purpose-
+   built interface compositions in Raleway's own visual language — for
+   sections that need to show a system with no real screenshot to show.
+   Not a Device Frame (Component 10) replacement; that stays reserved
+   for real evidence — see 17-window-graphic.css. */
+@import './17-window-graphic.css';
