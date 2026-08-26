@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
-import BreathImage from '@/components/media/BreathImage'
+import Image from 'next/image'
 import IconMark from '@/components/media/IconMark'
 
 export const metadata: Metadata = {
@@ -68,7 +68,10 @@ export default function HomePage() {
           <div className="hero-content">
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
-              There is a kind of struggle that looks like a branding problem.
+              There is a kind of struggle that looks like a{' '}
+              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '-2deg' }}>
+                branding problem
+              </span>.
             </h1>
             {/* Body: 22 words — names the mechanism (DEV-HP-02 resolved) */}
             <p className="hero-body hero-entrance hero-entrance--body">
@@ -137,35 +140,46 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          {/* Visual Language System v1.2, Ch.6: Problem → confusion. Not
-              the studio's ring, completed — four disconnected arc
-              fragments, unresolved, one for each numbered symptom above.
-              Conceptual, not data: one illustrative marker (the single
-              warm point), same restraint as every other diagram on the
-              site. */}
-          <figure className="diagram animate-entrance">
-            <svg
-              className="diagram-fragment"
-              viewBox="0 0 400 200"
-              role="img"
-              aria-labelledby="fragment-diagram-title fragment-diagram-desc"
+          {/* Collage exploration: same idea the removed diagram illustrated
+              (four separate signals, not yet one picture), now as a
+              layered paper composition instead of a line diagram. Caption
+              text carried over unchanged from the diagram it replaces. */}
+          <div
+            className="collage-cluster"
+            role="img"
+            aria-label="Four separate signals, not yet one picture — represented as three layered paper pieces"
+            style={{ height: '340px', maxWidth: '620px', margin: '0 auto' }}
+          >
+            <div
+              className="collage-piece collage-piece--ink animate-entrance"
+              style={{
+                top: '10px', left: '0px', width: '300px', height: '210px',
+                ['--piece-rotate' as any]: '-3deg', ['--piece-rotate-start' as any]: '-9deg',
+              }}
             >
-              <title id="fragment-diagram-title">Four disconnected signals</title>
-              <desc id="fragment-diagram-desc">
-                A conceptual diagram, not data: four separate arc fragments, unresolved,
-                standing in for the four symptoms described above — a business&rsquo;s
-                presence that hasn&rsquo;t yet come together into one clear picture.
-              </desc>
-              <path className="diagram-fragment__piece" d="M118 52A40 40 0 0 1 168 62" />
-              <path className="diagram-fragment__piece--faint" d="M248 42A50 50 0 0 1 298 76" />
-              <path className="diagram-fragment__piece" d="M108 168A60 60 0 0 0 174 140" />
-              <path className="diagram-fragment__piece--faint" d="M288 158A35 35 0 0 1 320 128" />
-              <circle className="diagram-fragment__point" cx="203" cy="106" r="4" />
-            </svg>
-            <figcaption className="diagram__caption">
-              Four separate signals. Not yet one picture.
-            </figcaption>
-          </figure>
+              <span className="collage-piece__label">It is none of these things.</span>
+            </div>
+            <div
+              className="collage-piece collage-piece--cream animate-entrance"
+              style={{
+                top: '150px', left: '200px', width: '280px', height: '150px',
+                ['--piece-rotate' as any]: '4deg', ['--piece-rotate-start' as any]: '9deg',
+              }}
+              data-delay="100"
+            >
+              <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
+                Four separate signals. Not yet one picture.
+              </span>
+            </div>
+            <div
+              className="collage-piece collage-piece--clay animate-entrance"
+              style={{
+                top: '0px', left: '470px', width: '90px', height: '90px',
+                ['--piece-rotate' as any]: '-6deg', ['--piece-rotate-start' as any]: '-14deg',
+              }}
+              data-delay="200"
+            />
+          </div>
         </div>
       </section>
 
@@ -191,38 +205,44 @@ export default function HomePage() {
               and what the world can actually perceive.
             </p>
           </div>
-          {/* Visual Language System v1.2, Ch.6: Strategy → systems
-              connecting. The same four scattered signals from the
-              diagram above, now resolving into the one hub the belief
-              statement describes — the studio's whole reason for
-              existing, in one relationship. */}
-          <figure className="diagram animate-entrance">
-            <svg
-              className="diagram-network"
-              viewBox="0 0 400 200"
-              role="img"
-              aria-labelledby="network-diagram-title network-diagram-desc"
+          {/* Collage exploration: the same "separate signals, one system"
+              idea the removed diagram illustrated, now the inverse
+              composition of Section 02's cluster above — cream leads here
+              instead of ink, echoing resolution rather than fragmentation. */}
+          <div
+            className="collage-cluster"
+            role="img"
+            aria-label="Separate signals, one system — represented as three layered paper pieces"
+            style={{ height: '320px', maxWidth: '600px', margin: '0 auto' }}
+          >
+            <div
+              className="collage-piece collage-piece--cream animate-entrance"
+              style={{
+                top: '20px', left: '60px', width: '320px', height: '200px',
+                ['--piece-rotate' as any]: '2deg', ['--piece-rotate-start' as any]: '8deg',
+              }}
             >
-              <title id="network-diagram-title">Four signals, one system</title>
-              <desc id="network-diagram-desc">
-                A conceptual diagram, not data: four outer points, the separate signals a
-                business sends, connected by lines into one central hub — what Raleway
-                Studio was built to do.
-              </desc>
-              <line className="diagram-network__line" x1="80" y1="50" x2="200" y2="100" />
-              <line className="diagram-network__line" x1="320" y1="55" x2="200" y2="100" />
-              <line className="diagram-network__line" x1="70" y1="150" x2="200" y2="100" />
-              <line className="diagram-network__line" x1="330" y1="145" x2="200" y2="100" />
-              <circle className="diagram-network__node" cx="80" cy="50" r="5" />
-              <circle className="diagram-network__node" cx="320" cy="55" r="5" />
-              <circle className="diagram-network__node" cx="70" cy="150" r="5" />
-              <circle className="diagram-network__node" cx="330" cy="145" r="5" />
-              <circle className="diagram-network__hub" cx="200" cy="100" r="6" />
-            </svg>
-            <figcaption className="diagram__caption">
-              Separate signals. One system.
-            </figcaption>
-          </figure>
+              <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
+                Separate signals. One system.
+              </span>
+            </div>
+            <div
+              className="collage-piece collage-piece--ink animate-entrance"
+              style={{
+                top: '160px', left: '0px', width: '150px', height: '110px',
+                ['--piece-rotate' as any]: '-5deg', ['--piece-rotate-start' as any]: '-12deg',
+              }}
+              data-delay="100"
+            />
+            <div
+              className="collage-piece collage-piece--clay animate-entrance"
+              style={{
+                top: '0px', left: '410px', width: '100px', height: '100px',
+                ['--piece-rotate' as any]: '6deg', ['--piece-rotate-start' as any]: '14deg',
+              }}
+              data-delay="200"
+            />
+          </div>
           <div className="section-pause animate-entrance">
             <p className="section-pause__text">Raleway Studio was built for that distance.</p>
           </div>
@@ -295,10 +315,40 @@ export default function HomePage() {
             <h2 className="section-headline">
               Before we wrote a single brief for a client, we applied our method to ourselves.
             </h2>
-            <BreathImage
-              src="/assets/home-breath.jpg"
-              alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
-            />
+            {/* Collage exploration: the site's one real "self-audit" photo,
+                given a torn edge and paired with a short caption chip
+                instead of running full-bleed and alone — the section's
+                only photographic collage moment on the page, reserved
+                for the one place there's a real photograph to use. */}
+            <div className="collage-cluster" style={{ height: '420px', maxWidth: '720px', margin: '0 auto' }}>
+              <div
+                className="collage-piece collage-piece--photo collage-piece--torn-a collage-piece--lg animate-entrance"
+                style={{
+                  top: '0px', left: '40px', width: '560px', height: '360px',
+                  ['--piece-rotate' as any]: '-2deg', ['--piece-rotate-start' as any]: '-7deg',
+                }}
+              >
+                <Image
+                  src="/assets/home-breath.jpg"
+                  alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
+                  fill
+                  sizes="(max-width: 767px) 100vw, 560px"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <div
+                className="collage-piece collage-piece--cream animate-entrance"
+                style={{
+                  top: '300px', left: '0px', width: '220px', height: '100px',
+                  ['--piece-rotate' as any]: '3deg', ['--piece-rotate-start' as any]: '9deg',
+                }}
+                data-delay="150"
+              >
+                <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
+                  Applied to ourselves first.
+                </span>
+              </div>
+            </div>
             <div className="home-proof__body">
               <p className="section-body">
                 We ran a full discovery process on our own business. We challenged our positioning,
