@@ -1,0 +1,201 @@
+/* ============================================================
+   Component 18 — Collage (EXPLORATION, branch: collage-redesign)
+   Not part of the frozen v1.0 component set. Built to answer one
+   request: "collage art feel, a bit of minimalism." Two halves:
+
+     1. Collage  — layered, rotated, torn-and-clean-cut pieces.
+        Photography gets torn edges (clip-path). Type and colour
+        blocks get clean rectangular edges. Mixing the two is the
+        whole visual idea — nothing here is randomly jagged.
+     2. Minimalism — the discipline that keeps it from becoming
+        maximalist noise: one cluster per section, generous
+        whitespace around it, body copy stays strictly on-grid,
+        only three surface tones total (surface, paper-cream,
+        paper-clay) plus existing ink/accent.
+
+   DOM:
+   <div class="collage-cluster">
+     <div class="collage-piece collage-piece--photo collage-piece--torn-a animate-entrance"
+          style={{ '--piece-rotate': '-4deg', '--piece-rotate-start': '-9deg' }}>
+       <img ... />
+     </div>
+     <div class="collage-piece collage-piece--cream animate-entrance"
+          style={{ '--piece-rotate': '3deg' }}>
+       <span class="collage-piece__label">...</span>
+     </div>
+   </div>
+
+   Entrance reuses the existing .animate-entrance / .motion-entered
+   mechanism (MotionInit.tsx already observes every .animate-entrance
+   element site-wide) — collage pieces just add rotation to the same
+   opacity/translateY transition via the more specific selector below,
+   so nothing outside this component changes behaviour.
+   ============================================================ */
+
+
+/* ── 1. Cluster — positioning context for a set of pieces ── */
+
+.collage-cluster {
+  position: relative;
+  margin-inline: auto;
+}
+
+/* Clusters are permitted to bleed past the container edge — the one
+   place in this exploration where the grid is deliberately broken.
+   Body copy (.collage-cluster is never applied to text containers)
+   stays on-grid everywhere else. */
+@media (min-width: 1024px) {
+  .collage-cluster--bleed {
+    width: calc(100% + var(--space-9));
+    margin-inline: calc(var(--space-9) * -0.5);
+  }
+}
+
+
+/* ── 2. Piece — one layered element ── */
+
+.collage-piece {
+  position: absolute;
+  background: var(--colour-surface);
+  box-shadow: var(--collage-shadow-sm);
+  transform: rotate(var(--piece-rotate, 0deg));
+}
+
+/* Static pieces (not part of an overlapping desktop composition —
+   used inside .collage-fragment contexts and other inline placements)
+   opt out of the absolute default. */
+.collage-piece--static {
+  position: relative;
+}
+
+.collage-piece--lg {
+  box-shadow: var(--collage-shadow-lg);
+}
+
+.collage-piece--photo {
+  overflow: hidden;
+  line-height: 0;
+}
+
+.collage-piece--photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.collage-piece--cream {
+  background: var(--paper-cream);
+}
+
+.collage-piece--clay {
+  background: var(--paper-clay);
+  color: var(--colour-ink-inverted);
+}
+
+.collage-piece--ink {
+  background: var(--colour-ink);
+  color: var(--colour-ink-inverted);
+}
+
+.collage-piece__label {
+  display: block;
+  padding: var(--space-4);
+  font-family: var(--font-interface);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+/* ── 3. Torn edges — photography only ──
+   Three hand-cut variants for visual variety across a page. Applied
+   only to .collage-piece--photo; colour/type blocks stay clean-cut
+   rectangles on purpose (the contrast is the point). */
+
+.collage-piece--torn-a {
+  clip-path: polygon(
+    2% 4%, 12% 0%, 27% 3%, 41% 0%, 58% 4%, 74% 1%, 89% 3%, 100% 0%,
+    98% 15%, 100% 32%, 97% 48%, 100% 63%, 98% 79%, 100% 96%,
+    86% 100%, 71% 97%, 55% 100%, 39% 98%, 23% 100%, 8% 97%, 0% 100%,
+    2% 84%, 0% 68%, 3% 52%, 0% 36%, 2% 20%
+  );
+}
+
+.collage-piece--torn-b {
+  clip-path: polygon(
+    0% 2%, 15% 5%, 30% 1%, 46% 4%, 63% 0%, 80% 3%, 100% 1%,
+    97% 18%, 100% 35%, 96% 51%, 100% 67%, 97% 84%, 100% 100%,
+    83% 98%, 67% 100%, 50% 97%, 34% 100%, 18% 98%, 3% 100%,
+    0% 82%, 4% 65%, 1% 49%, 4% 33%, 0% 17%
+  );
+}
+
+.collage-piece--torn-c {
+  clip-path: polygon(
+    3% 0%, 20% 3%, 38% 0%, 56% 3%, 73% 0%, 90% 2%, 100% 6%,
+    98% 22%, 100% 40%, 97% 57%, 100% 74%, 98% 90%, 100% 100%,
+    82% 97%, 64% 100%, 47% 97%, 30% 100%, 13% 97%, 0% 100%,
+    2% 84%, 0% 66%, 3% 49%, 0% 31%, 3% 14%
+  );
+}
+
+
+/* ── 4. Headline fragment — sparing use only ──
+   A word or short phrase lifted out of a hero headline into its own
+   rotated paper chip. Hero moments only, never body copy — this is
+   the one place typography itself becomes a collage piece. */
+
+.collage-fragment {
+  display: inline-block;
+  background: var(--paper-cream);
+  padding-inline: var(--space-2);
+  transform: rotate(var(--piece-rotate, -2deg));
+  box-shadow: var(--collage-shadow-sm);
+}
+
+
+/* ── 5. Entrance — extends .animate-entrance with rotation ──
+   More specific selector than the base rule in motion/motion.css, so
+   this only changes behaviour for elements carrying both classes.
+   Everything else in the system animates exactly as it did before. */
+
+.js-motion-ready .animate-entrance.collage-piece {
+  opacity: 0;
+  transform: translateY(20px) rotate(var(--piece-rotate-start, -6deg)) translateZ(0);
+}
+
+.js-motion-ready .animate-entrance.collage-piece.motion-entered {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--piece-rotate, 0deg)) translateZ(0);
+  transition:
+    opacity   var(--motion-deliberate) var(--motion-ease),
+    transform var(--motion-deliberate) var(--motion-ease);
+}
+
+
+/* ── 6. Mobile — clusters simplify to a stacked, lighter composition ──
+   Rotation and bleed both read as noise at narrow widths; discipline
+   (the "minimalism" half) wins over faithfulness to the desktop
+   composition here. */
+
+@media (max-width: 767px) {
+  .collage-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .collage-piece {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
+  .js-motion-ready .animate-entrance.collage-piece,
+  .js-motion-ready .animate-entrance.collage-piece.motion-entered {
+    transform: translateY(var(--ty, 0)) translateZ(0);
+  }
+}

@@ -393,3 +393,22 @@
     transition-duration:      0.01ms !important;
   }
 }
+
+
+/* ============================================================
+   COLLAGE EXPLORATION — v0.1 (branch: collage-redesign)
+   Not part of the frozen v1.0 token set above. Isolated here so the
+   whole block can be deleted cleanly if this direction doesn't ship.
+   Two new paper tones (derived from the existing warm-accent family,
+   not a new palette), one shadow pair for physical layering, nothing
+   else — the "bit of minimalism" half of the brief means this stays
+   a small, disciplined addition, not a parallel design system.
+   ============================================================ */
+
+:root {
+  --paper-cream:   #EFE6D8;  /* Warm off-white paper block — sits between surface and accent-warm */
+  --paper-clay:    #B8836A;  /* Muted clay paper block — quieter, dustier cousin of accent-warm */
+
+  --collage-shadow-sm:  0 2px 6px rgba(26, 26, 24, 0.10);
+  --collage-shadow-lg:  0 8px 24px rgba(26, 26, 24, 0.14);
+}

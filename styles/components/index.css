@@ -62,3 +62,9 @@
    Not a Device Frame (Component 10) replacement; that stays reserved
    for real evidence — see 17-window-graphic.css. */
 @import './17-window-graphic.css';
+
+/* Component 18 — Collage (EXPLORATION — branch: collage-redesign only,
+   not merged to nextjs). Layered, rotated, torn-and-clean-cut paper
+   pieces plus the whitespace/palette discipline that keeps it from
+   reading as maximalist — see 18-collage.css. */
+@import './18-collage.css';
