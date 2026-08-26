@@ -69,7 +69,11 @@ export default function AboutPage() {
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
-              Raleway Studio grew from a pattern I couldn&rsquo;t stop noticing.
+              Raleway Studio grew from a{' '}
+              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '2deg' }}>
+                pattern
+              </span>{' '}
+              I couldn&rsquo;t stop noticing.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               For years, I watched capable businesses struggle to be seen for

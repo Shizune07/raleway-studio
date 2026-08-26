@@ -81,7 +81,11 @@ export default function StartPage() {
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
-              The first conversation is how we understand the fit.
+              The first{' '}
+              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '2deg' }}>
+                conversation
+              </span>{' '}
+              is how we understand the fit.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               We begin every project with a conversation. Thirty minutes to

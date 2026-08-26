@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
+import Image from 'next/image'
 import MockupFrame from '@/components/media/MockupFrame'
 import RalewayMark from '@/components/media/RalewayMark'
 
@@ -101,7 +102,11 @@ export default function WorkPage() {
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
-              The portfolio is evidence of what happens when design follows diagnosis.
+              The portfolio is{' '}
+              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '2deg' }}>
+                evidence
+              </span>{' '}
+              of what happens when design follows diagnosis.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               Each project here began with a diagnosis. Not a brief. The visual work
@@ -148,31 +153,52 @@ export default function WorkPage() {
               The previous version explained our capabilities. The current one explains our judgment.
             </p>
           </div>
-          {/* Visual Language System v1.2, Ch.6 — Window Graphic. Not a
-              screenshot: an illustrated abstraction of this site's own
-              structure (header, hero, content), the same shape the essay
-              above just described rebuilding. One row is marked — the
-              single central idea the redesign was organised around,
-              standing in for the whole architecture decision. */}
-          <figure className="window-graphic animate-entrance">
-            <div className="window-graphic__frame" aria-hidden="true">
-              <div className="window-graphic__bar">
-                <span className="window-graphic__bar-label">ralewaystudio.com</span>
-              </div>
-              <div className="window-graphic__body">
-                <div className="window-graphic__hero" />
-                <div className="window-graphic__row window-graphic__row--w80" />
-                <div className="window-graphic__row window-graphic__row--w60" />
-                <div className="window-graphic__row window-graphic__row--accent window-graphic__row--w40">
-                  <RalewayMark variant="fragment" size={14} />
-                </div>
-              </div>
+          {/* Collage exploration: the Window Graphic this replaces made the
+              same claim as an illustrated interface. This version uses a
+              real, previously-unused studio photograph (work-breath.jpg)
+              instead — torn, layered with a cream caption chip and one
+              small ink accent carrying the Raleway mark. Caption text
+              carried over verbatim from the graphic it replaces. */}
+          <div className="collage-cluster" style={{ height: '380px', maxWidth: '680px', margin: '0 auto' }}>
+            <div
+              className="collage-piece collage-piece--photo collage-piece--torn-b collage-piece--lg animate-entrance"
+              style={{
+                top: '0px', left: '60px', width: '520px', height: '320px',
+                ['--piece-rotate' as any]: '2deg', ['--piece-rotate-start' as any]: '8deg',
+              }}
+            >
+              <Image
+                src="/assets/work-breath.jpg"
+                alt="A studio work-in-progress photograph, standing in for the site's own redesign process."
+                fill
+                sizes="(max-width: 767px) 100vw, 520px"
+                style={{ objectFit: 'cover' }}
+              />
             </div>
-            <figcaption className="window-graphic__caption">
-              One central idea, not four unrelated ones. The page you&rsquo;re reading is
-              the case study.
-            </figcaption>
-          </figure>
+            <div
+              className="collage-piece collage-piece--cream animate-entrance"
+              style={{
+                top: '260px', left: '0px', width: '260px', height: '120px',
+                ['--piece-rotate' as any]: '-4deg', ['--piece-rotate-start' as any]: '-11deg',
+              }}
+              data-delay="100"
+            >
+              <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
+                One central idea, not four unrelated ones. The page you&rsquo;re reading is the case study.
+              </span>
+            </div>
+            <div
+              className="collage-piece collage-piece--ink animate-entrance"
+              style={{
+                top: '0px', left: '0px', width: '64px', height: '64px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                ['--piece-rotate' as any]: '-6deg', ['--piece-rotate-start' as any]: '-16deg',
+              }}
+              data-delay="200"
+            >
+              <RalewayMark variant="fragment" size={22} />
+            </div>
+          </div>
         </div>
       </section>
 

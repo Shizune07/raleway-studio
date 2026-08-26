@@ -75,7 +75,11 @@ export default async function ThinkingPage() {
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
-              How we think about design, strategy, and trust.
+              How we{' '}
+              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '-2deg' }}>
+                think
+              </span>{' '}
+              about design, strategy, and trust.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               Long-form writing on the gap between what a business is and

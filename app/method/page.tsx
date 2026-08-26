@@ -121,7 +121,10 @@ export default function MethodPage() {
         <div className="hero-inner">
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
-              This is what that conviction looks like in practice.
+              This is what that conviction looks like in{' '}
+              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '-2deg' }}>
+                practice
+              </span>.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               Every engagement follows a defined process: four phases, in a specific order.
@@ -180,35 +183,33 @@ export default function MethodPage() {
               </p>
             </div>
           </div>
-          {/* Visual Language System v1.2, Ch.6: Discovery → uncovering
-              hidden opportunity. Same open-arc-and-point vocabulary as
-              IconMark's "discover" mark, drawn at diagram scale: one arc
-              that hasn't closed yet, ending at the one thing it found —
-              this phase's actual outcome, described in the paragraph
-              below. */}
-          <figure className="diagram animate-entrance">
-            <svg
-              className="diagram-reveal"
-              viewBox="0 0 400 200"
-              role="img"
-              aria-labelledby="reveal-diagram-title reveal-diagram-desc"
+          {/* Collage exploration: same idea the removed arc diagram
+              illustrated (something found, not yet visible), now a
+              layered paper composition. Caption carried over verbatim. */}
+          <div
+            className="collage-cluster"
+            role="img"
+            aria-label="What the diagnostic phase is built to find — represented as two layered paper pieces"
+            style={{ height: '300px', maxWidth: '560px', margin: '0 auto' }}
+          >
+            <div
+              className="collage-piece collage-piece--clay animate-entrance"
+              style={{
+                top: '10px', left: '40px', width: '260px', height: '180px',
+                ['--piece-rotate' as any]: '-3deg', ['--piece-rotate-start' as any]: '-10deg',
+              }}
             >
-              <title id="reveal-diagram-title">An arc that hasn&rsquo;t closed yet</title>
-              <desc id="reveal-diagram-desc">
-                A conceptual diagram, not data: one continuous arc, open rather than
-                closed, ending at a single found point — the gap this phase exists to
-                uncover before design begins.
-              </desc>
-              <path
-                className="diagram-reveal__arc"
-                d="M120 40A90 90 0 1 0 275 165"
-              />
-              <circle className="diagram-reveal__point" cx="275" cy="165" r="5" />
-            </svg>
-            <figcaption className="diagram__caption">
-              What the diagnostic phase is built to find.
-            </figcaption>
-          </figure>
+              <span className="collage-piece__label">What the diagnostic phase is built to find.</span>
+            </div>
+            <div
+              className="collage-piece collage-piece--cream animate-entrance"
+              style={{
+                top: '150px', left: '320px', width: '160px', height: '120px',
+                ['--piece-rotate' as any]: '5deg', ['--piece-rotate-start' as any]: '12deg',
+              }}
+              data-delay="100"
+            />
+          </div>
           <div className="section-intro method-diagnostic animate-entrance">
             <p className="section-body">
               Until those questions are answered, design decisions are premature. Colour,
