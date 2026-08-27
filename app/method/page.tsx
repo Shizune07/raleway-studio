@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
@@ -128,6 +129,7 @@ export default function MethodPage() {
             </span>
           </div>
           <div className="hero-content hero-content--centered">
+            <span className="hero-kicker hero-entrance hero-entrance--headline">The Method</span>
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               This is what that conviction looks like in{' '}
               <span className="chip-highlight chip-highlight--tint">
@@ -291,6 +293,31 @@ export default function MethodPage() {
               visually. Deliver makes the work usable and transferable.
             </p>
             <p className="section-body">
+              No phase begins until the previous one is complete.
+            </p>
+          </div>
+          {/* v0.7: compact visual flow summary, pulled from pleurat.com's
+              "workspace" panel idea — a bordered card with a mono status
+              header and connected nodes. Sits above the accessible
+              disclosure list below; doesn't replace it. Node labels and
+              the note are exact phase names/copy already defined in
+              processPhases above, nothing invented. */}
+          <div className="process-panel animate-entrance">
+            <div className="process-panel__header">
+              <span>Method / Process / Four Phases</span>
+              <span className="process-panel__status">Gated · Sequential</span>
+            </div>
+            <div className="process-panel__flow">
+              {processPhases.map((phase, i) => (
+                <Fragment key={phase.num}>
+                  <span className="process-panel__node">{phase.name}</span>
+                  {i < processPhases.length - 1 && (
+                    <span className="process-panel__arrow" aria-hidden="true">&rarr;</span>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+            <p className="process-panel__note fig-caption" style={{ textAlign: 'left' }}>
               No phase begins until the previous one is complete.
             </p>
           </div>

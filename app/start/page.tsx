@@ -80,6 +80,7 @@ export default function StartPage() {
       >
         <div className="hero-inner">
           <div className="hero-content hero-content--centered">
+            <span className="hero-kicker hero-entrance hero-entrance--headline">Start a Conversation</span>
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               The first{' '}
               <span className="chip-highlight chip-highlight--tint">

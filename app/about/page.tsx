@@ -68,6 +68,7 @@ export default function AboutPage() {
       >
         <div className="hero-inner">
           <div className="hero-content hero-content--centered">
+            <span className="hero-kicker hero-entrance hero-entrance--headline">About Raleway</span>
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               Raleway Studio grew from a{' '}
               <span className="chip-highlight chip-highlight--tint">

@@ -501,3 +501,165 @@
   from { transform: translate(0, 0) scale(1); }
   to   { transform: translate(-36px, -22px) scale(1.1); }
 }
+
+
+/* ── v0.7 — Pull from pleurat.com: illustration, technical type, process panel ──
+   Seira: "It looks really terrible! Try this design instead: pleurat.com."
+   That site is Pleurat Shala's personal product-designer portfolio —
+   custom line-art illustration, a live interactive "workspace" demo, a
+   terminal easter egg, built for an AI/dev audience. Declined a literal
+   clone for the same reason as the Receivio boundary earlier this
+   session: it's someone else's own creative work, not a template — that
+   holds regardless of how much Raleway's own rules get overridden for
+   creative exploration. Asked what specifically to pull forward; she
+   chose all three offered: an original illustration, bolder technical
+   typography, and a process panel closer to his workspace demo.
+
+   1. `.hero-kicker` — a bold DM Sans (now loaded at weight 700, see
+      layout.tsx) uppercase label above the hero headline. This sits
+      alongside the serif headline rather than replacing it — Source
+      Serif 4 is Raleway's actual established editorial identity
+      (RALEWAY-SIGNATURE-MARK-v2.md), not an arbitrary style choice, and
+      swapping it for a sans headline the way Pleurat runs his would trade
+      one distinct voice for a copy of someone else's. The kicker text is
+      pulled verbatim from copy that already exists elsewhere on each
+      page (nav labels, existing eyebrows, proof-pill text) — no new
+      marketing claims introduced.
+   2. `.fig-caption` — a monospace caption utility (var(--font-mono),
+      already defined in tokens.css but unused until now), echoing
+      Pleurat's "FIG. 004" figure-numbering convention. Used under the
+      new illustration.
+   3. `.process-panel` — a compact visual flow summary for Method's four
+      phases, sitting above the existing accessible <details>/<summary>
+      disclosure list (Component 13) rather than replacing it — the
+      zero-JS accessible interaction from the Version 1.1 interaction
+      layer stays intact; this is a decorative overview, not a second
+      source of truth. Built from tokens/patterns already in the system
+      (collage-shadow, surface-secondary, border) rather than a new
+      colour or shadow language. */
+
+.hero-kicker {
+  display: inline-block;
+  font-family: var(--font-interface);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--colour-accent-warm);
+  margin-block-end: var(--space-4);
+}
+
+.fig-caption {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--colour-ink-tertiary);
+  text-transform: uppercase;
+  margin-block-start: var(--space-3);
+  text-align: center;
+}
+
+.scene-frame {
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+  margin-block-end: var(--space-6);
+}
+
+.diagnosis-scene {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .scene-frame {
+    max-width: 320px;
+  }
+}
+
+/* Process panel — visual summary above the accessible disclosure list */
+
+.process-panel {
+  background: var(--paper-cream, var(--colour-surface));
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--collage-shadow-sm);
+  padding: var(--space-6);
+  margin-block-end: var(--space-8);
+  position: relative;
+}
+
+.process-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--colour-ink-tertiary);
+  padding-block-end: var(--space-4);
+  margin-block-end: var(--space-6);
+  border-bottom: 1px solid var(--colour-border);
+}
+
+.process-panel__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--colour-accent-warm);
+}
+
+.process-panel__status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--colour-accent-warm);
+}
+
+.process-panel__flow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.process-panel__node {
+  font-family: var(--font-interface);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--colour-ink);
+  background: var(--colour-surface-secondary);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+}
+
+.process-panel__arrow {
+  color: var(--colour-ink-tertiary);
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+.process-panel__note {
+  margin-block-start: var(--space-6);
+  max-width: 280px;
+}
+
+@media (max-width: 767px) {
+  .process-panel__flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .process-panel__arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+}

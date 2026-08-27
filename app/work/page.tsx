@@ -107,6 +107,7 @@ export default function WorkPage() {
             </span>
           </div>
           <div className="hero-content hero-content--centered">
+            <span className="hero-kicker hero-entrance hero-entrance--headline">Selected Work</span>
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               The portfolio is{' '}
               <span className="chip-highlight chip-highlight--tint">

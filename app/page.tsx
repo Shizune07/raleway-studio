@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd'
 import Image from 'next/image'
 import IconMark from '@/components/media/IconMark'
 import RalewayMark from '@/components/media/RalewayMark'
+import DiagnosisScene from '@/components/media/DiagnosisScene'
 
 export const metadata: Metadata = {
   title: 'Raleway Studio — We help good businesses be seen for what they are',
@@ -81,7 +82,15 @@ export default function HomePage() {
               <RalewayMark variant="fragment" size={16} aria-hidden />
             </span>
           </div>
+          {/* v0.7: original line-art illustration — pulled from pleurat.com's
+              use of custom illustration, built as owned artwork rather than
+              a stock photo or a copy of his scene. See DiagnosisScene.tsx. */}
+          <div className="scene-frame hero-entrance hero-entrance--headline">
+            <DiagnosisScene aria-hidden />
+            <span className="fig-caption">Fig. 01 — Diagnosis, visualised</span>
+          </div>
           <div className="hero-content hero-content--centered">
+            <span className="hero-kicker hero-entrance hero-entrance--headline">Diagnose before design</span>
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               There is a kind of struggle that looks like a{' '}

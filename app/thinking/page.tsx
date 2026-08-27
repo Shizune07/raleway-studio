@@ -74,6 +74,7 @@ export default async function ThinkingPage() {
       >
         <div className="hero-inner">
           <div className="hero-content hero-content--centered">
+            <span className="hero-kicker hero-entrance hero-entrance--headline">Writing</span>
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               How we{' '}
               <span className="chip-highlight chip-highlight--tint">
