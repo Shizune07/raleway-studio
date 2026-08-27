@@ -75,7 +75,7 @@ export default function StartPage() {
           Body: 24 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots"
+        className="hero texture-dots glow-field"
         aria-label="Start a project"
       >
         <div className="hero-inner">

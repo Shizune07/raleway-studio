@@ -95,7 +95,7 @@ export default function WorkPage() {
           Body: 23 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots"
+        className="hero texture-dots glow-field"
         aria-label="Work"
       >
         <div className="hero-inner hero-inner--relative">
@@ -209,7 +209,7 @@ export default function WorkPage() {
           sentence, not new text). Built on native details/summary —
           each case is independent, no accordion grouping needed here
           (unlike Method, these aren't a sequence). */}
-      <section className="section section--dark" aria-label="Selected client work">
+      <section className="section section--dark glow-field glow-field--dark" aria-label="Selected client work">
         <div className="container">
           <div className="section-intro animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">Selected Work</span>

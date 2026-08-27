@@ -62,7 +62,7 @@ export default function HomePage() {
           Entrance: Pattern 07 (mount animation, not scroll) */}
       <section
         id="main-content"
-        className="hero mark-bleed texture-dots"
+        className="hero mark-bleed texture-dots glow-field"
         aria-label="Introduction"
       >
         <div className="hero-inner hero-inner--relative">
@@ -273,7 +273,7 @@ export default function HomePage() {
           Method (their principle/client lists are dark fields). Dark-mode
           colour inversions for .home-method__label/.home-method__item and
           .btn-navigate live in globals.css / 12-rhythm.css. */}
-      <section className="section section--dark reveal" aria-label="How we work">
+      <section className="section section--dark reveal glow-field glow-field--dark" aria-label="How we work">
         <div className="container">
           <div className="home-method">
             <span className="section-eyebrow section-eyebrow--mono animate-entrance">The Method</span>

@@ -115,7 +115,7 @@ export default function MethodPage() {
           Connects from About page: conviction → operational process (Stage 2 → Stage 3). */}
       <section
         id="main-content"
-        className="hero texture-dots"
+        className="hero texture-dots glow-field"
         aria-label="The Raleway Method"
       >
         <div className="hero-inner hero-inner--relative">
@@ -236,7 +236,7 @@ export default function MethodPage() {
           Dark field — inverted token colours via .section--dark CSS
           Authoritative home for principles; Home references them briefly.
           Rule: do not reproduce full principle text on other pages. */}
-      <section className="section section--dark" aria-label="How we work">
+      <section className="section section--dark glow-field glow-field--dark" aria-label="How we work">
         <div className="container">
           <div className="section-intro animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">How We Work</span>

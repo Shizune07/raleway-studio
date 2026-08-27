@@ -367,3 +367,71 @@
     padding: var(--space-4);
   }
 }
+
+
+/* ── v0.5 — Glow field ──
+   Seira: "the whole background feels empty... make it alive." Real
+   photography was the first attempt at this pass but couldn't ship —
+   the sandbox has no reachable path to stock or generated imagery this
+   round (see project memory). This is the code-only answer: soft,
+   blurred gradient "presence" behind hero content, in the site's own
+   warm-accent family (never a new palette — same discipline as every
+   other Component 19 pattern). Two off-axis orbs read as ambient light
+   in the room, not a spotlight on any one element, and they sit behind
+   the dot-grid texture so the two layers combine into depth rather than
+   competing. Static, not animated — motion here would read as a loading
+   spinner, not atmosphere. Dropped on mobile: at that width the orbs
+   would sit directly behind body text with much less room to breathe,
+   and the performance cost of two blurred layers isn't worth it on a
+   viewport where the hero is already stacked and tight. */
+
+.glow-field {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-field::before,
+.glow-field::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.glow-field::before {
+  width: 560px;
+  height: 560px;
+  top: -220px;
+  left: -160px;
+  background: radial-gradient(circle, rgba(224, 92, 26, 0.14) 0%, rgba(224, 92, 26, 0) 70%);
+}
+
+.glow-field::after {
+  width: 480px;
+  height: 480px;
+  bottom: -200px;
+  right: -140px;
+  background: radial-gradient(circle, rgba(201, 113, 74, 0.16) 0%, rgba(201, 113, 74, 0) 70%);
+}
+
+@media (max-width: 767px) {
+  .glow-field::before,
+  .glow-field::after {
+    display: none;
+  }
+}
+
+/* Dark-field variant — Work's Selected Work section, and any other
+   .section--dark that opts in. Warm orange reads as "glowing embers in
+   a dark room" rather than the daylight feel of the light-field pair
+   above, so the stops are tuned brighter/tighter to stay visible
+   against --colour-surface-dark instead of washing out. */
+.glow-field--dark::before {
+  background: radial-gradient(circle, rgba(224, 92, 26, 0.22) 0%, rgba(224, 92, 26, 0) 70%);
+}
+
+.glow-field--dark::after {
+  background: radial-gradient(circle, rgba(201, 113, 74, 0.20) 0%, rgba(201, 113, 74, 0) 70%);
+}
