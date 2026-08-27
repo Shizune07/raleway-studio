@@ -321,8 +321,8 @@ export default function HomePage() {
                 paper mount instead of the collage system's torn edge.
                 Caption moves to a proof-pill beneath, carrying the same
                 real sentence, not a decorative label. */}
-            <div className="frame-photo frame-photo--nested animate-entrance" style={{ maxWidth: '620px', margin: '0 auto' }}>
-              <div className="frame-photo" style={{ position: 'relative', height: '360px' }}>
+            <div className="frame-photo frame-photo--nested animate-entrance" style={{ width: '620px', maxWidth: '100%', margin: '0 auto' }}>
+              <div className="frame-photo" style={{ position: 'relative', width: '100%', height: '360px' }}>
                 <Image
                   src="/assets/home-breath.jpg"
                   alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
