@@ -59,7 +59,11 @@
 }
 
 @media (min-width: 1024px) {
-  .proof-rail--hero-float {
+  /* Compound selector (not just .proof-rail--hero-float) so this display:
+     block reliably beats the base .proof-rail { display: flex } rule on
+     specificity alone, independent of which rule ends up later in file
+     source order as this component file keeps growing. */
+  .proof-rail.proof-rail--hero-float {
     display: block;
     position: absolute;
     inset: 0;
