@@ -120,7 +120,7 @@ export default function MethodPage() {
       >
         <div className="hero-inner hero-inner--relative">
           <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
-            <span className="proof-pill" style={{ top: '4%', left: '2%' }}>Discovery before strategy</span>
+            <span className="proof-pill" style={{ bottom: '22%', left: '2%' }}>Discovery before strategy</span>
             <span className="proof-pill" style={{ bottom: '10%', right: '4%' }}>Four phases, gated in order</span>
           </div>
           <div className="hero-content hero-content--centered">
