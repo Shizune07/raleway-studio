@@ -84,8 +84,8 @@
    to the frozen component. */
 
 .hero-headline--bold {
-  font-weight: 560;
-  letter-spacing: -0.025em;
+  font-weight: 650;
+  letter-spacing: -0.03em;
 }
 
 
@@ -129,15 +129,15 @@
    value would. */
 
 .hero-headline--display-xl {
-  font-size: clamp(52px, 4.5vw + 24px, 104px);
-  letter-spacing: -0.03em;
-  line-height: 0.98;
+  font-size: clamp(56px, 5.5vw + 24px, 128px);
+  letter-spacing: -0.035em;
+  line-height: 0.94;
 }
 
 @media (max-width: 767px) {
   .hero-headline--display-xl {
-    font-size: clamp(40px, 9vw + 12px, 56px);
-    line-height: 1.05;
+    font-size: clamp(42px, 11vw + 10px, 64px);
+    line-height: 1.0;
   }
 }
 
@@ -155,6 +155,22 @@
   color: var(--colour-accent-warm);
   opacity: 0.55;
   pointer-events: none;
+}
+
+
+/* ── Texture, dots (light) ──
+   The light-field counterpart to .reveal's dark dot-grid — Marketer.com
+   keeps a faint dot texture on every section, not just an inverted one.
+   Opt-in utility, layered on top of a section's own background-colour
+   (background-image doesn't clear background-color unless the
+   shorthand is used, and none of the frozen section rules use the
+   shorthand, so this is safe to add without !important). Kept very
+   faint — --colour-border is already a quiet warm gray — so it reads
+   as texture, not decoration competing with content. */
+
+.texture-dots {
+  background-image: radial-gradient(var(--colour-border) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 

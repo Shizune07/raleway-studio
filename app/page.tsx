@@ -62,7 +62,7 @@ export default function HomePage() {
           Entrance: Pattern 07 (mount animation, not scroll) */}
       <section
         id="main-content"
-        className="hero mark-bleed"
+        className="hero mark-bleed texture-dots"
         aria-label="Introduction"
       >
         <div className="hero-inner hero-inner--relative">
@@ -108,7 +108,7 @@ export default function HomePage() {
           Primitive: Section (divided variant) + Container
           Opens with the editorial sequence removed from the Hero (Option B resolution).
           The sequence completes the Hero's sentence before deepening into symptoms. */}
-      <section className="section section--divided" aria-label="The diagnosis">
+      <section className="section section--divided texture-dots" aria-label="The diagnosis">
         <div className="container">
           <div className="home-diagnosis">
             {/* Poem continuation — three short lines that complete the Hero's hook.

@@ -115,7 +115,7 @@ export default function MethodPage() {
           Connects from About page: conviction → operational process (Stage 2 → Stage 3). */}
       <section
         id="main-content"
-        className="hero"
+        className="hero texture-dots"
         aria-label="The Raleway Method"
       >
         <div className="hero-inner hero-inner--relative">
@@ -152,7 +152,7 @@ export default function MethodPage() {
           .section-marker) — the same visual move for the same kind of
           content: a diagnostic sequence. Exact existing wording, no new
           copy; the source paragraph is unchanged. */}
-      <section className="section section--divided" aria-label="Before design begins">
+      <section className="section section--divided texture-dots" aria-label="Before design begins">
         <div className="container">
           <div className="section-intro method-diagnostic animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">Before Design Begins</span>

@@ -95,7 +95,7 @@ export default function WorkPage() {
           Body: 23 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero"
+        className="hero texture-dots"
         aria-label="Work"
       >
         <div className="hero-inner hero-inner--relative">
@@ -126,7 +126,7 @@ export default function WorkPage() {
           No link to /about — this section stands independently as a self-applied study.
           Describes strategic transformation (information architecture, page responsibilities)
           rather than visual transformation. */}
-      <section className="section section--divided section--divided-signature" aria-label="Featured study: Raleway Studio">
+      <section className="section section--divided section--divided-signature texture-dots" aria-label="Featured study: Raleway Studio">
         <div className="container">
           <div className="section-intro work-featured animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">Featured Study</span>
