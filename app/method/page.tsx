@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import IconMark from '@/components/media/IconMark'
+import RalewayMark from '@/components/media/RalewayMark'
 
 export const metadata: Metadata = {
   title: 'The Method',
@@ -115,13 +116,16 @@ export default function MethodPage() {
           Connects from About page: conviction → operational process (Stage 2 → Stage 3). */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field"
+        className="hero texture-dots glow-field mark-bleed"
         aria-label="The Raleway Method"
       >
         <div className="hero-inner hero-inner--relative">
           <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
             <span className="proof-pill" style={{ bottom: '22%', left: '2%' }}>Discovery before strategy</span>
             <span className="proof-pill" style={{ bottom: '10%', right: '4%' }}>Four phases, gated in order</span>
+            <span className="float-mark" style={{ top: '6%', left: '4%' }}>
+              <RalewayMark variant="fragment" size={24} aria-hidden />
+            </span>
           </div>
           <div className="hero-content hero-content--centered">
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">

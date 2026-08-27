@@ -63,7 +63,7 @@ export default function AboutPage() {
           Rule 04: No hero-actions — CTA lives at the Threshold. */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field"
+        className="hero texture-dots glow-field mark-bleed"
         aria-label="About Raleway Studio"
       >
         <div className="hero-inner">

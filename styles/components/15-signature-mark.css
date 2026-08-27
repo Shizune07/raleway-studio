@@ -194,3 +194,35 @@
     opacity: 0.035;
   }
 }
+
+
+/* ── v0.6 — Go bigger: the mark stops hiding ──
+   Seira: still too minimal after v0.5. This watermark existed since v0.1
+   but at 4.5% opacity was functionally invisible — a detail for someone
+   already looking closely, not something that reads as "alive" at a
+   glance. Two changes: pushed to genuinely visible opacity, and rolled
+   out from Home-only to all six heroes (previously "one placement" per
+   the breath-image discipline — that discipline was Seira's own rule,
+   and she's now explicitly asked to override it, same as the imagery
+   rules earlier this pass). Slow rotation added so the mark itself
+   supplies ambient motion — deliberately NOT tied to scroll or cursor
+   (still avoiding literal parallax/cursor-follow), just a self-contained
+   160s rotation slow enough to read as "the room is alive" rather than
+   "something is spinning." Reduced-motion collapses this automatically
+   via the sitewide rule in tokens.css. */
+
+.mark-bleed::before {
+  opacity: 0.13;
+  animation: mark-rotate 160s linear infinite;
+}
+
+@media (max-width: 767px) {
+  .mark-bleed::before {
+    opacity: 0.09;
+  }
+}
+
+@keyframes mark-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

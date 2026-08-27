@@ -77,6 +77,9 @@ export default function HomePage() {
             <span className="float-mark" style={{ bottom: '4%', right: '10%' }}>
               <RalewayMark variant="fragment" size={26} aria-hidden />
             </span>
+            <span className="float-mark" style={{ top: '24%', right: '18%' }}>
+              <RalewayMark variant="fragment" size={16} aria-hidden />
+            </span>
           </div>
           <div className="hero-content hero-content--centered">
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}

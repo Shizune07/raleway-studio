@@ -95,13 +95,16 @@ export default function WorkPage() {
           Body: 23 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field"
+        className="hero texture-dots glow-field mark-bleed"
         aria-label="Work"
       >
         <div className="hero-inner hero-inner--relative">
           <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
             <span className="proof-pill" style={{ bottom: '22%', left: '2%' }}>Diagnosis, not a brief</span>
             <span className="proof-pill" style={{ bottom: '10%', right: '4%' }}>Visual work follows strategy</span>
+            <span className="float-mark" style={{ top: '8%', right: '6%' }}>
+              <RalewayMark variant="fragment" size={24} aria-hidden />
+            </span>
           </div>
           <div className="hero-content hero-content--centered">
             <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">

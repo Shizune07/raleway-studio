@@ -69,7 +69,7 @@ export default async function ThinkingPage() {
           Body: 21 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field"
+        className="hero texture-dots glow-field mark-bleed"
         aria-label="Thinking"
       >
         <div className="hero-inner">
