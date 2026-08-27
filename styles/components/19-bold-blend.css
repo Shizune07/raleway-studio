@@ -42,6 +42,63 @@
 }
 
 
+/* ── Proof rail, hero-float variant ──
+   A dedicated floating layer for scattering 1-2 real-fact pills loosely
+   around a hero headline (Receivio scatters its stat badges around the
+   hero itself, not stacked below a section). Distinct from
+   .proof-rail--floating above, which sizes its own box (for sitting
+   inside a diagram-style cluster) — this one covers its positioned
+   ancestor (.hero-inner--relative) and is pointer-events:none so it
+   never blocks the real hero CTAs beneath it. Decorative only, so it's
+   dropped below 1024px rather than fighting for space with the stacked
+   mobile hero — nothing here duplicates information that isn't already
+   stated in the page's authoritative content. */
+
+.proof-rail--hero-float {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .proof-rail--hero-float {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .proof-rail--hero-float .proof-pill {
+    position: absolute;
+  }
+}
+
+
+/* ── Hero headline, bold variant ──
+   Modifier on the existing (frozen) .hero-headline. Source Serif 4 is
+   loaded as a variable font (axes: opsz, range 200-900 per the layout.tsx
+   comment) but every hero on the site uses the default weight 300 —
+   deliberately light/delicate per the v1.0 design system. Receivio's
+   headline is much denser — a heavier weight is most of why the v0.1
+   pass still read as "bland" next to it despite the colour-block
+   highlight. This dials weight up using the same variable font already
+   loaded, no new font file, and is opt-in per page rather than a change
+   to the frozen component. */
+
+.hero-headline--bold {
+  font-weight: 560;
+  letter-spacing: -0.025em;
+}
+
+
+/* ── Hero inner, relative variant ──
+   Utility for pages that need to anchor an absolutely-positioned element
+   (the floating proof rail below) to the hero without touching the
+   frozen .hero-inner rule itself. */
+
+.hero-inner--relative {
+  position: relative;
+}
+
+
 /* ── Chip highlight ──
    A flat, solid-fill word highlight for hero headlines — the bolder,
    more confident cousin of the collage system's rotated paper
@@ -67,6 +124,22 @@
 .chip-highlight--clay {
   background-color: var(--paper-clay);
   color: var(--colour-ink-inverted);
+}
+
+/* v0.2 — the tint variant, added after Seira said the first pass still
+   read as "bland" next to Receivio specifically. Receivio's headline
+   highlight is a pale saturated block behind italic serif type, not a
+   flat dark chip — the italic shift is doing as much work as the
+   colour. This reproduces that construction in Raleway's own accent
+   family (a wash of --colour-accent-warm, confirmed to stay orange,
+   not adopt Receivio's blue/lilac) rather than the ink/clay chips
+   above, which read closer to a highlighter mark than a colour
+   statement. Ink/clay remain available for pages that want the
+   quieter version. */
+.chip-highlight--tint {
+  background-color: var(--colour-accent-tint);
+  color: var(--colour-ink);
+  font-style: italic;
 }
 
 

@@ -68,9 +68,9 @@ export default function AboutPage() {
       >
         <div className="hero-inner">
           <div className="hero-content">
-            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
               Raleway Studio grew from a{' '}
-              <span className="chip-highlight chip-highlight--clay">
+              <span className="chip-highlight chip-highlight--tint">
                 pattern
               </span>{' '}
               I couldn&rsquo;t stop noticing.

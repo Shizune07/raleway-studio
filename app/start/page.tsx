@@ -80,9 +80,9 @@ export default function StartPage() {
       >
         <div className="hero-inner">
           <div className="hero-content">
-            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
               The first{' '}
-              <span className="chip-highlight chip-highlight--clay">
+              <span className="chip-highlight chip-highlight--tint">
                 conversation
               </span>{' '}
               is how we understand the fit.

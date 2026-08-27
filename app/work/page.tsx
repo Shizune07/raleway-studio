@@ -100,9 +100,9 @@ export default function WorkPage() {
       >
         <div className="hero-inner">
           <div className="hero-content">
-            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
               The portfolio is{' '}
-              <span className="chip-highlight chip-highlight--ink">
+              <span className="chip-highlight chip-highlight--tint">
                 evidence
               </span>{' '}
               of what happens when design follows diagnosis.

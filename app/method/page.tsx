@@ -120,9 +120,9 @@ export default function MethodPage() {
       >
         <div className="hero-inner">
           <div className="hero-content">
-            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
               This is what that conviction looks like in{' '}
-              <span className="chip-highlight chip-highlight--clay">
+              <span className="chip-highlight chip-highlight--tint">
                 practice
               </span>.
             </h1>

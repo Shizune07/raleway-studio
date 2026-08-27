@@ -428,3 +428,14 @@
 :root {
   --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
 }
+
+/* v0.2 — closer pass at the Receivio reference specifically (Seira: "I
+   still don't like the design, I want to achieve this" re: the Receivio
+   sample, after the v0.1 blend read as too diluted). Confirmed: keep
+   Raleway's orange as the one accent rather than adopting Receivio's
+   blue/lilac — this tint is a pale wash of that same accent family, the
+   same relationship Receivio's pale-lilac highlight has to its own
+   accent, not a new hue. */
+:root {
+  --colour-accent-tint: #F4DCC8;  /* Pale wash of --colour-accent-warm — chip-highlight ground */
+}

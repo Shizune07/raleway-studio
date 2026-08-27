@@ -74,9 +74,9 @@ export default async function ThinkingPage() {
       >
         <div className="hero-inner">
           <div className="hero-content">
-            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
               How we{' '}
-              <span className="chip-highlight chip-highlight--ink">
+              <span className="chip-highlight chip-highlight--tint">
                 think
               </span>{' '}
               about design, strategy, and trust.

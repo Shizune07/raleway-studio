@@ -64,12 +64,20 @@ export default function HomePage() {
         className="hero mark-bleed"
         aria-label="Introduction"
       >
-        <div className="hero-inner">
+        <div className="hero-inner hero-inner--relative">
+          {/* v0.2: loose floating proof pills near the headline, echoing how
+              Receivio scatters its stat badges around the hero rather than
+              stacking them below a section. Real principles, not invented
+              stats — see the authoritative principles list below (Section 04). */}
+          <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
+            <span className="proof-pill" style={{ top: '4%', right: '6%' }}>Diagnose before design</span>
+            <span className="proof-pill" style={{ top: '48%', right: '2%' }}>Strategy before surface</span>
+          </div>
           <div className="hero-content">
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
-            <h1 className="hero-headline hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
               There is a kind of struggle that looks like a{' '}
-              <span className="chip-highlight chip-highlight--ink">
+              <span className="chip-highlight chip-highlight--tint">
                 branding problem
               </span>.
             </h1>
