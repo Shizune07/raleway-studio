@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
-import Image from 'next/image'
 import MockupFrame from '@/components/media/MockupFrame'
 import RalewayMark from '@/components/media/RalewayMark'
 
@@ -154,39 +153,32 @@ export default function WorkPage() {
             </p>
           </div>
           {/* Collage exploration: the Window Graphic this replaces made the
-              same claim as an illustrated interface. This version uses a
-              real, previously-unused studio photograph (work-breath.jpg)
-              instead — torn, layered with a cream caption chip and one
-              small ink accent carrying the Raleway mark. Caption text
-              carried over verbatim from the graphic it replaces. */}
-          <div className="collage-cluster" style={{ height: '380px', maxWidth: '680px', margin: '0 auto' }}>
-            <div
-              className="collage-piece collage-piece--photo collage-piece--torn-b collage-piece--lg animate-entrance"
-              style={{
-                top: '0px', left: '60px', width: '520px', height: '320px',
-                ['--piece-rotate' as any]: '2deg', ['--piece-rotate-start' as any]: '8deg',
-              }}
-            >
-              <Image
-                src="/assets/work-breath.jpg"
-                alt="A studio work-in-progress photograph, standing in for the site's own redesign process."
-                fill
-                sizes="(max-width: 767px) 100vw, 520px"
-                style={{ objectFit: 'cover' }}
-              />
-            </div>
+              same claim as an illustrated interface, so this stays purely
+              paper/colour rather than photographic — no real, unused
+              studio photograph was actually available (work-breath.jpg
+              turned out to be a stray QA screenshot, not a photo; caught
+              in visual QA and swapped out rather than shipped). Caption
+              text carried over verbatim from the graphic it replaces. */}
+          <div className="collage-cluster" style={{ height: '340px', maxWidth: '620px', margin: '0 auto' }}>
             <div
               className="collage-piece collage-piece--cream animate-entrance"
               style={{
-                top: '260px', left: '0px', width: '260px', height: '120px',
-                ['--piece-rotate' as any]: '-4deg', ['--piece-rotate-start' as any]: '-11deg',
+                top: '10px', left: '40px', width: '320px', height: '220px',
+                ['--piece-rotate' as any]: '-3deg', ['--piece-rotate-start' as any]: '-9deg',
               }}
-              data-delay="100"
             >
               <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
                 One central idea, not four unrelated ones. The page you&rsquo;re reading is the case study.
               </span>
             </div>
+            <div
+              className="collage-piece collage-piece--clay animate-entrance"
+              style={{
+                top: '180px', left: '260px', width: '220px', height: '140px',
+                ['--piece-rotate' as any]: '4deg', ['--piece-rotate-start' as any]: '11deg',
+              }}
+              data-delay="100"
+            />
             <div
               className="collage-piece collage-piece--ink animate-entrance"
               style={{
