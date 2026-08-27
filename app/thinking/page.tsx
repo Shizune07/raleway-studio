@@ -73,8 +73,8 @@ export default async function ThinkingPage() {
         aria-label="Thinking"
       >
         <div className="hero-inner">
-          <div className="hero-content">
-            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
+          <div className="hero-content hero-content--centered">
+            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               How we{' '}
               <span className="chip-highlight chip-highlight--tint">
                 think

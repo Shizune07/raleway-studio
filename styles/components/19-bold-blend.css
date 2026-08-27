@@ -99,6 +99,65 @@
 }
 
 
+/* ── Hero, centered variant ──
+   Modifiers on the existing (frozen) .hero-content / .hero-actions —
+   switches from the v1.0 left-aligned, lower-anchored composition to a
+   centered one, matching Receivio's centered hero more closely. Opt-in
+   per page; the frozen hero rules are untouched, this just overrides
+   alignment on top of them. */
+
+.hero-content--centered {
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content--centered .hero-body {
+  margin-inline: auto;
+}
+
+.hero-actions--centered {
+  justify-content: center;
+}
+
+
+/* ── Hero headline, display-xl variant ──
+   Stacks with .hero-headline--bold. Pushes the display size well past
+   the v1.0 token (--text-display: 72px) toward Receivio's much larger
+   headline — still the same variable Source Serif 4 file, just a
+   bigger size/tighter tracking, with its own responsive steps so it
+   doesn't overflow on tablet/mobile the way reusing the flat desktop
+   value would. */
+
+.hero-headline--display-xl {
+  font-size: clamp(52px, 4.5vw + 24px, 104px);
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+@media (max-width: 767px) {
+  .hero-headline--display-xl {
+    font-size: clamp(40px, 9vw + 12px, 56px);
+    line-height: 1.05;
+  }
+}
+
+
+/* ── Float mark ──
+   A small floating instance of the studio's own signature mark
+   (RalewayMark, fragment variant) used as a decorative accent scattered
+   near section transitions — Receivio scatters small icon marks near
+   its headlines and section breaks; this is the same gesture using
+   Raleway's own existing mark rather than an invented icon. Purely
+   decorative (aria-hidden), never load-bearing. */
+
+.float-mark {
+  position: absolute;
+  color: var(--colour-accent-warm);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+
 /* ── Chip highlight ──
    A flat, solid-fill word highlight for hero headlines — the bolder,
    more confident cousin of the collage system's rotated paper

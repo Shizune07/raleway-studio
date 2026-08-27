@@ -98,9 +98,13 @@ export default function WorkPage() {
         className="hero"
         aria-label="Work"
       >
-        <div className="hero-inner">
-          <div className="hero-content">
-            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
+        <div className="hero-inner hero-inner--relative">
+          <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
+            <span className="proof-pill" style={{ top: '4%', left: '2%' }}>Diagnosis, not a brief</span>
+            <span className="proof-pill" style={{ bottom: '10%', right: '4%' }}>Visual work follows strategy</span>
+          </div>
+          <div className="hero-content hero-content--centered">
+            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               The portfolio is{' '}
               <span className="chip-highlight chip-highlight--tint">
                 evidence

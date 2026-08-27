@@ -3,6 +3,7 @@ import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import Image from 'next/image'
 import IconMark from '@/components/media/IconMark'
+import RalewayMark from '@/components/media/RalewayMark'
 
 export const metadata: Metadata = {
   title: 'Raleway Studio — We help good businesses be seen for what they are',
@@ -70,12 +71,16 @@ export default function HomePage() {
               stacking them below a section. Real principles, not invented
               stats — see the authoritative principles list below (Section 04). */}
           <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
-            <span className="proof-pill" style={{ top: '4%', right: '6%' }}>Diagnose before design</span>
-            <span className="proof-pill" style={{ top: '48%', right: '2%' }}>Strategy before surface</span>
+            <span className="proof-pill" style={{ top: '2%', left: '2%' }}>Diagnose before design</span>
+            <span className="proof-pill" style={{ top: '10%', right: '4%' }}>Strategy before surface</span>
+            <span className="proof-pill" style={{ bottom: '14%', left: '6%' }}>Legibility over aesthetics</span>
+            <span className="float-mark" style={{ bottom: '4%', right: '10%' }}>
+              <RalewayMark variant="fragment" size={26} aria-hidden />
+            </span>
           </div>
-          <div className="hero-content">
+          <div className="hero-content hero-content--centered">
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
-            <h1 className="hero-headline hero-headline--bold hero-entrance hero-entrance--headline">
+            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
               There is a kind of struggle that looks like a{' '}
               <span className="chip-highlight chip-highlight--tint">
                 branding problem
@@ -86,7 +91,7 @@ export default function HomePage() {
               The problem is often the distance between what your business genuinely is
               and what the world can clearly see it to be.
             </p>
-            <div className="hero-actions hero-entrance hero-entrance--cta">
+            <div className="hero-actions hero-actions--centered hero-entrance hero-entrance--cta">
               <Link href="/start" className="btn-primary">
                 Start a conversation
               </Link>
