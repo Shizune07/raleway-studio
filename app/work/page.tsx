@@ -102,7 +102,7 @@ export default function WorkPage() {
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
               The portfolio is{' '}
-              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '2deg' }}>
+              <span className="chip-highlight chip-highlight--ink">
                 evidence
               </span>{' '}
               of what happens when design follows diagnosis.
@@ -125,7 +125,7 @@ export default function WorkPage() {
       <section className="section section--divided section--divided-signature" aria-label="Featured study: Raleway Studio">
         <div className="container">
           <div className="section-intro work-featured animate-entrance">
-            <span className="section-eyebrow">Featured Study</span>
+            <span className="section-eyebrow section-eyebrow--mono">Featured Study</span>
             <h2 className="section-headline">
               Before writing a single client brief, we applied the method to ourselves.
             </h2>
@@ -208,12 +208,22 @@ export default function WorkPage() {
       <section className="section section--dark" aria-label="Selected client work">
         <div className="container">
           <div className="section-intro animate-entrance">
-            <span className="section-eyebrow">Selected Work</span>
+            <span className="section-eyebrow section-eyebrow--mono">Selected Work</span>
             <h2 className="section-headline">Four projects. Four industries. One process.</h2>
             <p className="section-body">
               Each project below is described using only what we can verify &mdash; the business,
               the communication challenge, and one decision that shaped how it was solved.
             </p>
+          </div>
+          {/* Bold-blend exploration: one pill per case, each a paraphrase of
+              that case's own "decision" sentence below — not a new claim,
+              just surfaced as a scannable label (Receivio's proof-pill
+              pattern, kept honest per the no-invented-outcomes rule). */}
+          <div className="proof-rail animate-entrance" data-delay="80">
+            <span className="proof-pill">Leads with one patient goal, not a service menu</span>
+            <span className="proof-pill">MLS listings as the primary conversion path</span>
+            <span className="proof-pill">Positioning stated before scope</span>
+            <span className="proof-pill">A quiz as the entry point, not a lead form</span>
           </div>
           <ul className="method-list animate-entrance" role="list" data-delay="150">
             {selectedWork.map((project) => (

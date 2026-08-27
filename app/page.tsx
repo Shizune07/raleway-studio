@@ -69,7 +69,7 @@ export default function HomePage() {
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
               There is a kind of struggle that looks like a{' '}
-              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '-2deg' }}>
+              <span className="chip-highlight chip-highlight--ink">
                 branding problem
               </span>.
             </h1>
@@ -260,9 +260,10 @@ export default function HomePage() {
           Method (their principle/client lists are dark fields). Dark-mode
           colour inversions for .home-method__label/.home-method__item and
           .btn-navigate live in globals.css / 12-rhythm.css. */}
-      <section className="section section--dark" aria-label="How we work">
+      <section className="section section--dark reveal" aria-label="How we work">
         <div className="container">
           <div className="home-method">
+            <span className="section-eyebrow section-eyebrow--mono animate-entrance">The Method</span>
             <p className="home-method__label animate-entrance">This is how we work.</p>
             <ul className="home-method__list" role="list">
               {principles.map((p) => (
@@ -315,39 +316,24 @@ export default function HomePage() {
             <h2 className="section-headline">
               Before we wrote a single brief for a client, we applied our method to ourselves.
             </h2>
-            {/* Collage exploration: the site's one real "self-audit" photo,
-                given a torn edge and paired with a short caption chip
-                instead of running full-bleed and alone — the section's
-                only photographic collage moment on the page, reserved
-                for the one place there's a real photograph to use. */}
-            <div className="collage-cluster" style={{ height: '420px', maxWidth: '720px', margin: '0 auto' }}>
-              <div
-                className="collage-piece collage-piece--photo collage-piece--torn-a collage-piece--lg animate-entrance"
-                style={{
-                  top: '0px', left: '40px', width: '560px', height: '360px',
-                  ['--piece-rotate' as any]: '-2deg', ['--piece-rotate-start' as any]: '-7deg',
-                }}
-              >
+            {/* Bold-blend exploration: WizCommerce-style nested frame for the
+                site's one real self-audit photo — a sharp rounded-square
+                paper mount instead of the collage system's torn edge.
+                Caption moves to a proof-pill beneath, carrying the same
+                real sentence, not a decorative label. */}
+            <div className="frame-photo frame-photo--nested animate-entrance" style={{ maxWidth: '620px', margin: '0 auto' }}>
+              <div className="frame-photo" style={{ position: 'relative', height: '360px' }}>
                 <Image
                   src="/assets/home-breath.jpg"
                   alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
                   fill
-                  sizes="(max-width: 767px) 100vw, 560px"
+                  sizes="(max-width: 767px) 100vw, 620px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
-              <div
-                className="collage-piece collage-piece--cream animate-entrance"
-                style={{
-                  top: '300px', left: '0px', width: '220px', height: '100px',
-                  ['--piece-rotate' as any]: '3deg', ['--piece-rotate-start' as any]: '9deg',
-                }}
-                data-delay="150"
-              >
-                <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
-                  Applied to ourselves first.
-                </span>
-              </div>
+            </div>
+            <div className="proof-rail" style={{ justifyContent: 'center' }}>
+              <span className="proof-pill">Applied to ourselves first.</span>
             </div>
             <div className="home-proof__body">
               <p className="section-body">

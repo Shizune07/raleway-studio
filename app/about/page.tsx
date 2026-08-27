@@ -70,7 +70,7 @@ export default function AboutPage() {
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
               Raleway Studio grew from a{' '}
-              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '2deg' }}>
+              <span className="chip-highlight chip-highlight--clay">
                 pattern
               </span>{' '}
               I couldn&rsquo;t stop noticing.

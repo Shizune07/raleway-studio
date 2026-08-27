@@ -412,3 +412,19 @@
   --collage-shadow-sm:  0 2px 6px rgba(26, 26, 24, 0.10);
   --collage-shadow-lg:  0 8px 24px rgba(26, 26, 24, 0.14);
 }
+
+/* ============================================================
+   BOLD BLEND EXPLORATION — v0.1 (branch: bold-blend-redesign)
+   Structural patterns synthesized from two external references
+   (Receivio, WizCommerce) at Seira's request — chip-highlight,
+   proof rail, process rail, dark reveal, framed photo. Palette
+   stays inside the existing token set (no new hues introduced);
+   the only addition is a system monospace stack for the eyebrow
+   variant, since nothing in the current type system covers that
+   register. Isolated block, easy to remove if this direction
+   doesn't ship. See styles/components/19-bold-blend.css.
+   ============================================================ */
+
+:root {
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}

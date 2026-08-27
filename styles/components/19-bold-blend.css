@@ -1,0 +1,217 @@
+/* ============================================================
+   Component 19 — Bold Blend
+   Status: EXPLORATION (branch: bold-blend-redesign)
+
+   Seira's brief: the collage pass reads as "bland" — wants a
+   bolder direction blending https://receivio.framer.media/ and
+   https://wizcommerce.com/. Structural DNA borrowed from both:
+
+     Receivio  → flat solid-colour word-highlight, floating
+                 pill-shaped proof labels, connected numbered
+                 timeline, full-bleed dark "reveal" section.
+     WizCommerce → monospace uppercase eyebrow register, sharp
+                 nested-frame photo treatment, confident block CTA.
+
+   Deliberately NOT imported: their saturated lilac/electric-blue/
+   orange palette, chat widget, logo wall. Raleway already owns an
+   accent (--colour-accent, one-per-viewport rule) — these patterns
+   are built to work inside the existing ink/cream/clay/dark tokens,
+   not against them. This is a structural blend, not a re-skin.
+
+   All rules here are additive — nothing in a FROZEN component file
+   (05, 08, 13...) is edited. Where a pattern needs to sit alongside
+   an existing component (eyebrow, disclosure list), it's applied as
+   a modifier class the page opts into.
+   ============================================================ */
+
+
+/* ── Eyebrow, mono variant ──
+   Modifier on the existing (frozen) .section-eyebrow. Switches
+   register from DM Sans to a system monospace stack — reads more
+   technical/confident, a texture Raleway doesn't currently have.
+   Underline flourish echoes WizCommerce's ruled eyebrow. */
+
+.section-eyebrow--mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  padding-block-end: var(--space-2);
+  border-block-end: 1px solid var(--colour-border-strong);
+}
+
+
+/* ── Chip highlight ──
+   A flat, solid-fill word highlight for hero headlines — the bolder,
+   more confident cousin of the collage system's rotated paper
+   fragment (kept, not replaced — both are available; pages choose
+   per-word which register fits). No rotation, no shadow: a clean
+   rounded block, closer to Receivio's lilac word-highlight but in
+   Raleway's own ink/clay tones so it doesn't compete with the single
+   permitted orange element per viewport. */
+
+.chip-highlight {
+  display: inline-block;
+  padding-inline: 0.28em;
+  border-radius: var(--radius-sm);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.chip-highlight--ink {
+  background-color: var(--colour-ink);
+  color: var(--colour-ink-inverted);
+}
+
+.chip-highlight--clay {
+  background-color: var(--paper-clay);
+  color: var(--colour-ink-inverted);
+}
+
+
+/* ── Proof rail ──
+   A row of small pill-shaped labels carrying real, verifiable facts
+   (never invented metrics — Rule: Work page carries no invented
+   outcomes). Echoes Receivio's floating stat pills, but each pill
+   here is a fact already stated in the case study copy, surfaced as
+   a scannable label rather than a decorative number. Static by
+   default; the --floating modifier lets a page scatter them loosely
+   around a visual on wide viewports, same escape hatch the collage
+   cluster uses. */
+
+.proof-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.proof-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  background-color: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  box-shadow: var(--collage-shadow-sm);
+  font-family: var(--font-interface);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--colour-ink);
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .proof-rail--floating {
+    position: relative;
+    height: 100%;
+    min-height: 220px;
+  }
+
+  .proof-rail--floating .proof-pill {
+    position: absolute;
+  }
+}
+
+
+/* ── Process rail ──
+   A connected-node treatment that sits alongside the existing
+   Component 13 disclosure list (Method's four phases) without
+   touching its markup or interaction model — the native
+   details/summary accessibility already earned its place in a
+   prior pass and isn't being traded away for a visual timeline. This
+   just adds a dashed rail + numbered node to the left of each item on
+   wide viewports, borrowed from Receivio's process timeline. */
+
+.process-rail {
+  --rail-offset: 28px;
+}
+
+@media (min-width: 1024px) {
+  .process-rail {
+    position: relative;
+    padding-inline-start: calc(var(--rail-offset) + var(--space-6));
+  }
+
+  .process-rail::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: var(--rail-offset);
+    width: 0;
+    border-inline-start: 2px dashed var(--colour-border-strong);
+  }
+
+  .process-rail .method-list__item {
+    position: relative;
+  }
+
+  .process-rail .method-list__item::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(-1 * var(--space-6) - 5px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--colour-surface);
+    border: 2px solid var(--colour-accent-warm);
+  }
+}
+
+
+/* ── Reveal — dark full-bleed section ──
+   A rhythm break using tokens that already exist (--colour-surface-
+   dark) but that no page currently spends at full section scale.
+   Echoes Receivio's dark "Solution" section. Texture is a faint dot
+   grid, pure CSS — no imagery, no gradient (Rule 06: no coloured
+   surfaces, no patterns beyond what tokens already permit — this
+   stays achromatic). */
+
+.reveal {
+  background-color: var(--colour-surface-dark);
+  background-image: radial-gradient(var(--colour-border-dark) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--colour-ink-inverted);
+}
+
+.reveal .section-headline,
+.reveal .section-eyebrow {
+  color: var(--colour-ink-inverted);
+}
+
+.reveal .section-eyebrow--mono {
+  border-block-end-color: var(--colour-border-dark);
+}
+
+.reveal .section-body {
+  color: var(--colour-ink-secondary-inverted);
+}
+
+
+/* ── Framed photo ──
+   A sharp, nested rounded-square frame for real photography — the
+   confident, geometric alternative to the collage system's torn-edge
+   piece. Same rule applies as everywhere else in this codebase: real
+   evidence (portraits, verified work) only, never stock or invented
+   imagery. */
+
+.frame-photo {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--collage-shadow-lg);
+}
+
+.frame-photo--nested {
+  padding: var(--space-6);
+  background-color: var(--paper-cream);
+  border-radius: calc(var(--radius-md) + var(--space-6));
+}
+
+@media (max-width: 767px) {
+  .frame-photo--nested {
+    padding: var(--space-4);
+  }
+}

@@ -76,7 +76,7 @@ export default async function ThinkingPage() {
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
               How we{' '}
-              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '-2deg' }}>
+              <span className="chip-highlight chip-highlight--ink">
                 think
               </span>{' '}
               about design, strategy, and trust.

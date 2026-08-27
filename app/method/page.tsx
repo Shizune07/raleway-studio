@@ -122,7 +122,7 @@ export default function MethodPage() {
           <div className="hero-content">
             <h1 className="hero-headline hero-entrance hero-entrance--headline">
               This is what that conviction looks like in{' '}
-              <span className="collage-fragment collage-piece--static" style={{ ['--piece-rotate' as any]: '-2deg' }}>
+              <span className="chip-highlight chip-highlight--clay">
                 practice
               </span>.
             </h1>
@@ -151,7 +151,7 @@ export default function MethodPage() {
       <section className="section section--divided" aria-label="Before design begins">
         <div className="container">
           <div className="section-intro method-diagnostic animate-entrance">
-            <span className="section-eyebrow">Before Design Begins</span>
+            <span className="section-eyebrow section-eyebrow--mono">Before Design Begins</span>
             <h2 className="section-headline">
               Before we discuss what anything should look like, we need to understand
               what it needs to accomplish.
@@ -235,7 +235,7 @@ export default function MethodPage() {
       <section className="section section--dark" aria-label="How we work">
         <div className="container">
           <div className="section-intro animate-entrance">
-            <span className="section-eyebrow">How We Work</span>
+            <span className="section-eyebrow section-eyebrow--mono">How We Work</span>
             <h2 className="section-headline">
               Four principles that govern every engagement.
             </h2>
@@ -275,7 +275,7 @@ export default function MethodPage() {
       <section className="section section--divided" aria-label="The process">
         <div className="container">
           <div className="section-intro method-phase-intro animate-entrance">
-            <span className="section-eyebrow">The Process</span>
+            <span className="section-eyebrow section-eyebrow--mono">The Process</span>
             <p className="section-body">
               The four phases that follow are sequenced deliberately. Each one closes a
               question before the next opens. Discover establishes what the problem actually
@@ -286,38 +286,40 @@ export default function MethodPage() {
               No phase begins until the previous one is complete.
             </p>
           </div>
-          <ul className="method-list animate-entrance" role="list" data-delay="150">
-            {processPhases.map((phase) => (
-              <li key={phase.num} className="method-list__item">
-                <details
-                  className="disclosure disclosure--process"
-                  data-accordion-group="method-process"
-                  open={phase.num === '01'}
-                >
-                  <summary className="disclosure__summary">
-                    <IconMark name={phase.icon} className="service-icon service-icon--hero" />
-                    <div className="disclosure__summary-text">
-                      <div className="disclosure__heading-row">
-                        <div className="disclosure__heading-labels">
-                          <span className="service-counter" aria-hidden="true">{phase.num}</span>
-                          <span className="service-name">{phase.name}</span>
+          <div className="process-rail">
+            <ul className="method-list animate-entrance" role="list" data-delay="150">
+              {processPhases.map((phase) => (
+                <li key={phase.num} className="method-list__item">
+                  <details
+                    className="disclosure disclosure--process"
+                    data-accordion-group="method-process"
+                    open={phase.num === '01'}
+                  >
+                    <summary className="disclosure__summary">
+                      <IconMark name={phase.icon} className="service-icon service-icon--hero" />
+                      <div className="disclosure__summary-text">
+                        <div className="disclosure__heading-row">
+                          <div className="disclosure__heading-labels">
+                            <span className="service-counter" aria-hidden="true">{phase.num}</span>
+                            <span className="service-name">{phase.name}</span>
+                          </div>
+                          <span className="disclosure__indicator" aria-hidden="true" />
                         </div>
-                        <span className="disclosure__indicator" aria-hidden="true" />
+                        <p className="service-description service-description--outcome disclosure__teaser">
+                          {phase.outcome}
+                        </p>
                       </div>
-                      <p className="service-description service-description--outcome disclosure__teaser">
-                        {phase.outcome}
-                      </p>
+                    </summary>
+                    <div className="disclosure__body">
+                      {phase.body.map((paragraph, i) => (
+                        <p key={i} className="service-description">{paragraph}</p>
+                      ))}
                     </div>
-                  </summary>
-                  <div className="disclosure__body">
-                    {phase.body.map((paragraph, i) => (
-                      <p key={i} className="service-description">{paragraph}</p>
-                    ))}
-                  </div>
-                </details>
-              </li>
-            ))}
-          </ul>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

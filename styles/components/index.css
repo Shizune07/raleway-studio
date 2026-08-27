@@ -63,8 +63,12 @@
    for real evidence — see 17-window-graphic.css. */
 @import './17-window-graphic.css';
 
-/* Component 18 — Collage (EXPLORATION — branch: collage-redesign only,
-   not merged to nextjs). Layered, rotated, torn-and-clean-cut paper
-   pieces plus the whitespace/palette discipline that keeps it from
-   reading as maximalist — see 18-collage.css. */
+/* Component 18 — Collage (exploration, branch: collage-redesign, live
+   as of 2026-08-27). Cut-paper/torn-edge visual layer — see
+   18-collage.css. */
 @import './18-collage.css';
+
+/* Component 19 — Bold Blend (exploration, branch: bold-blend-redesign).
+   Structural patterns synthesized from Receivio + WizCommerce at
+   Seira's request — see 19-bold-blend.css. */
+@import './19-bold-blend.css';
