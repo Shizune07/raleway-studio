@@ -1,9 +1,7 @@
-import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import IconMark from '@/components/media/IconMark'
-import RalewayMark from '@/components/media/RalewayMark'
 
 export const metadata: Metadata = {
   title: 'The Method',
@@ -117,30 +115,33 @@ export default function MethodPage() {
           Connects from About page: conviction → operational process (Stage 2 → Stage 3). */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field mark-bleed"
+        className="hero"
         aria-label="The Raleway Method"
       >
-        <div className="hero-inner hero-inner--relative">
-          <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
-            <span className="proof-pill" style={{ bottom: '22%', left: '2%' }}>Discovery before strategy</span>
-            <span className="proof-pill" style={{ bottom: '10%', right: '4%' }}>Four phases, gated in order</span>
-            <span className="float-mark" style={{ top: '6%', left: '4%' }}>
-              <RalewayMark variant="fragment" size={24} aria-hidden />
-            </span>
-          </div>
-          <div className="hero-content hero-content--centered">
-            <span className="hero-kicker hero-entrance hero-entrance--headline">The Method</span>
-            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
-              This is what that conviction looks like in{' '}
-              <span className="chip-highlight chip-highlight--tint">
-                practice
-              </span>.
+        <div className="hero-inner hero-inner--split">
+          <div className="hero-content">
+            <h1 className="hero-headline hero-headline--editorial hero-entrance hero-entrance--headline">
+              This is what that conviction looks like in practice.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               Every engagement follows a defined process: four phases, in a specific order.
               The sequence exists to reduce uncertainty before each major decision is made.
               Discovery before strategy. Strategy before design. Design before delivery.
             </p>
+          </div>
+          {/* Real structured data (the same processPhases array the
+              disclosure list below uses) instead of a decorative visual —
+              nothing invented, no illustration needed for a page that
+              already has a genuine four-item list to show. */}
+          <div className="hero-visual hero-entrance hero-entrance--headline">
+            <ul className="hero-visual-list" role="list">
+              {processPhases.map((phase) => (
+                <li key={phase.num} className="hero-visual-list__item">
+                  <span className="hero-visual-list__num" aria-hidden="true">{phase.num}</span>
+                  <span className="hero-visual-list__name">{phase.name}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -158,7 +159,7 @@ export default function MethodPage() {
           .section-marker) — the same visual move for the same kind of
           content: a diagnostic sequence. Exact existing wording, no new
           copy; the source paragraph is unchanged. */}
-      <section className="section section--divided texture-dots" aria-label="Before design begins">
+      <section className="section section--divided" aria-label="Before design begins">
         <div className="container">
           <div className="section-intro method-diagnostic animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">Before Design Begins</span>
@@ -193,33 +194,9 @@ export default function MethodPage() {
               </p>
             </div>
           </div>
-          {/* Collage exploration: same idea the removed arc diagram
-              illustrated (something found, not yet visible), now a
-              layered paper composition. Caption carried over verbatim. */}
-          <div
-            className="collage-cluster"
-            role="img"
-            aria-label="What the diagnostic phase is built to find — represented as two layered paper pieces"
-            style={{ height: '300px', maxWidth: '560px', margin: '0 auto' }}
-          >
-            <div
-              className="collage-piece collage-piece--clay animate-entrance"
-              style={{
-                top: '10px', left: '40px', width: '260px', height: '180px',
-                ['--piece-rotate' as any]: '-3deg', ['--piece-rotate-start' as any]: '-10deg',
-              }}
-            >
-              <span className="collage-piece__label">What the diagnostic phase is built to find.</span>
-            </div>
-            <div
-              className="collage-piece collage-piece--cream animate-entrance"
-              style={{
-                top: '150px', left: '320px', width: '160px', height: '120px',
-                ['--piece-rotate' as any]: '5deg', ['--piece-rotate-start' as any]: '12deg',
-              }}
-              data-delay="100"
-            />
-          </div>
+          <p className="pull-statement animate-entrance">
+            What the diagnostic phase is built to find.
+          </p>
           <div className="section-intro method-diagnostic animate-entrance">
             <p className="section-body">
               Until those questions are answered, design decisions are premature. Colour,
@@ -242,7 +219,7 @@ export default function MethodPage() {
           Dark field — inverted token colours via .section--dark CSS
           Authoritative home for principles; Home references them briefly.
           Rule: do not reproduce full principle text on other pages. */}
-      <section className="section section--dark glow-field glow-field--dark" aria-label="How we work">
+      <section className="section section--dark" aria-label="How we work">
         <div className="container">
           <div className="section-intro animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">How We Work</span>
@@ -296,33 +273,7 @@ export default function MethodPage() {
               No phase begins until the previous one is complete.
             </p>
           </div>
-          {/* v0.7: compact visual flow summary, pulled from pleurat.com's
-              "workspace" panel idea — a bordered card with a mono status
-              header and connected nodes. Sits above the accessible
-              disclosure list below; doesn't replace it. Node labels and
-              the note are exact phase names/copy already defined in
-              processPhases above, nothing invented. */}
-          <div className="process-panel animate-entrance">
-            <div className="process-panel__header">
-              <span>Method / Process / Four Phases</span>
-              <span className="process-panel__status">Gated · Sequential</span>
-            </div>
-            <div className="process-panel__flow">
-              {processPhases.map((phase, i) => (
-                <Fragment key={phase.num}>
-                  <span className="process-panel__node">{phase.name}</span>
-                  {i < processPhases.length - 1 && (
-                    <span className="process-panel__arrow" aria-hidden="true">&rarr;</span>
-                  )}
-                </Fragment>
-              ))}
-            </div>
-            <p className="process-panel__note fig-caption" style={{ textAlign: 'left' }}>
-              No phase begins until the previous one is complete.
-            </p>
-          </div>
-          <div className="process-rail">
-            <ul className="method-list animate-entrance" role="list" data-delay="150">
+          <ul className="method-list animate-entrance" role="list" data-delay="150">
               {processPhases.map((phase) => (
                 <li key={phase.num} className="method-list__item">
                   <details
@@ -354,7 +305,6 @@ export default function MethodPage() {
                 </li>
               ))}
             </ul>
-          </div>
         </div>
       </section>
 

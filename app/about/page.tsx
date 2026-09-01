@@ -63,18 +63,13 @@ export default function AboutPage() {
           Rule 04: No hero-actions — CTA lives at the Threshold. */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field mark-bleed"
+        className="hero"
         aria-label="About Raleway Studio"
       >
         <div className="hero-inner">
-          <div className="hero-content hero-content--centered">
-            <span className="hero-kicker hero-entrance hero-entrance--headline">About Raleway</span>
-            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
-              Raleway Studio grew from a{' '}
-              <span className="chip-highlight chip-highlight--tint">
-                pattern
-              </span>{' '}
-              I couldn&rsquo;t stop noticing.
+          <div className="hero-content">
+            <h1 className="hero-headline hero-headline--editorial hero-entrance hero-entrance--headline">
+              Raleway Studio grew from a pattern I couldn&rsquo;t stop noticing.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               For years, I watched capable businesses struggle to be seen for

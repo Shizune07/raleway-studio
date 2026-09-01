@@ -3,7 +3,6 @@ import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import Image from 'next/image'
 import IconMark from '@/components/media/IconMark'
-import RalewayMark from '@/components/media/RalewayMark'
 import DiagnosisScene from '@/components/media/DiagnosisScene'
 
 export const metadata: Metadata = {
@@ -63,47 +62,21 @@ export default function HomePage() {
           Entrance: Pattern 07 (mount animation, not scroll) */}
       <section
         id="main-content"
-        className="hero mark-bleed texture-dots glow-field"
+        className="hero"
         aria-label="Introduction"
       >
-        <div className="hero-inner hero-inner--relative">
-          {/* v0.2: loose floating proof pills near the headline, echoing how
-              Receivio scatters its stat badges around the hero rather than
-              stacking them below a section. Real principles, not invented
-              stats — see the authoritative principles list below (Section 04). */}
-          <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
-            <span className="proof-pill" style={{ top: '2%', left: '2%' }}>Diagnose before design</span>
-            <span className="proof-pill" style={{ top: '10%', right: '4%' }}>Strategy before surface</span>
-            <span className="proof-pill" style={{ bottom: '14%', left: '6%' }}>Legibility over aesthetics</span>
-            <span className="float-mark" style={{ bottom: '4%', right: '10%' }}>
-              <RalewayMark variant="fragment" size={26} aria-hidden />
-            </span>
-            <span className="float-mark" style={{ top: '24%', right: '18%' }}>
-              <RalewayMark variant="fragment" size={16} aria-hidden />
-            </span>
-          </div>
-          {/* v0.7: original line-art illustration — pulled from pleurat.com's
-              use of custom illustration, built as owned artwork rather than
-              a stock photo or a copy of his scene. See DiagnosisScene.tsx. */}
-          <div className="scene-frame hero-entrance hero-entrance--headline">
-            <DiagnosisScene aria-hidden />
-            <span className="fig-caption">Fig. 01 — Diagnosis, visualised</span>
-          </div>
-          <div className="hero-content hero-content--centered">
-            <span className="hero-kicker hero-entrance hero-entrance--headline">Diagnose before design</span>
+        <div className="hero-inner hero-inner--split">
+          <div className="hero-content">
             {/* Headline: 12 words — spec maximum (DEV-HP-01 resolved) */}
-            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
-              There is a kind of struggle that looks like a{' '}
-              <span className="chip-highlight chip-highlight--tint">
-                branding problem
-              </span>.
+            <h1 className="hero-headline hero-headline--editorial hero-entrance hero-entrance--headline">
+              There is a kind of struggle that looks like a branding problem.
             </h1>
             {/* Body: 22 words — names the mechanism (DEV-HP-02 resolved) */}
             <p className="hero-body hero-entrance hero-entrance--body">
               The problem is often the distance between what your business genuinely is
               and what the world can clearly see it to be.
             </p>
-            <div className="hero-actions hero-actions--centered hero-entrance hero-entrance--cta">
+            <div className="hero-actions hero-entrance hero-entrance--cta">
               <Link href="/start" className="btn-primary">
                 Start a conversation
               </Link>
@@ -111,6 +84,12 @@ export default function HomePage() {
                 Read our thinking
               </Link>
             </div>
+          </div>
+          {/* Original line-art illustration — owned artwork, not a stock
+              photo. Sits beside the headline instead of stacked above it —
+              the split hero is this direction's main structural move. */}
+          <div className="hero-visual hero-entrance hero-entrance--headline">
+            <DiagnosisScene aria-hidden />
           </div>
         </div>
       </section>
@@ -120,7 +99,7 @@ export default function HomePage() {
           Primitive: Section (divided variant) + Container
           Opens with the editorial sequence removed from the Hero (Option B resolution).
           The sequence completes the Hero's sentence before deepening into symptoms. */}
-      <section className="section section--divided texture-dots" aria-label="The diagnosis">
+      <section className="section section--divided" aria-label="The diagnosis">
         <div className="container">
           <div className="home-diagnosis">
             {/* Poem continuation — three short lines that complete the Hero's hook.
@@ -165,46 +144,6 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          {/* Collage exploration: same idea the removed diagram illustrated
-              (four separate signals, not yet one picture), now as a
-              layered paper composition instead of a line diagram. Caption
-              text carried over unchanged from the diagram it replaces. */}
-          <div
-            className="collage-cluster"
-            role="img"
-            aria-label="Four separate signals, not yet one picture — represented as three layered paper pieces"
-            style={{ height: '340px', maxWidth: '620px', margin: '0 auto' }}
-          >
-            <div
-              className="collage-piece collage-piece--ink animate-entrance"
-              style={{
-                top: '10px', left: '0px', width: '300px', height: '210px',
-                ['--piece-rotate' as any]: '-3deg', ['--piece-rotate-start' as any]: '-9deg',
-              }}
-            >
-              <span className="collage-piece__label">It is none of these things.</span>
-            </div>
-            <div
-              className="collage-piece collage-piece--cream animate-entrance"
-              style={{
-                top: '150px', left: '200px', width: '280px', height: '150px',
-                ['--piece-rotate' as any]: '4deg', ['--piece-rotate-start' as any]: '9deg',
-              }}
-              data-delay="100"
-            >
-              <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
-                Four separate signals. Not yet one picture.
-              </span>
-            </div>
-            <div
-              className="collage-piece collage-piece--clay animate-entrance"
-              style={{
-                top: '0px', left: '470px', width: '90px', height: '90px',
-                ['--piece-rotate' as any]: '-6deg', ['--piece-rotate-start' as any]: '-14deg',
-              }}
-              data-delay="200"
-            />
-          </div>
         </div>
       </section>
 
@@ -230,44 +169,6 @@ export default function HomePage() {
               and what the world can actually perceive.
             </p>
           </div>
-          {/* Collage exploration: the same "separate signals, one system"
-              idea the removed diagram illustrated, now the inverse
-              composition of Section 02's cluster above — cream leads here
-              instead of ink, echoing resolution rather than fragmentation. */}
-          <div
-            className="collage-cluster"
-            role="img"
-            aria-label="Separate signals, one system — represented as three layered paper pieces"
-            style={{ height: '320px', maxWidth: '600px', margin: '0 auto' }}
-          >
-            <div
-              className="collage-piece collage-piece--cream animate-entrance"
-              style={{
-                top: '20px', left: '60px', width: '320px', height: '200px',
-                ['--piece-rotate' as any]: '2deg', ['--piece-rotate-start' as any]: '8deg',
-              }}
-            >
-              <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
-                Separate signals. One system.
-              </span>
-            </div>
-            <div
-              className="collage-piece collage-piece--ink animate-entrance"
-              style={{
-                top: '160px', left: '0px', width: '150px', height: '110px',
-                ['--piece-rotate' as any]: '-5deg', ['--piece-rotate-start' as any]: '-12deg',
-              }}
-              data-delay="100"
-            />
-            <div
-              className="collage-piece collage-piece--clay animate-entrance"
-              style={{
-                top: '0px', left: '410px', width: '100px', height: '100px',
-                ['--piece-rotate' as any]: '6deg', ['--piece-rotate-start' as any]: '14deg',
-              }}
-              data-delay="200"
-            />
-          </div>
           <div className="section-pause animate-entrance">
             <p className="section-pause__text">Raleway Studio was built for that distance.</p>
           </div>
@@ -285,7 +186,7 @@ export default function HomePage() {
           Method (their principle/client lists are dark fields). Dark-mode
           colour inversions for .home-method__label/.home-method__item and
           .btn-navigate live in globals.css / 12-rhythm.css. */}
-      <section className="section section--dark reveal glow-field glow-field--dark" aria-label="How we work">
+      <section className="section section--dark" aria-label="How we work">
         <div className="container">
           <div className="home-method">
             <span className="section-eyebrow section-eyebrow--mono animate-entrance">The Method</span>
@@ -341,25 +242,19 @@ export default function HomePage() {
             <h2 className="section-headline">
               Before we wrote a single brief for a client, we applied our method to ourselves.
             </h2>
-            {/* Bold-blend exploration: WizCommerce-style nested frame for the
-                site's one real self-audit photo — a sharp rounded-square
-                paper mount instead of the collage system's torn edge.
-                Caption moves to a proof-pill beneath, carrying the same
-                real sentence, not a decorative label. */}
-            <div className="frame-photo frame-photo--nested animate-entrance" style={{ width: '620px', maxWidth: '100%', margin: '0 auto' }}>
-              <div className="frame-photo" style={{ position: 'relative', width: '100%', height: '360px' }}>
-                <Image
-                  src="/assets/home-breath.jpg"
-                  alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
-                  fill
-                  sizes="(max-width: 767px) 100vw, 620px"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
+            {/* One frame, not two — restraint applied to the site's one
+                real self-audit photo the same way it's applied everywhere
+                else in this direction. */}
+            <div className="photo-panel animate-entrance" style={{ width: '620px', maxWidth: '100%', height: '360px', margin: '0 auto' }}>
+              <Image
+                src="/assets/home-breath.jpg"
+                alt="A planning document on a wooden desk in warm, directional afternoon light, with plant-leaf shadows crossing the page."
+                fill
+                sizes="(max-width: 767px) 100vw, 620px"
+                style={{ objectFit: 'cover' }}
+              />
             </div>
-            <div className="proof-rail" style={{ justifyContent: 'center' }}>
-              <span className="proof-pill">Applied to ourselves first.</span>
-            </div>
+            <p className="section-body" style={{ textAlign: 'center', fontStyle: 'italic' }}>Applied to ourselves first.</p>
             <div className="home-proof__body">
               <p className="section-body">
                 We ran a full discovery process on our own business. We challenged our positioning,

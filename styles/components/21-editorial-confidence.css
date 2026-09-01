@@ -1,0 +1,231 @@
+/* ============================================================
+   Component 21 — Editorial Confidence
+   Status: EXPLORATION (branch: beyond-editorial-redesign)
+
+   Seira: "I don't like it's design" (v0.7, live) → "fresh visual
+   direction, scrap the bold-blend/collage lineage entirely" →
+   references: bynd.com, ideogram.ai, zamp.com.
+
+   Diagnosis after actually looking at the references (screenshots,
+   not just text): none of the three read as "confident" because of
+   a different colour palette. Beyond's palette — cream field, near-
+   black ink, one orange accent — is close to identical to Raleway's
+   own v1.0 tokens. What reads as confident is: a real visual doing
+   real work (photo/video/illustration, not decoration), a headline
+   set big in a narrower column so it breaks into short punchy
+   lines, generous whitespace, and — critically — LESS going on per
+   screen, not more. The v0.5–v0.8 lineage (glow-fields, dot
+   textures, floating pills, rotating marks, italic tint chips, a
+   process panel) added decoration on every pass without ever
+   removing anything, which is close to the opposite of what Beyond
+   actually does. Confirmed by Seira: keep the orange/cream palette,
+   execute it properly.
+
+   This component is deliberately smaller than 18/19/20 combined —
+   restraint is the point. Three moves:
+     1. Split hero — a real visual (illustration or photo) beside
+        the headline, not stacked above/below it. Content column
+        first in the DOM (Component 08's only required child stays
+        first), visual second — no CSS reorder trick needed.
+     2. Editorial headline weight — the frozen hero-headline is
+        weight 300 by design (v1.0 spec). This bumps it for pages
+        using the split layout, where a narrower column already
+        does most of the "big" work through line-wrapping — no need
+        to blow past the frozen 72px display size on top of it.
+     3. Pull statement — a large italic editorial line using the
+        frozen --text-pull token at page scale, replacing the
+        collage-cluster diagrams as a section's visual anchor. Real
+        content, not an invented diagram.
+
+   One deliberate judgement call: kept the frozen Component 02
+   button system's square corners ("architectural — not rounded"
+   is a documented decision, not an oversight) rather than adopting
+   the pill buttons all three references use. That's a surface trait,
+   not what makes any of the three references read as confident —
+   the split hero, restraint, and typography weight are. Flagging
+   this rather than changing it silently.
+   ============================================================ */
+
+
+/* ── Hero, split variant ──
+   Grid on desktop: content column, visual column. Single column
+   (stacked, content first) below 1024px — matches the frozen
+   .hero-inner default flow, just adds a second child. */
+
+.hero-inner--split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-inner--split {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-9);
+  }
+}
+
+
+/* ── Hero visual ──
+   Deliberately plain: rounded corners, one thin border, no shadow —
+   the frozen button system's "hierarchy via colour and position,
+   not elevation" ethos, applied to imagery instead of buttons. This
+   is a considered contrast with the v0.8 elevation system that
+   never shipped; that direction is retired along with 18/19/20. */
+
+.hero-visual {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--colour-border);
+  background-color: var(--colour-surface-secondary);
+  overflow: hidden;
+  padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual svg {
+  width: 100%;
+  height: auto;
+}
+
+.hero-visual--photo {
+  padding: 0;
+  aspect-ratio: 4 / 3;
+  position: relative;
+}
+
+
+/* ── Hero headline, editorial weight ──
+   Frozen .hero-headline is weight 300 (v1.0 spec: "deliberately
+   light/delicate"). In a split hero the column is roughly half the
+   old full-width measure, so the same 72px token already wraps into
+   short, punchy lines — the thing that reads as "big" in Beyond's
+   hero. This only pushes weight and tracking, not size, so it stays
+   inside the frozen type scale rather than starting a new one. */
+
+.hero-headline--editorial {
+  font-weight: 560;
+  letter-spacing: -0.025em;
+}
+
+
+/* ── Pull statement ──
+   Large italic editorial line at page scale, using the frozen
+   --text-pull construction (italic, editorial family) rather than a
+   new one. Replaces the collage-cluster diagrams as a section's
+   visual anchor — real content already in the page copy, set big,
+   instead of an illustrated diagram standing in for it. */
+
+.pull-statement {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 2.2vw + 16px, 44px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--colour-ink);
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+
+/* ── Photo panel ──
+   Simple, single-frame treatment for real photography — a rounded
+   border, no nested double-frame, no shadow. One frame, not two;
+   restraint applied to the one real photo on the site the same way
+   it's applied everywhere else in this component. */
+
+.photo-panel {
+  position: relative;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--colour-border);
+  overflow: hidden;
+}
+
+
+/* ── Hero visual list ──
+   For hero-visual slots with no illustration or photo but real
+   structured data worth showing (Method's four phases) — a plain
+   numbered list, same restraint as everything else here. Data only,
+   nothing invented: names pulled straight from the page's own
+   processPhases array. */
+
+.hero-visual-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.hero-visual-list__item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-block-end: var(--space-5);
+  border-bottom: 1px solid var(--colour-border);
+}
+
+.hero-visual-list__item:last-child {
+  border-bottom: none;
+  padding-block-end: 0;
+}
+
+.hero-visual-list__num {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--colour-accent-warm);
+  flex-shrink: 0;
+}
+
+.hero-visual-list__name {
+  font-family: var(--font-interface);
+  font-weight: 500;
+  font-size: var(--text-h4);
+  color: var(--colour-ink);
+}
+
+
+/* ── Fact row ──
+   Plain-text replacement for the retired proof-rail/proof-pill
+   pattern (Component 19) — a row of short, real facts (never
+   invented; each one here is a paraphrase of a case study's own
+   "decision" sentence). No pill chrome, just type and a divider —
+   restraint applied to this pattern the same as everywhere else. */
+
+.fact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  font-family: var(--font-interface);
+  font-size: var(--text-body-sm);
+  color: var(--colour-ink-secondary-inverted, var(--colour-ink-secondary));
+}
+
+.fact-row__item {
+  position: relative;
+  padding-inline-start: var(--space-4);
+}
+
+.fact-row__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--colour-accent-warm, currentColor);
+}
+
+.fact-row__item:first-child {
+  padding-inline-start: 0;
+}
+
+.fact-row__item:first-child::before {
+  display: none;
+}

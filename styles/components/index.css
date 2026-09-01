@@ -63,12 +63,15 @@
    for real evidence — see 17-window-graphic.css. */
 @import './17-window-graphic.css';
 
-/* Component 18 — Collage (exploration, branch: collage-redesign, live
-   as of 2026-08-27). Cut-paper/torn-edge visual layer — see
-   18-collage.css. */
-@import './18-collage.css';
+/* Component 18 — Collage and Component 19 — Bold Blend (both
+   exploration branches, 2026-08-27) are retired as of this branch.
+   Seira: "I don't like it's design... fresh visual direction, scrap
+   the bold-blend/collage lineage entirely." The files stay in git
+   history for reference; nothing here imports them anymore. See
+   Component 21 for what replaces them. */
 
-/* Component 19 — Bold Blend (exploration, branch: bold-blend-redesign).
-   Structural patterns synthesized from Receivio + WizCommerce at
-   Seira's request — see 19-bold-blend.css. */
-@import './19-bold-blend.css';
+/* Component 21 — Editorial Confidence (exploration, branch:
+   beyond-editorial-redesign). Structural patterns from bynd.com,
+   built from a genuine gap analysis rather than the previous
+   decoration-additive approach — see 21-editorial-confidence.css. */
+@import './21-editorial-confidence.css';

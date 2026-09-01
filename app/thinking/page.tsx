@@ -69,18 +69,13 @@ export default async function ThinkingPage() {
           Body: 21 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field mark-bleed"
+        className="hero"
         aria-label="Thinking"
       >
         <div className="hero-inner">
-          <div className="hero-content hero-content--centered">
-            <span className="hero-kicker hero-entrance hero-entrance--headline">Writing</span>
-            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
-              How we{' '}
-              <span className="chip-highlight chip-highlight--tint">
-                think
-              </span>{' '}
-              about design, strategy, and trust.
+          <div className="hero-content">
+            <h1 className="hero-headline hero-headline--editorial hero-entrance hero-entrance--headline">
+              How we think about design, strategy, and trust.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               Long-form writing on the gap between what a business is and

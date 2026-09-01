@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import JsonLd from '@/components/JsonLd'
 import MockupFrame from '@/components/media/MockupFrame'
-import RalewayMark from '@/components/media/RalewayMark'
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -95,25 +94,13 @@ export default function WorkPage() {
           Body: 23 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field mark-bleed"
+        className="hero"
         aria-label="Work"
       >
-        <div className="hero-inner hero-inner--relative">
-          <div className="proof-rail proof-rail--hero-float animate-entrance" aria-hidden="true">
-            <span className="proof-pill" style={{ bottom: '22%', left: '2%' }}>Diagnosis, not a brief</span>
-            <span className="proof-pill" style={{ bottom: '10%', right: '4%' }}>Visual work follows strategy</span>
-            <span className="float-mark" style={{ top: '8%', right: '6%' }}>
-              <RalewayMark variant="fragment" size={24} aria-hidden />
-            </span>
-          </div>
-          <div className="hero-content hero-content--centered">
-            <span className="hero-kicker hero-entrance hero-entrance--headline">Selected Work</span>
-            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
-              The portfolio is{' '}
-              <span className="chip-highlight chip-highlight--tint">
-                evidence
-              </span>{' '}
-              of what happens when design follows diagnosis.
+        <div className="hero-inner">
+          <div className="hero-content">
+            <h1 className="hero-headline hero-headline--editorial hero-entrance hero-entrance--headline">
+              The portfolio is evidence of what happens when design follows diagnosis.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               Each project here began with a diagnosis. Not a brief. The visual work
@@ -130,7 +117,7 @@ export default function WorkPage() {
           No link to /about — this section stands independently as a self-applied study.
           Describes strategic transformation (information architecture, page responsibilities)
           rather than visual transformation. */}
-      <section className="section section--divided section--divided-signature texture-dots" aria-label="Featured study: Raleway Studio">
+      <section className="section section--divided section--divided-signature" aria-label="Featured study: Raleway Studio">
         <div className="container">
           <div className="section-intro work-featured animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">Featured Study</span>
@@ -160,45 +147,11 @@ export default function WorkPage() {
               The previous version explained our capabilities. The current one explains our judgment.
             </p>
           </div>
-          {/* Collage exploration: the Window Graphic this replaces made the
-              same claim as an illustrated interface, so this stays purely
-              paper/colour rather than photographic — no real, unused
-              studio photograph was actually available (work-breath.jpg
-              turned out to be a stray QA screenshot, not a photo; caught
-              in visual QA and swapped out rather than shipped). Caption
-              text carried over verbatim from the graphic it replaces. */}
-          <div className="collage-cluster" style={{ height: '340px', maxWidth: '620px', margin: '0 auto' }}>
-            <div
-              className="collage-piece collage-piece--cream animate-entrance"
-              style={{
-                top: '10px', left: '40px', width: '320px', height: '220px',
-                ['--piece-rotate' as any]: '-3deg', ['--piece-rotate-start' as any]: '-9deg',
-              }}
-            >
-              <span className="collage-piece__label" style={{ color: 'var(--colour-ink)' }}>
-                One central idea, not four unrelated ones. The page you&rsquo;re reading is the case study.
-              </span>
-            </div>
-            <div
-              className="collage-piece collage-piece--clay animate-entrance"
-              style={{
-                top: '180px', left: '260px', width: '220px', height: '140px',
-                ['--piece-rotate' as any]: '4deg', ['--piece-rotate-start' as any]: '11deg',
-              }}
-              data-delay="100"
-            />
-            <div
-              className="collage-piece collage-piece--ink animate-entrance"
-              style={{
-                top: '0px', left: '0px', width: '64px', height: '64px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                ['--piece-rotate' as any]: '-6deg', ['--piece-rotate-start' as any]: '-16deg',
-              }}
-              data-delay="200"
-            >
-              <RalewayMark variant="fragment" size={22} />
-            </div>
-          </div>
+          {/* Real line from the case study itself, set large — replaces
+              the collage diagram that made the same claim decoratively. */}
+          <p className="pull-statement animate-entrance">
+            One central idea, not four unrelated ones. The page you&rsquo;re reading is the case study.
+          </p>
         </div>
       </section>
 
@@ -213,7 +166,7 @@ export default function WorkPage() {
           sentence, not new text). Built on native details/summary —
           each case is independent, no accordion grouping needed here
           (unlike Method, these aren't a sequence). */}
-      <section className="section section--dark glow-field glow-field--dark" aria-label="Selected client work">
+      <section className="section section--dark" aria-label="Selected client work">
         <div className="container">
           <div className="section-intro animate-entrance">
             <span className="section-eyebrow section-eyebrow--mono">Selected Work</span>
@@ -223,15 +176,13 @@ export default function WorkPage() {
               the communication challenge, and one decision that shaped how it was solved.
             </p>
           </div>
-          {/* Bold-blend exploration: one pill per case, each a paraphrase of
-              that case's own "decision" sentence below — not a new claim,
-              just surfaced as a scannable label (Receivio's proof-pill
-              pattern, kept honest per the no-invented-outcomes rule). */}
-          <div className="proof-rail animate-entrance" data-delay="80">
-            <span className="proof-pill">Leads with one patient goal, not a service menu</span>
-            <span className="proof-pill">MLS listings as the primary conversion path</span>
-            <span className="proof-pill">Positioning stated before scope</span>
-            <span className="proof-pill">A quiz as the entry point, not a lead form</span>
+          {/* One paraphrase of each case's own "decision" sentence below —
+              not a new claim, just surfaced as a scannable line. */}
+          <div className="fact-row animate-entrance" data-delay="80">
+            <span className="fact-row__item">Leads with one patient goal, not a service menu</span>
+            <span className="fact-row__item">MLS listings as the primary conversion path</span>
+            <span className="fact-row__item">Positioning stated before scope</span>
+            <span className="fact-row__item">A quiz as the entry point, not a lead form</span>
           </div>
           <ul className="method-list animate-entrance" role="list" data-delay="150">
             {selectedWork.map((project) => (

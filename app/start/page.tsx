@@ -75,18 +75,13 @@ export default function StartPage() {
           Body: 24 words (spec: 18–25) ✓ */}
       <section
         id="main-content"
-        className="hero texture-dots glow-field mark-bleed"
+        className="hero"
         aria-label="Start a project"
       >
         <div className="hero-inner">
-          <div className="hero-content hero-content--centered">
-            <span className="hero-kicker hero-entrance hero-entrance--headline">Start a Conversation</span>
-            <h1 className="hero-headline hero-headline--bold hero-headline--display-xl hero-entrance hero-entrance--headline">
-              The first{' '}
-              <span className="chip-highlight chip-highlight--tint">
-                conversation
-              </span>{' '}
-              is how we understand the fit.
+          <div className="hero-content">
+            <h1 className="hero-headline hero-headline--editorial hero-entrance hero-entrance--headline">
+              The first conversation is how we understand the fit.
             </h1>
             <p className="hero-body hero-entrance hero-entrance--body">
               We begin every project with a conversation. Thirty minutes to
